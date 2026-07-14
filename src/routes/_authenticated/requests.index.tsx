@@ -48,7 +48,7 @@ function RequestsIndex() {
     queryFn: async () => {
       let q = supabase
         .from("requests")
-        .select("*, profiles!requests_client_id_fkey(full_name), bids(count)")
+        .select("*, profiles!requests_client_profile_fkey(full_name), bids(count)")
         .eq("status", "open")
         .order("created_at", { ascending: false });
       if (activeCity) q = q.eq("city", activeCity);

@@ -51,7 +51,7 @@ function RequestDetail() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("requests")
-        .select("*, profiles!requests_client_id_fkey(full_name, phone, city)")
+        .select("*, profiles!requests_client_profile_fkey(full_name, phone, city)")
         .eq("id", id)
         .maybeSingle();
       if (error) throw error;
@@ -77,7 +77,7 @@ function RequestDetail() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("bids")
-        .select("*, profiles!bids_professional_id_fkey(full_name, city, phone, profession, bio)")
+        .select("*, profiles!bids_professional_profile_fkey(full_name, city, phone, profession, bio)")
         .eq("request_id", id)
         .order("price", { ascending: true });
       if (error) throw error;
