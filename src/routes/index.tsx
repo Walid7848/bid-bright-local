@@ -1,10 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { useLang, LanguageSwitch } from "@/lib/i18n";
 import {
   ArrowLeft,
+  ArrowRight,
   Briefcase,
   CheckCircle2,
-  Image as ImageIcon,
+  FileText,
+  Languages,
   MapPin,
   MessageSquare,
   ShieldCheck,
@@ -16,11 +19,14 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "مِهنتي — انشر طلبك واستقبل عروض من أصحاب المهن في مدينتك" },
+      {
+        title:
+          "Mihnati — Syrische professionals in Nederland | مِهنتي للسوريين في هولندا",
+      },
       {
         name: "description",
         content:
-          "منصة عربية تربط الزبائن بأصحاب المهن الحرة. انشر طلب خدمتك مع الصور، قارن العروض التفاعلية، واختر ما يناسبك في دقائق.",
+          "Vind Syrische advocaten, vertalers, docenten, consultants en ontwerpers in Nederland. Plaats je aanvraag, ontvang offertes en kies de beste — in het Arabisch of Nederlands.",
       },
     ],
   }),
@@ -28,6 +34,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Landing() {
+  const { t, lang } = useLang();
+  const Arrow = lang === "ar" ? ArrowLeft : ArrowRight;
+
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
@@ -37,14 +46,15 @@ function Landing() {
             <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-primary shadow-glow">
               <Briefcase className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-lg font-bold">مِهنتي</span>
+            <span className="text-lg font-bold">{t("brand.name")}</span>
           </div>
           <div className="flex items-center gap-2">
+            <LanguageSwitch />
             <Button asChild variant="ghost" size="sm">
-              <Link to="/auth">تسجيل الدخول</Link>
+              <Link to="/auth">{t("nav.signIn")}</Link>
             </Button>
             <Button asChild size="sm">
-              <Link to="/auth">ابدأ الآن</Link>
+              <Link to="/auth">{t("nav.start")}</Link>
             </Button>
           </div>
         </div>
@@ -57,22 +67,17 @@ function Landing() {
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium backdrop-blur">
               <Sparkles className="h-3.5 w-3.5" />
-              منصة المزايدة العربية للخدمات الحرة
+              {t("hero.badge")}
             </div>
             <h1 className="text-4xl font-extrabold leading-tight md:text-6xl">
-              اطلب خدمتك،
-              <br />
-              واختر أفضل عرض في مدينتك
+              {t("hero.title")}
             </h1>
-            <p className="text-lg text-white/85 md:text-xl">
-              انشر طلبك مع الصور، واستقبل عروض أسعار تفاعلية من أصحاب المهن في نفس مدينتك، ثم قارن
-              واختر ما يناسبك.
-            </p>
+            <p className="text-lg text-white/85 md:text-xl">{t("hero.subtitle")}</p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Button asChild size="lg" variant="secondary" className="gap-1 text-base">
                 <Link to="/auth">
-                  انشر طلبك الآن
-                  <ArrowLeft className="h-4 w-4" />
+                  {t("hero.cta.post")}
+                  <Arrow className="h-4 w-4" />
                 </Link>
               </Button>
               <Button
@@ -81,39 +86,55 @@ function Landing() {
                 variant="outline"
                 className="border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
               >
-                <Link to="/auth">أنا صاحب مهنة</Link>
+                <Link to="/auth">{t("hero.cta.pro")}</Link>
               </Button>
             </div>
             <div className="flex flex-wrap items-center gap-6 pt-4 text-sm text-white/80">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4" /> بدون عمولة على العروض
+                <ShieldCheck className="h-4 w-4" /> {t("hero.feature.noCommission")}
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4" /> مقدمو خدمات من مدينتك
+                <MapPin className="h-4 w-4" /> {t("hero.feature.local")}
+              </div>
+              <div className="flex items-center gap-2">
+                <Languages className="h-4 w-4" /> {t("hero.feature.bilingual")}
               </div>
             </div>
           </div>
 
           <div className="relative">
             <div className="rounded-2xl border border-white/20 bg-white/10 p-4 shadow-elegant backdrop-blur-xl">
-              <div className="rounded-xl bg-surface p-5 text-foreground shadow-soft">
+              <div className="rounded-xl bg-surface p-5 text-foreground shadow-soft" dir={lang === "ar" ? "rtl" : "ltr"}>
                 <div className="flex items-start justify-between">
                   <div>
-                    <div className="text-xs font-medium text-primary">سباكة • جدة</div>
-                    <div className="mt-1 text-lg font-bold">تسريب مياه في المطبخ</div>
+                    <div className="text-xs font-medium text-primary">
+                      {lang === "ar" ? "ترجمة قانونية • أمستردام" : "Juridische vertaling • Amsterdam"}
+                    </div>
+                    <div className="mt-1 text-lg font-bold">
+                      {lang === "ar"
+                        ? "ترجمة عقد زواج من العربية إلى الهولندية"
+                        : "Vertaling huwelijksakte AR → NL"}
+                    </div>
                   </div>
                   <span className="rounded-full bg-success/15 px-2 py-0.5 text-xs font-medium text-success">
-                    مفتوح
+                    {lang === "ar" ? "مفتوح" : "Open"}
                   </span>
                 </div>
                 <p className="mt-3 text-sm text-muted-foreground">
-                  يوجد تسريب أسفل الحوض ويحتاج صيانة عاجلة، أرفقت صور الوصلة.
+                  {lang === "ar"
+                    ? "أحتاج ترجمة معتمدة لعقد زواج لتقديمه إلى البلدية."
+                    : "Beëdigde vertaling nodig voor indiening bij de gemeente."}
                 </p>
                 <div className="mt-4 space-y-2">
                   {[
-                    { name: "أحمد الغامدي", price: "180", days: 1 },
-                    { name: "خالد السبيعي", price: "220", days: 1, best: true },
-                    { name: "فايز الحربي", price: "150", days: 2 },
+                    { name: lang === "ar" ? "أحمد الحلبي" : "Ahmed Halabi", price: "85", days: 2 },
+                    {
+                      name: lang === "ar" ? "لينا الدمشقية" : "Lina Dimashqi",
+                      price: "110",
+                      days: 1,
+                      best: true,
+                    },
+                    { name: lang === "ar" ? "عمر حمصي" : "Omar Homsi", price: "70", days: 3 },
                   ].map((b) => (
                     <div
                       key={b.name}
@@ -131,15 +152,16 @@ function Landing() {
                         <div>
                           <div className="text-sm font-semibold">{b.name}</div>
                           <div className="text-xs text-muted-foreground">
-                            خلال {b.days} يوم
+                            {lang === "ar" ? `خلال ${b.days} يوم` : `${b.days} dagen`}
                           </div>
                         </div>
                       </div>
-                      <div className="text-left">
-                        <div className="text-base font-bold text-primary">{b.price} ر.س</div>
+                      <div className={lang === "ar" ? "text-left" : "text-right"}>
+                        <div className="text-base font-bold text-primary">€{b.price}</div>
                         {b.best && (
                           <div className="flex items-center gap-1 text-[10px] font-medium text-success">
-                            <CheckCircle2 className="h-3 w-3" /> الأنسب
+                            <CheckCircle2 className="h-3 w-3" />{" "}
+                            {lang === "ar" ? "الأنسب" : "Beste keuze"}
                           </div>
                         )}
                       </div>
@@ -155,26 +177,14 @@ function Landing() {
       {/* How it works */}
       <section className="mx-auto max-w-6xl px-4 py-20">
         <div className="mb-14 text-center">
-          <h2 className="text-3xl font-bold md:text-4xl">كيف تعمل المنصة؟</h2>
-          <p className="mt-3 text-muted-foreground">ثلاث خطوات بسيطة تفصلك عن إنجاز طلبك</p>
+          <h2 className="text-3xl font-bold md:text-4xl">{t("how.title")}</h2>
+          <p className="mt-3 text-muted-foreground">{t("how.subtitle")}</p>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
           {[
-            {
-              icon: ImageIcon,
-              title: "١. انشر طلبك",
-              desc: "أضف تفاصيل الخدمة المطلوبة مع صور توضح المشكلة أو المهمة.",
-            },
-            {
-              icon: MessageSquare,
-              title: "٢. استقبل العروض",
-              desc: "أصحاب المهن في مدينتك يقدمون عروض أسعار مع مدة التنفيذ.",
-            },
-            {
-              icon: CheckCircle2,
-              title: "٣. قارن واختر",
-              desc: "قارن الأسعار والتقييمات، ثم اختر العرض الأنسب لك.",
-            },
+            { icon: FileText, title: t("how.s1.title"), desc: t("how.s1.desc") },
+            { icon: MessageSquare, title: t("how.s2.title"), desc: t("how.s2.desc") },
+            { icon: CheckCircle2, title: t("how.s3.title"), desc: t("how.s3.desc") },
           ].map((s, i) => (
             <div
               key={i}
@@ -195,36 +205,45 @@ function Landing() {
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 md:grid-cols-2 md:items-center">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-              <Wallet className="h-3.5 w-3.5" /> لأصحاب المهن
+              <Wallet className="h-3.5 w-3.5" /> {t("pros.badge")}
             </div>
-            <h2 className="mt-4 text-3xl font-bold md:text-4xl">وسّع مصادر دخلك</h2>
-            <p className="mt-4 text-muted-foreground">
-              تصفح الطلبات في مدينتك، قدم عرضك مباشرة مع السعر والمدة، وابدأ العمل بمجرد قبول الزبون.
-              بدون عمولة على العروض.
-            </p>
+            <h2 className="mt-4 text-3xl font-bold md:text-4xl">{t("pros.title")}</h2>
+            <p className="mt-4 text-muted-foreground">{t("pros.desc")}</p>
             <ul className="mt-5 space-y-3">
-              {[
-                "طلبات حقيقية من زبائن في مدينتك",
-                "قدّم عرضاً واحداً لكل طلب",
-                "تواصل مباشر مع الزبون بعد الاختيار",
-              ].map((t) => (
-                <li key={t} className="flex items-center gap-2 text-sm">
+              {[t("pros.point1"), t("pros.point2"), t("pros.point3")].map((tx) => (
+                <li key={tx} className="flex items-center gap-2 text-sm">
                   <CheckCircle2 className="h-5 w-5 text-success" />
-                  {t}
+                  {tx}
                 </li>
               ))}
             </ul>
             <Button asChild size="lg" className="mt-6">
-              <Link to="/auth">سجّل كصاحب مهنة</Link>
+              <Link to="/auth">{t("pros.cta")}</Link>
             </Button>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             {[
-              { icon: Users, label: "مقدم خدمة", value: "+٥٠٠" },
-              { icon: Briefcase, label: "طلب نشط", value: "+١٢٠" },
-              { icon: MapPin, label: "مدينة مغطاة", value: "٢٠" },
-              { icon: CheckCircle2, label: "معدل الرضا", value: "٩٦٪" },
+              {
+                icon: Users,
+                label: lang === "ar" ? "مقدم خدمة" : "Professionals",
+                value: "+200",
+              },
+              {
+                icon: Briefcase,
+                label: lang === "ar" ? "طلب نشط" : "Actieve aanvragen",
+                value: "+80",
+              },
+              {
+                icon: MapPin,
+                label: lang === "ar" ? "مدينة هولندية" : "Nederlandse steden",
+                value: "25",
+              },
+              {
+                icon: Languages,
+                label: lang === "ar" ? "لغة مدعومة" : "Talen",
+                value: "AR / NL",
+              },
             ].map((s) => (
               <div key={s.label} className="rounded-2xl border bg-card p-5 shadow-soft">
                 <s.icon className="mb-3 h-6 w-6 text-primary" />
@@ -238,20 +257,18 @@ function Landing() {
 
       {/* CTA */}
       <section className="mx-auto max-w-4xl px-4 py-20 text-center">
-        <h2 className="text-3xl font-bold md:text-4xl">جاهز تبدأ؟</h2>
-        <p className="mt-3 text-muted-foreground">
-          سواء تبحث عن خدمة أو تقدمها، منصتك تنتظرك.
-        </p>
+        <h2 className="text-3xl font-bold md:text-4xl">{t("cta.ready")}</h2>
+        <p className="mt-3 text-muted-foreground">{t("cta.readyDesc")}</p>
         <Button asChild size="lg" className="mt-6 gap-1">
           <Link to="/auth">
-            إنشاء حساب مجاني
-            <ArrowLeft className="h-4 w-4" />
+            {t("cta.signup")}
+            <Arrow className="h-4 w-4" />
           </Link>
         </Button>
       </section>
 
       <footer className="border-t border-border/60 py-8 text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} مِهنتي. جميع الحقوق محفوظة.
+        © {new Date().getFullYear()} {t("brand.name")} · {t("brand.tagline")}
       </footer>
     </div>
   );
