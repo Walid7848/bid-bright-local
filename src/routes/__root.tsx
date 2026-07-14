@@ -12,6 +12,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
+import { LangProvider } from "@/lib/i18n";
 
 function NotFoundComponent() {
   return (
@@ -74,17 +75,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "مِهنتي — منصة المزايدة على الخدمات الحرة" },
+      { title: "Mihnati — Syrische professionals in Nederland | مِهنتي" },
       {
         name: "description",
         content:
-          "منصة عربية للربط بين الزبائن وأصحاب المهن. انشر طلبك واستقبل عروض أسعار تفاعلية من مقدمي الخدمات في مدينتك.",
+          "Platform voor Syrische freelancers, advocaten, vertalers, docenten, consultants en ontwerpers in Nederland. منصة السوريين في هولندا للخدمات المهنية.",
       },
       { name: "author", content: "Mihnati" },
-      { property: "og:title", content: "مِهنتي — منصة المزايدة على الخدمات الحرة" },
+      { property: "og:title", content: "Mihnati — Syrische professionals in Nederland" },
       {
         property: "og:description",
-        content: "اطلب خدمتك واستقبل عروض من أفضل أصحاب المهن في مدينتك.",
+        content:
+          "Vraag een dienst aan en ontvang offertes van Syrische professionals in jouw stad. منصتك للخدمات المهنية بالعربية والهولندية.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -133,8 +135,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
-      <Toaster richColors position="top-center" />
+      <LangProvider>
+        <Outlet />
+        <Toaster richColors position="top-center" />
+      </LangProvider>
     </QueryClientProvider>
   );
 }
