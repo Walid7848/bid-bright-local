@@ -126,7 +126,7 @@ function NewRequest() {
               maxLength={120}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="مثال: تسريب مياه في المطبخ"
+              placeholder="مثال: ترجمة عقد زواج معتمد"
             />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -174,7 +174,7 @@ function NewRequest() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
-              <Label>الميزانية من (ر.س) — اختياري</Label>
+              <Label>الميزانية من (€) — اختياري</Label>
               <Input
                 type="number"
                 min={0}
@@ -183,7 +183,7 @@ function NewRequest() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label>الميزانية إلى (ر.س) — اختياري</Label>
+              <Label>الميزانية إلى (€) — اختياري</Label>
               <Input
                 type="number"
                 min={0}

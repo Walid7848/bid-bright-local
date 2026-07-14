@@ -198,7 +198,7 @@ function RequestDetail() {
                   <span className="font-semibold">
                     {request.budget_min || 0}
                     {" - "}
-                    {request.budget_max || "؟"} ر.س
+                    {request.budget_max || "؟"} €
                   </span>
                 </div>
               )}
@@ -280,7 +280,7 @@ function RequestDetail() {
           {myBid && (
             <Card className="p-5 shadow-soft">
               <div className="text-xs font-medium uppercase text-muted-foreground">عرضك</div>
-              <div className="mt-2 text-2xl font-bold text-primary">{myBid.price} ر.س</div>
+              <div className="mt-2 text-2xl font-bold text-primary">{myBid.price} €</div>
               <div className="text-sm text-muted-foreground">خلال {myBid.duration_days} يوم</div>
               <Badge
                 variant="outline"
@@ -347,7 +347,7 @@ function BidCard({
           </div>
         </div>
         <div className="text-left">
-          <div className="text-2xl font-extrabold text-primary">{bid.price} ر.س</div>
+          <div className="text-2xl font-extrabold text-primary">{bid.price} €</div>
           <div className="text-xs text-muted-foreground">
             <Clock className="ml-1 inline h-3 w-3" /> خلال {bid.duration_days} يوم
           </div>
@@ -430,7 +430,7 @@ function BidForm({ requestId }: { requestId: string }) {
       <div className="text-xs font-medium uppercase text-muted-foreground">قدّم عرضك</div>
       <form onSubmit={submit} className="mt-3 space-y-3">
         <div className="space-y-1.5">
-          <Label>السعر (ر.س)</Label>
+          <Label>السعر (€)</Label>
           <Input
             type="number"
             min={1}

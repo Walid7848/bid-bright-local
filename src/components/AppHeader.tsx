@@ -13,12 +13,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useLang, LanguageSwitch } from "@/lib/i18n";
 
 export function AppHeader() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const router = useRouter();
   const qc = useQueryClient();
+  const { t } = useLang();
 
   const { data: profile } = useQuery({
     queryKey: ["profile", user?.id],
@@ -65,7 +67,7 @@ export function AppHeader() {
           <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-primary shadow-glow">
             <Briefcase className="h-5 w-5 text-primary-foreground" />
           </div>
-          <span className="text-lg font-bold tracking-tight">مِهنتي</span>
+          <span className="text-lg font-bold tracking-tight">{t("brand.name")}</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -74,7 +76,7 @@ export function AppHeader() {
             className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
             activeProps={{ className: "text-foreground bg-accent" }}
           >
-            كل الطلبات
+            {t("nav.requests")}
           </Link>
           {isClient && (
             <Link
@@ -82,7 +84,7 @@ export function AppHeader() {
               className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
               activeProps={{ className: "text-foreground bg-accent" }}
             >
-              طلباتي
+              {t("nav.myRequests")}
             </Link>
           )}
           {roleData?.role === "professional" && (
@@ -91,17 +93,18 @@ export function AppHeader() {
               className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
               activeProps={{ className: "text-foreground bg-accent" }}
             >
-              عروضي
+              {t("nav.myBids")}
             </Link>
           )}
         </nav>
 
         <div className="flex items-center gap-2">
+          <LanguageSwitch />
           {isClient && (
             <Button asChild size="sm" className="gap-1">
               <Link to="/requests/new">
                 <Plus className="h-4 w-4" />
-                طلب جديد
+                {t("nav.newRequest")}
               </Link>
             </Button>
           )}
@@ -126,13 +129,13 @@ export function AppHeader() {
               <DropdownMenuItem asChild>
                 <Link to="/profile">
                   <UserIcon className="ml-2 h-4 w-4" />
-                  ملفي الشخصي
+                  {t("nav.profile")}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={signOut} className="text-destructive">
                 <LogOut className="ml-2 h-4 w-4" />
-                تسجيل الخروج
+                {t("nav.signOut")}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
