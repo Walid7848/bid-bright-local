@@ -68,7 +68,7 @@ function MyBids() {
                   </div>
                 </div>
                 <div className="text-left">
-                  <div className="text-xl font-extrabold text-primary">{b.price} ر.س</div>
+                  <div className="text-xl font-extrabold text-primary">{b.price} €</div>
                   <Badge
                     variant="outline"
                     className={
