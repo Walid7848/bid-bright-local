@@ -18,7 +18,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2 } from "lucide-react";
+import { Loader2, Star } from "lucide-react";
+import { StarRating } from "@/components/StarRating";
+import { SignedImage } from "@/components/SignedImage";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { formatDistanceToNow } from "date-fns";
+import { ar } from "date-fns/locale";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/profile")({
@@ -157,6 +162,90 @@ function ProfilePage() {
           </Button>
         </form>
       </Card>
+
+      {role === "professional" && user?.id && <MyReviews professionalId={user.id} />}
+    </div>
+  );
+}
+
+function MyReviews({ professionalId }: { professionalId: string }) {
+  const { data: reviews, isLoading } = useQuery({
+    queryKey: ["reviews-received", professionalId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("reviews")
+        .select("*, profiles!reviews_client_profile_fkey(full_name)")
+        .eq("professional_id", professionalId)
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const avg =
+    reviews && reviews.length > 0
+      ? reviews.reduce((s: number, r: any) => s + r.rating, 0) / reviews.length
+      : 0;
+
+  return (
+    <div className="mt-8">
+      <div className="mb-3 flex items-center justify-between">
+        <h2 className="text-xl font-bold">التقييمات المستلمة</h2>
+        {reviews && reviews.length > 0 && (
+          <div className="flex items-center gap-2 text-sm">
+            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+            <span className="font-bold">{avg.toFixed(1)}</span>
+            <span className="text-muted-foreground">({reviews.length})</span>
+          </div>
+        )}
+      </div>
+      {isLoading ? (
+        <div className="h-20 animate-pulse rounded-xl bg-muted" />
+      ) : !reviews || reviews.length === 0 ? (
+        <Card className="p-6 text-center text-sm text-muted-foreground">
+          لا توجد تقييمات بعد
+        </Card>
+      ) : (
+        <div className="space-y-3">
+          {reviews.map((r: any) => (
+            <Card key={r.id} className="p-5 shadow-soft">
+              <div className="flex items-center gap-3">
+                <Avatar>
+                  <AvatarFallback className="bg-gradient-primary text-primary-foreground">
+                    {(r.profiles?.full_name || "؟").slice(0, 2)}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="font-semibold">{r.profiles?.full_name || "زبون"}</div>
+                    <span className="text-xs text-muted-foreground">
+                      {formatDistanceToNow(new Date(r.created_at), {
+                        addSuffix: true,
+                        locale: ar,
+                      })}
+                    </span>
+                  </div>
+                  <StarRating value={r.rating} readOnly size={16} />
+                </div>
+              </div>
+              {r.comment && (
+                <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed">{r.comment}</p>
+              )}
+              {r.images?.length > 0 && (
+                <div className="mt-3 grid grid-cols-2 gap-1 sm:grid-cols-4">
+                  {r.images.map((p: string) => (
+                    <SignedImage
+                      key={p}
+                      path={p}
+                      className="aspect-square w-full rounded object-cover"
+                    />
+                  ))}
+                </div>
+              )}
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
