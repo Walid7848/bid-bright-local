@@ -157,6 +157,64 @@ export type Database = {
           },
         ]
       }
+      reviews: {
+        Row: {
+          client_id: string
+          comment: string | null
+          created_at: string
+          id: string
+          images: string[]
+          professional_id: string
+          rating: number
+          request_id: string
+          updated_at: string
+        }
+        Insert: {
+          client_id: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          images?: string[]
+          professional_id: string
+          rating: number
+          request_id: string
+          updated_at?: string
+        }
+        Update: {
+          client_id?: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          images?: string[]
+          professional_id?: string
+          rating?: number
+          request_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_client_profile_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_professional_profile_fkey"
+            columns: ["professional_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -194,7 +252,12 @@ export type Database = {
     Enums: {
       app_role: "client" | "professional"
       bid_status: "pending" | "accepted" | "rejected"
-      request_status: "open" | "awarded" | "closed"
+      request_status:
+        | "open"
+        | "awarded"
+        | "closed"
+        | "in_progress"
+        | "completed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -324,7 +387,7 @@ export const Constants = {
     Enums: {
       app_role: ["client", "professional"],
       bid_status: ["pending", "accepted", "rejected"],
-      request_status: ["open", "awarded", "closed"],
+      request_status: ["open", "awarded", "closed", "in_progress", "completed"],
     },
   },
 } as const
