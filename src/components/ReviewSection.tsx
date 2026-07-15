@@ -31,7 +31,7 @@ export function ReviewSection({ requestId, clientId, professionalId, isOwner }: 
     queryFn: async () => {
       const { data, error } = await supabase
         .from("reviews")
-        .select("*, profiles!reviews_client_id_fkey(full_name)")
+        .select("*, profiles!reviews_client_profile_fkey(full_name)")
         .eq("request_id", requestId)
         .order("created_at", { ascending: false });
       if (error) throw error;
