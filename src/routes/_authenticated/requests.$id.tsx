@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { ReviewSection } from "@/components/ReviewSection";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -244,6 +245,15 @@ function RequestDetail() {
               </div>
             )}
           </div>
+
+          {(request.status === "awarded" || request.status === "in_progress" || request.status === "completed") && acceptedBid && (
+            <ReviewSection
+              requestId={id}
+              clientId={request.client_id}
+              professionalId={acceptedBid.professional_id}
+              isOwner={isOwner}
+            />
+          )}
         </div>
 
         <aside className="space-y-4">
