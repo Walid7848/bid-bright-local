@@ -60,11 +60,16 @@ function SubscriptionPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">اشتراكك</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          شهران مجانيان لكل صاحب مهنة جديد، ثم اشتراك شهري لتقديم عروض غير محدودة.
-        </p>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-bold">اشتراكك</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            شهران مجانيان لكل صاحب مهنة جديد، ثم اشتراك شهري لتقديم عروض غير محدودة.
+          </p>
+        </div>
+        <Button asChild variant="outline" size="sm">
+          <Link to="/subscription/history">سجل الاشتراك</Link>
+        </Button>
       </div>
 
       <Card className="p-6">
