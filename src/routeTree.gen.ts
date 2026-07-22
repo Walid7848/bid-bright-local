@@ -18,6 +18,7 @@ import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authentic
 import { Route as AuthenticatedMyRequestsRouteImport } from './routes/_authenticated/my-requests'
 import { Route as AuthenticatedMyBidsRouteImport } from './routes/_authenticated/my-bids'
 import { Route as AuthenticatedRequestsIndexRouteImport } from './routes/_authenticated/requests.index'
+import { Route as AuthenticatedSubscriptionHistoryRouteImport } from './routes/_authenticated/subscription.history'
 import { Route as AuthenticatedRequestsNewRouteImport } from './routes/_authenticated/requests.new'
 import { Route as AuthenticatedRequestsIdRouteImport } from './routes/_authenticated/requests.$id'
 
@@ -67,6 +68,12 @@ const AuthenticatedRequestsIndexRoute =
     path: '/requests/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSubscriptionHistoryRoute =
+  AuthenticatedSubscriptionHistoryRouteImport.update({
+    id: '/history',
+    path: '/history',
+    getParentRoute: () => AuthenticatedSubscriptionRoute,
+  } as any)
 const AuthenticatedRequestsNewRoute =
   AuthenticatedRequestsNewRouteImport.update({
     id: '/requests/new',
@@ -86,9 +93,10 @@ export interface FileRoutesByFullPath {
   '/my-requests': typeof AuthenticatedMyRequestsRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/profile': typeof AuthenticatedProfileRoute
-  '/subscription': typeof AuthenticatedSubscriptionRoute
+  '/subscription': typeof AuthenticatedSubscriptionRouteWithChildren
   '/requests/$id': typeof AuthenticatedRequestsIdRoute
   '/requests/new': typeof AuthenticatedRequestsNewRoute
+  '/subscription/history': typeof AuthenticatedSubscriptionHistoryRoute
   '/requests/': typeof AuthenticatedRequestsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -98,9 +106,10 @@ export interface FileRoutesByTo {
   '/my-requests': typeof AuthenticatedMyRequestsRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/profile': typeof AuthenticatedProfileRoute
-  '/subscription': typeof AuthenticatedSubscriptionRoute
+  '/subscription': typeof AuthenticatedSubscriptionRouteWithChildren
   '/requests/$id': typeof AuthenticatedRequestsIdRoute
   '/requests/new': typeof AuthenticatedRequestsNewRoute
+  '/subscription/history': typeof AuthenticatedSubscriptionHistoryRoute
   '/requests': typeof AuthenticatedRequestsIndexRoute
 }
 export interface FileRoutesById {
@@ -112,9 +121,10 @@ export interface FileRoutesById {
   '/_authenticated/my-requests': typeof AuthenticatedMyRequestsRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
-  '/_authenticated/subscription': typeof AuthenticatedSubscriptionRoute
+  '/_authenticated/subscription': typeof AuthenticatedSubscriptionRouteWithChildren
   '/_authenticated/requests/$id': typeof AuthenticatedRequestsIdRoute
   '/_authenticated/requests/new': typeof AuthenticatedRequestsNewRoute
+  '/_authenticated/subscription/history': typeof AuthenticatedSubscriptionHistoryRoute
   '/_authenticated/requests/': typeof AuthenticatedRequestsIndexRoute
 }
 export interface FileRouteTypes {
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/subscription'
     | '/requests/$id'
     | '/requests/new'
+    | '/subscription/history'
     | '/requests/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/subscription'
     | '/requests/$id'
     | '/requests/new'
+    | '/subscription/history'
     | '/requests'
   id:
     | '__root__'
@@ -154,6 +166,7 @@ export interface FileRouteTypes {
     | '/_authenticated/subscription'
     | '/_authenticated/requests/$id'
     | '/_authenticated/requests/new'
+    | '/_authenticated/subscription/history'
     | '/_authenticated/requests/'
   fileRoutesById: FileRoutesById
 }
@@ -228,6 +241,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRequestsIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/subscription/history': {
+      id: '/_authenticated/subscription/history'
+      path: '/history'
+      fullPath: '/subscription/history'
+      preLoaderRoute: typeof AuthenticatedSubscriptionHistoryRouteImport
+      parentRoute: typeof AuthenticatedSubscriptionRoute
+    }
     '/_authenticated/requests/new': {
       id: '/_authenticated/requests/new'
       path: '/requests/new'
@@ -245,12 +265,27 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedSubscriptionRouteChildren {
+  AuthenticatedSubscriptionHistoryRoute: typeof AuthenticatedSubscriptionHistoryRoute
+}
+
+const AuthenticatedSubscriptionRouteChildren: AuthenticatedSubscriptionRouteChildren =
+  {
+    AuthenticatedSubscriptionHistoryRoute:
+      AuthenticatedSubscriptionHistoryRoute,
+  }
+
+const AuthenticatedSubscriptionRouteWithChildren =
+  AuthenticatedSubscriptionRoute._addFileChildren(
+    AuthenticatedSubscriptionRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedMyBidsRoute: typeof AuthenticatedMyBidsRoute
   AuthenticatedMyRequestsRoute: typeof AuthenticatedMyRequestsRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
-  AuthenticatedSubscriptionRoute: typeof AuthenticatedSubscriptionRoute
+  AuthenticatedSubscriptionRoute: typeof AuthenticatedSubscriptionRouteWithChildren
   AuthenticatedRequestsIdRoute: typeof AuthenticatedRequestsIdRoute
   AuthenticatedRequestsNewRoute: typeof AuthenticatedRequestsNewRoute
   AuthenticatedRequestsIndexRoute: typeof AuthenticatedRequestsIndexRoute
@@ -261,7 +296,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedMyRequestsRoute: AuthenticatedMyRequestsRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
-  AuthenticatedSubscriptionRoute: AuthenticatedSubscriptionRoute,
+  AuthenticatedSubscriptionRoute: AuthenticatedSubscriptionRouteWithChildren,
   AuthenticatedRequestsIdRoute: AuthenticatedRequestsIdRoute,
   AuthenticatedRequestsNewRoute: AuthenticatedRequestsNewRoute,
   AuthenticatedRequestsIndexRoute: AuthenticatedRequestsIndexRoute,
