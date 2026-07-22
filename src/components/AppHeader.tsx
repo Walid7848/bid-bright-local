@@ -1,5 +1,5 @@
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
-import { Briefcase, LogOut, Plus, User as UserIcon } from "lucide-react";
+import { Briefcase, LogOut, Plus, Sparkles, User as UserIcon } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -132,6 +132,14 @@ export function AppHeader() {
                   {t("nav.profile")}
                 </Link>
               </DropdownMenuItem>
+              {roleData?.role === "professional" && (
+                <DropdownMenuItem asChild>
+                  <Link to="/subscription">
+                    <Sparkles className="ml-2 h-4 w-4" />
+                    الاشتراك
+                  </Link>
+                </DropdownMenuItem>
+              )}
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={signOut} className="text-destructive">
                 <LogOut className="ml-2 h-4 w-4" />

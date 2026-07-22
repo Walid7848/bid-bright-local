@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ReviewSection } from "@/components/ReviewSection";
+import { useSubscription as useSubscriptionGate } from "@/hooks/useSubscription";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -410,6 +411,16 @@ function BidCard({
 function BidForm({ requestId }: { requestId: string }) {
   const { user } = useAuth();
   const qc = useQueryClient();
+  const navigate = useNavigate();
+  const {
+    canBid,
+    isActive,
+    trialActive,
+    trialDaysLeft,
+    bidsThisMonth,
+    remainingFree,
+    loading: subLoading,
+  } = useSubscriptionGate();
   const [price, setPrice] = useState("");
   const [days, setDays] = useState("");
   const [message, setMessage] = useState("");
@@ -427,17 +438,54 @@ function BidForm({ requestId }: { requestId: string }) {
       message,
     });
     setLoading(false);
-    if (error) return toast.error(error.message);
+    if (error) {
+      if (error.message.includes("row-level security")) {
+        return toast.error(
+          "لقد استنفدت العرض المجاني لهذا الشهر. اشترك للاستمرار في تقديم العروض.",
+        );
+      }
+      return toast.error(error.message);
+    }
     toast.success("تم تقديم عرضك");
     setPrice("");
     setDays("");
     setMessage("");
     qc.invalidateQueries({ queryKey: ["bids", requestId] });
+    qc.invalidateQueries({ queryKey: ["bids-this-month", user.id] });
   }
 
   return (
     <Card className="p-5 shadow-soft">
-      <div className="text-xs font-medium uppercase text-muted-foreground">قدّم عرضك</div>
+      <div className="flex items-center justify-between">
+        <div className="text-xs font-medium uppercase text-muted-foreground">قدّم عرضك</div>
+        {!subLoading && (
+          <Badge variant={isActive ? "default" : canBid ? "secondary" : "destructive"}>
+            {trialActive
+              ? `تجربة مجانية · ${trialDaysLeft} يوم`
+              : isActive
+                ? "مشترك"
+                : `عرض مجاني: ${remainingFree}/1`}
+          </Badge>
+        )}
+      </div>
+
+      {!subLoading && !canBid && (
+        <div className="mt-3 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm">
+          <div className="font-medium">استنفدت عرضك المجاني لهذا الشهر</div>
+          <div className="mt-1 text-muted-foreground">
+            قدّمت {bidsThisMonth} عرضاً هذا الشهر. اشترك لتقديم عروض غير محدودة.
+          </div>
+          <Button
+            type="button"
+            size="sm"
+            className="mt-3"
+            onClick={() => navigate({ to: "/subscription" })}
+          >
+            الاشتراك الآن
+          </Button>
+        </div>
+      )}
+
       <form onSubmit={submit} className="mt-3 space-y-3">
         <div className="space-y-1.5">
           <Label>السعر (€)</Label>
@@ -445,6 +493,7 @@ function BidForm({ requestId }: { requestId: string }) {
             type="number"
             min={1}
             required
+            disabled={!canBid}
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
@@ -455,6 +504,7 @@ function BidForm({ requestId }: { requestId: string }) {
             type="number"
             min={1}
             required
+            disabled={!canBid}
             value={days}
             onChange={(e) => setDays(e.target.value)}
           />
@@ -465,12 +515,13 @@ function BidForm({ requestId }: { requestId: string }) {
             required
             rows={3}
             maxLength={500}
+            disabled={!canBid}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="اشرح خطة العمل باختصار..."
           />
         </div>
-        <Button type="submit" className="w-full" disabled={loading}>
+        <Button type="submit" className="w-full" disabled={loading || !canBid}>
           {loading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
           إرسال العرض
         </Button>
@@ -478,3 +529,4 @@ function BidForm({ requestId }: { requestId: string }) {
     </Card>
   );
 }
+
