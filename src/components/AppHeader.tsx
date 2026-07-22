@@ -132,6 +132,14 @@ export function AppHeader() {
                   {t("nav.profile")}
                 </Link>
               </DropdownMenuItem>
+              {roleData?.role === "professional" && (
+                <DropdownMenuItem asChild>
+                  <Link to="/subscription">
+                    <Sparkles className="ml-2 h-4 w-4" />
+                    الاشتراك
+                  </Link>
+                </DropdownMenuItem>
+              )}
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={signOut} className="text-destructive">
                 <LogOut className="ml-2 h-4 w-4" />
