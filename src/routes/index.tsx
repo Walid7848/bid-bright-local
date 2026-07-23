@@ -246,23 +246,35 @@ function Landing() {
             {[
               {
                 icon: Users,
-                label: lang === "ar" ? "مقدم خدمة" : "Professionals",
+                label:
+                  lang === "ar" ? "مقدم خدمة" : lang === "nl" ? "Professionals" : "Professionals",
                 value: "+200",
               },
               {
                 icon: Briefcase,
-                label: lang === "ar" ? "طلب نشط" : "Actieve aanvragen",
+                label:
+                  lang === "ar"
+                    ? "طلب نشط"
+                    : lang === "nl"
+                    ? "Actieve aanvragen"
+                    : "Active requests",
                 value: "+80",
               },
               {
                 icon: MapPin,
-                label: lang === "ar" ? "مدينة هولندية" : "Nederlandse steden",
+                label:
+                  lang === "ar"
+                    ? "مدينة هولندية"
+                    : lang === "nl"
+                    ? "Nederlandse steden"
+                    : "Dutch cities",
                 value: "25",
               },
               {
                 icon: Languages,
-                label: lang === "ar" ? "لغة مدعومة" : "Talen",
-                value: "AR / NL",
+                label: lang === "ar" ? "لغة مدعومة" : lang === "nl" ? "Talen" : "Languages",
+                value: "AR / NL / EN",
+              },
               },
             ].map((s) => (
               <div key={s.label} className="rounded-2xl border bg-card p-5 shadow-soft">
