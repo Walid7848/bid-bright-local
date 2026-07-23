@@ -20,14 +20,21 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-        title:
-          "Mihnati — Syrische professionals in Nederland | مِهنتي للسوريين في هولندا",
+        title: "Mihnati — Professionals & vakmensen in Nederland | مِهنتي",
       },
       {
         name: "description",
         content:
-          "Vind Syrische advocaten, vertalers, docenten, consultants en ontwerpers in Nederland. Plaats je aanvraag, ontvang offertes en kies de beste — in het Arabisch of Nederlands.",
+          "Vind loodgieters, elektriciens, schoonmakers, advocaten, vertalers, docenten en meer in Nederland. Plaats je aanvraag, ontvang offertes en kies de beste — in het Arabisch, Nederlands of Engels.",
       },
+      { property: "og:title", content: "Mihnati — Professionals & vakmensen in Nederland" },
+      {
+        property: "og:description",
+        content:
+          "Post your request and receive offers from professionals and tradespeople across the Netherlands. Arabic, Dutch and English supported.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Landing,
@@ -108,33 +115,41 @@ function Landing() {
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="text-xs font-medium text-primary">
-                      {lang === "ar" ? "ترجمة قانونية • أمستردام" : "Juridische vertaling • Amsterdam"}
+                      {lang === "ar"
+                        ? "سباكة • أمستردام"
+                        : lang === "nl"
+                        ? "Loodgieter • Amsterdam"
+                        : "Plumbing • Amsterdam"}
                     </div>
                     <div className="mt-1 text-lg font-bold">
                       {lang === "ar"
-                        ? "ترجمة عقد زواج من العربية إلى الهولندية"
-                        : "Vertaling huwelijksakte AR → NL"}
+                        ? "إصلاح تسريب في المطبخ"
+                        : lang === "nl"
+                        ? "Lekkage in de keuken repareren"
+                        : "Fix a kitchen leak"}
                     </div>
                   </div>
                   <span className="rounded-full bg-success/15 px-2 py-0.5 text-xs font-medium text-success">
-                    {lang === "ar" ? "مفتوح" : "Open"}
+                    {lang === "ar" ? "مفتوح" : lang === "nl" ? "Open" : "Open"}
                   </span>
                 </div>
                 <p className="mt-3 text-sm text-muted-foreground">
                   {lang === "ar"
-                    ? "أحتاج ترجمة معتمدة لعقد زواج لتقديمه إلى البلدية."
-                    : "Beëdigde vertaling nodig voor indiening bij de gemeente."}
+                    ? "تسريب أسفل الحوض يحتاج إصلاحاً سريعاً هذا الأسبوع."
+                    : lang === "nl"
+                    ? "Lekkage onder de gootsteen, deze week te repareren."
+                    : "Leak under the sink, needs a quick fix this week."}
                 </p>
                 <div className="mt-4 space-y-2">
                   {[
-                    { name: lang === "ar" ? "أحمد الحلبي" : "Ahmed Halabi", price: "85", days: 2 },
+                    { name: lang === "ar" ? "يوسف م." : "Youssef M.", price: "85", days: 2 },
                     {
-                      name: lang === "ar" ? "لينا الدمشقية" : "Lina Dimashqi",
+                      name: lang === "ar" ? "ساندرا ك." : "Sandra K.",
                       price: "110",
                       days: 1,
                       best: true,
                     },
-                    { name: lang === "ar" ? "عمر حمصي" : "Omar Homsi", price: "70", days: 3 },
+                    { name: lang === "ar" ? "عمر ح." : "Omar H.", price: "70", days: 3 },
                   ].map((b) => (
                     <div
                       key={b.name}
@@ -152,7 +167,11 @@ function Landing() {
                         <div>
                           <div className="text-sm font-semibold">{b.name}</div>
                           <div className="text-xs text-muted-foreground">
-                            {lang === "ar" ? `خلال ${b.days} يوم` : `${b.days} dagen`}
+                            {lang === "ar"
+                              ? `خلال ${b.days} يوم`
+                              : lang === "nl"
+                              ? `${b.days} dagen`
+                              : `${b.days} days`}
                           </div>
                         </div>
                       </div>
@@ -161,7 +180,7 @@ function Landing() {
                         {b.best && (
                           <div className="flex items-center gap-1 text-[10px] font-medium text-success">
                             <CheckCircle2 className="h-3 w-3" />{" "}
-                            {lang === "ar" ? "الأنسب" : "Beste keuze"}
+                            {lang === "ar" ? "الأنسب" : lang === "nl" ? "Beste keuze" : "Best pick"}
                           </div>
                         )}
                       </div>
@@ -173,6 +192,7 @@ function Landing() {
           </div>
         </div>
       </section>
+
 
       {/* How it works */}
       <section className="mx-auto max-w-6xl px-4 py-20">
@@ -226,23 +246,34 @@ function Landing() {
             {[
               {
                 icon: Users,
-                label: lang === "ar" ? "مقدم خدمة" : "Professionals",
+                label:
+                  lang === "ar" ? "مقدم خدمة" : lang === "nl" ? "Professionals" : "Professionals",
                 value: "+200",
               },
               {
                 icon: Briefcase,
-                label: lang === "ar" ? "طلب نشط" : "Actieve aanvragen",
+                label:
+                  lang === "ar"
+                    ? "طلب نشط"
+                    : lang === "nl"
+                    ? "Actieve aanvragen"
+                    : "Active requests",
                 value: "+80",
               },
               {
                 icon: MapPin,
-                label: lang === "ar" ? "مدينة هولندية" : "Nederlandse steden",
+                label:
+                  lang === "ar"
+                    ? "مدينة هولندية"
+                    : lang === "nl"
+                    ? "Nederlandse steden"
+                    : "Dutch cities",
                 value: "25",
               },
               {
                 icon: Languages,
-                label: lang === "ar" ? "لغة مدعومة" : "Talen",
-                value: "AR / NL",
+                label: lang === "ar" ? "لغة مدعومة" : lang === "nl" ? "Talen" : "Languages",
+                value: "AR / NL / EN",
               },
             ].map((s) => (
               <div key={s.label} className="rounded-2xl border bg-card p-5 shadow-soft">
