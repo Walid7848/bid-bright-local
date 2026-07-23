@@ -275,7 +275,6 @@ function Landing() {
                 label: lang === "ar" ? "لغة مدعومة" : lang === "nl" ? "Talen" : "Languages",
                 value: "AR / NL / EN",
               },
-              },
             ].map((s) => (
               <div key={s.label} className="rounded-2xl border bg-card p-5 shadow-soft">
                 <s.icon className="mb-3 h-6 w-6 text-primary" />
