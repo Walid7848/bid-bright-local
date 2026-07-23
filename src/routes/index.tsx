@@ -20,14 +20,21 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-        title:
-          "Mihnati — Syrische professionals in Nederland | مِهنتي للسوريين في هولندا",
+        title: "Mihnati — Professionals & vakmensen in Nederland | مِهنتي",
       },
       {
         name: "description",
         content:
-          "Vind Syrische advocaten, vertalers, docenten, consultants en ontwerpers in Nederland. Plaats je aanvraag, ontvang offertes en kies de beste — in het Arabisch of Nederlands.",
+          "Vind loodgieters, elektriciens, schoonmakers, advocaten, vertalers, docenten en meer in Nederland. Plaats je aanvraag, ontvang offertes en kies de beste — in het Arabisch, Nederlands of Engels.",
       },
+      { property: "og:title", content: "Mihnati — Professionals & vakmensen in Nederland" },
+      {
+        property: "og:description",
+        content:
+          "Post your request and receive offers from professionals and tradespeople across the Netherlands. Arabic, Dutch and English supported.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Landing,
