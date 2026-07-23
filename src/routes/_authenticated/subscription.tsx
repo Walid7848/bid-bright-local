@@ -208,6 +208,96 @@ function SubscriptionPage() {
           </Button>
         </div>
       </Card>
+
+      {isActive && (
+        <Card className="p-6">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <div className="text-lg font-semibold">إلغاء الاشتراك</div>
+              <p className="mt-1 text-sm text-muted-foreground">
+                عند الإلغاء، يبقى اشتراكك نشطاً حتى نهاية الفترة الحالية، ثم يتوقف
+                التجديد التلقائي ويعود حسابك إلى الحد المجاني (عرض واحد شهرياً).
+              </p>
+              {effectiveEnd && (
+                <div className="mt-3 rounded-md bg-muted/50 p-3 text-sm">
+                  <div className="text-xs text-muted-foreground">
+                    {trialActive ? "تاريخ انتهاء التجربة" : "تاريخ انتهاء الفترة الحالية"}
+                  </div>
+                  <div className="mt-1 font-semibold">
+                    {format(new Date(effectiveEnd), "EEEE d MMMM yyyy", { locale: ar })}
+                  </div>
+                  <div className="mt-1 text-xs text-muted-foreground">
+                    يسري الإلغاء بعد هذا التاريخ.
+                  </div>
+                </div>
+              )}
+              {sub?.cancel_at_period_end && sub.canceled_at && (
+                <div className="mt-3 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm">
+                  تم طلب الإلغاء في{" "}
+                  {format(new Date(sub.canceled_at), "d MMM yyyy", { locale: ar })}. لن
+                  يتم تجديد الاشتراك تلقائياً.
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-4 flex justify-end">
+            {sub?.cancel_at_period_end ? (
+              <Button
+                variant="outline"
+                disabled={busy}
+                onClick={() => setCancel(false)}
+              >
+                <RotateCcw className="ml-1 h-4 w-4" />
+                استئناف الاشتراك
+              </Button>
+            ) : (
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="destructive" disabled={busy}>
+                    <XCircle className="ml-1 h-4 w-4" />
+                    إلغاء الاشتراك
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent dir="rtl">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>تأكيد إلغاء الاشتراك</AlertDialogTitle>
+                    <AlertDialogDescription asChild>
+                      <div className="space-y-2 text-sm">
+                        <p>
+                          سيبقى اشتراكك نشطاً حتى{" "}
+                          <span className="font-semibold text-foreground">
+                            {effectiveEnd
+                              ? format(new Date(effectiveEnd), "d MMMM yyyy", {
+                                  locale: ar,
+                                })
+                              : "نهاية الفترة الحالية"}
+                          </span>
+                          .
+                        </p>
+                        <p>
+                          بعد هذا التاريخ يتوقف التجديد التلقائي، ولن تُخصم أي مبالغ
+                          جديدة، ويعود حسابك إلى الحد المجاني (عرض واحد شهرياً).
+                        </p>
+                        <p>يمكنك استئناف الاشتراك في أي وقت قبل تاريخ الانتهاء.</p>
+                      </div>
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>تراجع</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => setCancel(true)}
+                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    >
+                      تأكيد الإلغاء
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            )}
+          </div>
+        </Card>
+      )}
     </div>
   );
 }
