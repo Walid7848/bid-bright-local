@@ -48,6 +48,39 @@ function SubscriptionPage() {
     canBid,
     loading,
   } = useSubscription();
+  const queryClient = useQueryClient();
+  const [busy, setBusy] = useState(false);
+
+  const sub = subscription as (typeof subscription & {
+    cancel_at_period_end?: boolean;
+    canceled_at?: string | null;
+  }) | null;
+
+  const effectiveEnd = sub
+    ? trialActive
+      ? sub.trial_ends_at
+      : sub.current_period_end ?? sub.trial_ends_at
+    : null;
+
+  async function setCancel(flag: boolean) {
+    if (!sub) return;
+    setBusy(true);
+    const { error } = await supabase
+      .from("subscriptions")
+      .update({
+        cancel_at_period_end: flag,
+        canceled_at: flag ? new Date().toISOString() : null,
+      })
+      .eq("id", sub.id);
+    setBusy(false);
+    if (error) {
+      toast.error("تعذر تحديث الاشتراك");
+      return;
+    }
+    toast.success(flag ? "تم جدولة إلغاء الاشتراك" : "تم استئناف الاشتراك");
+    queryClient.invalidateQueries({ queryKey: ["subscription"] });
+  }
+
 
   if (loading) {
     return (
