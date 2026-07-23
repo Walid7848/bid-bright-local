@@ -75,25 +75,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Mihnati — Syrische professionals in Nederland | مِهنتي للسوريين في هولندا" },
+      { title: "Mihnati — Syrische professionals in Nederland | مِهنتي" },
       {
         name: "description",
         content:
-          "Vind Syrische advocaten, vertalers, docenten, consultants en ontwerpers in Nederland. Plaats je aanvraag, ontvang offertes en kies de beste — in het Arabisch of Nederlands.",
+          "Platform voor Syrische freelancers, advocaten, vertalers, docenten, consultants en ontwerpers in Nederland. منصة السوريين في هولندا للخدمات المهنية.",
       },
       { name: "author", content: "Mihnati" },
-      { property: "og:title", content: "Mihnati — Syrische professionals in Nederland | مِهنتي للسوريين في هولندا" },
+      { property: "og:title", content: "Mihnati — Syrische professionals in Nederland" },
       {
         property: "og:description",
         content:
-          "Vind Syrische advocaten, vertalers, docenten, consultants en ontwerpers in Nederland. Plaats je aanvraag, ontvang offertes en kies de beste — in het Arabisch of Nederlands.",
+          "Vraag een dienst aan en ontvang offertes van Syrische professionals in jouw stad. منصتك للخدمات المهنية بالعربية والهولندية.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Mihnati — Syrische professionals in Nederland | مِهنتي للسوريين في هولندا" },
-      { name: "twitter:description", content: "Vind Syrische advocaten, vertalers, docenten, consultants en ontwerpers in Nederland. Plaats je aanvraag, ontvang offertes en kies de beste — in het Arabisch of Nederlands." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7eb09520-9476-4c94-b58b-2a17c20e1864/id-preview-b5fd343b--b744e79c-f83b-475a-ba11-e113968f4543.lovable.app-1784838981450.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7eb09520-9476-4c94-b58b-2a17c20e1864/id-preview-b5fd343b--b744e79c-f83b-475a-ba11-e113968f4543.lovable.app-1784838981450.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
