@@ -254,6 +254,48 @@ const DICT = {
     nl: "Op deze voorwaarden is Nederlands recht van toepassing; geschillen bij de Nederlandse rechter.",
     en: "Governed by Dutch law; disputes fall under Dutch courts.",
   },
+
+  // cookie policy
+  "cookies.title": { ar: "سياسة ملفات تعريف الارتباط", nl: "Cookiebeleid", en: "Cookie Policy" },
+  "cookies.updated": { ar: "آخر تحديث: يوليو 2026", nl: "Laatst bijgewerkt: juli 2026", en: "Last updated: July 2026" },
+  "cookies.intro": {
+    ar: "تستخدم منصة مِهنتي ملفات تعريف الارتباط (Cookies) لتحسين تجربتك وفهم كيفية استخدام المنصة. توضح هذه السياسة أنواع الملفات التي نستخدمها وأغراضها وكيف يمكنك التحكم بها.",
+    nl: "Mihnati gebruikt cookies om je ervaring te verbeteren en te begrijpen hoe het platform wordt gebruikt. Dit beleid legt uit welke cookies wij gebruiken, waarvoor en hoe je ze kunt beheren.",
+    en: "Mihnati uses cookies to improve your experience and understand how the platform is used. This policy explains what cookies we use, why, and how you can manage them.",
+  },
+  "cookies.s1.title": { ar: "١. ما هي ملفات تعريف الارتباط؟", nl: "1. Wat zijn cookies?", en: "1. What are cookies?" },
+  "cookies.s1.body": {
+    ar: "ملفات تعريف الارتباط هي ملفات نصية صغيرة تُخزّن على جهازك عند زيارة الموقع. تساعدنا على تذكر تفضيلاتك والحفاظ على تسجيل دخولك وتحليل استخدام المنصة.",
+    nl: "Cookies zijn kleine tekstbestanden die op je apparaat worden opgeslagen wanneer je de site bezoekt. Ze helpen ons om je voorkeuren te onthouden, je sessie te behouden en het gebruik te analyseren.",
+    en: "Cookies are small text files stored on your device when you visit the site. They help us remember your preferences, keep you signed in, and analyze platform usage.",
+  },
+  "cookies.s2.title": { ar: "٢. أنواع ملفات الارتباط التي نستخدمها", nl: "2. Welke cookies wij gebruiken", en: "2. Types of cookies we use" },
+  "cookies.s2.body": {
+    ar: "نستخدم ملفات ضرورية لتشغيل الموقع (مثل تسجيل الدخول واللغة)، وملفات تحليلية لفهم التفاعل مع المنصة، وملفات وظيفية لتذكر اختياراتك مثل اللغة المفضلة.",
+    nl: "Wij gebruiken noodzakelijke cookies voor de werking van de site (zoals inloggen en taal), analytische cookies om interactie met het platform te begrijpen, en functionele cookies om je keuzes zoals je voorkeurstaal te onthouden.",
+    en: "We use essential cookies for site operation (such as login and language), analytics cookies to understand interaction with the platform, and functional cookies to remember your choices such as preferred language.",
+  },
+  "cookies.s3.title": { ar: "٣. أغراض الاستخدام", nl: "3. Doeleinden", en: "3. Purposes" },
+  "cookies.s3.body": {
+    ar: "نستخدم ملفات الارتباط لتأمين حسابك، وتذكر لغتك المختارة، وقياس أداء المنصة، وتحسين الخدمات المقدمة. لا نبيع بيانات ملفات الارتباط الخاصة بك.",
+    nl: "Wij gebruiken cookies om je account te beveiligen, je gekozen taal te onthouden, de prestaties van het platform te meten en onze diensten te verbeteren. Wij verkopen je cookiegegevens niet.",
+    en: "We use cookies to secure your account, remember your selected language, measure platform performance, and improve our services. We do not sell your cookie data.",
+  },
+  "cookies.s4.title": { ar: "٤. كيف تتحكم في ملفات الارتباط", nl: "4. Cookies beheren", en: "4. Managing cookies" },
+  "cookies.s4.body": {
+    ar: "يمكنك حذف ملفات تعريف الارتباط أو حظرها من إعدادات المتصفح. لاحظ أن تعطيل بعض الملفات الضرورية قد يؤثر على عمل الموقع.",
+    nl: "Je kunt cookies verwijderen of blokkeren via je browserinstellingen. Houd er rekening mee dat het uitschakelen van essentiële cookies de werking van de site kan beïnvloeden.",
+    en: "You can delete or block cookies through your browser settings. Please note that disabling essential cookies may affect site functionality.",
+  },
+  "cookies.s5.title": { ar: "٥. التواصل", nl: "5. Contact", en: "5. Contact" },
+  "cookies.s5.body": {
+    ar: "إذا كان لديك أي سؤال حول سياسة ملفات الارتباط، يمكنك التواصل معنا على: privacy@mihnati.nl",
+    nl: "Als je vragen hebt over dit cookiebeleid, kun je contact opnemen via: privacy@mihnati.nl",
+    en: "If you have any questions about this cookie policy, you can contact us at: privacy@mihnati.nl",
+  },
+
+  // footer
+  "footer.cookies": { ar: "سياسة ملفات تعريف الارتباط", nl: "Cookiebeleid", en: "Cookie Policy" },
 } as const;
 
 type Key = keyof typeof DICT;
