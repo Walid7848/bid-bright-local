@@ -160,6 +160,100 @@ const DICT = {
   // common
   "common.language": { ar: "اللغة", nl: "Taal", en: "Language" },
   "common.currency": { ar: "€", nl: "€", en: "€" },
+  "common.back": { ar: "العودة للرئيسية", nl: "Terug naar home", en: "Back to home" },
+
+  // footer / legal
+  "footer.privacy": { ar: "سياسة الخصوصية", nl: "Privacybeleid", en: "Privacy Policy" },
+  "footer.terms": { ar: "شروط الخدمة", nl: "Servicevoorwaarden", en: "Terms of Service" },
+  "footer.rights": {
+    ar: "جميع الحقوق محفوظة",
+    nl: "Alle rechten voorbehouden",
+    en: "All rights reserved",
+  },
+
+  // privacy
+  "privacy.title": { ar: "سياسة الخصوصية", nl: "Privacybeleid", en: "Privacy Policy" },
+  "privacy.updated": { ar: "آخر تحديث: يوليو 2026", nl: "Laatst bijgewerkt: juli 2026", en: "Last updated: July 2026" },
+  "privacy.intro": {
+    ar: "تحترم منصة مِهنتي خصوصيتك. توضح هذه السياسة كيف نجمع بياناتك ونستخدمها ونحميها عند استخدامك للمنصة في هولندا.",
+    nl: "Mihnati respecteert je privacy. Dit beleid legt uit hoe wij je gegevens verzamelen, gebruiken en beschermen wanneer je het platform in Nederland gebruikt.",
+    en: "Mihnati respects your privacy. This policy explains how we collect, use and protect your data when you use the platform in the Netherlands.",
+  },
+  "privacy.s1.title": { ar: "١. البيانات التي نجمعها", nl: "1. Gegevens die wij verzamelen", en: "1. Data we collect" },
+  "privacy.s1.body": {
+    ar: "الاسم، البريد الإلكتروني، رقم الهاتف، المدينة، الفئة المهنية، صور ووصف الطلبات، والعروض والتقييمات التي تنشرها على المنصة.",
+    nl: "Naam, e-mail, telefoonnummer, stad, beroepscategorie, foto's en beschrijvingen van aanvragen, en offertes en beoordelingen die je plaatst.",
+    en: "Name, email, phone number, city, professional category, images and descriptions of your requests, and the bids and reviews you post.",
+  },
+  "privacy.s2.title": { ar: "٢. كيف نستخدم البيانات", nl: "2. Hoe wij gegevens gebruiken", en: "2. How we use data" },
+  "privacy.s2.body": {
+    ar: "لتشغيل خدمة المزايدة، وربط الزبائن بأصحاب المهن في نفس المدينة، وإدارة الاشتراكات، وإرسال إشعارات الخدمة، وتحسين تجربة المستخدم.",
+    nl: "Om de dienst te leveren, klanten te koppelen aan professionals in dezelfde stad, abonnementen te beheren, meldingen te sturen en de ervaring te verbeteren.",
+    en: "To operate the bidding service, match clients with professionals in the same city, manage subscriptions, send notifications, and improve the experience.",
+  },
+  "privacy.s3.title": { ar: "٣. مشاركة البيانات", nl: "3. Delen van gegevens", en: "3. Sharing data" },
+  "privacy.s3.body": {
+    ar: "لا نبيع بياناتك. نشاركها فقط مع مزودي الخدمة الضروريين (الاستضافة، معالجة الدفع، البريد) أو عند الالتزام قانونياً.",
+    nl: "Wij verkopen je gegevens niet. Wij delen ze alleen met noodzakelijke leveranciers (hosting, betaling, e-mail) of wanneer wettelijk vereist.",
+    en: "We do not sell your data. We share it only with essential providers (hosting, payments, email) or when legally required.",
+  },
+  "privacy.s4.title": { ar: "٤. حقوقك (GDPR)", nl: "4. Jouw rechten (AVG)", en: "4. Your rights (GDPR)" },
+  "privacy.s4.body": {
+    ar: "لك الحق في الوصول إلى بياناتك وتصحيحها وحذفها ونقلها. للتواصل: privacy@mihnati.nl",
+    nl: "Je hebt recht op inzage, correctie, verwijdering en overdraagbaarheid. Contact: privacy@mihnati.nl",
+    en: "You have the right to access, correct, delete and port your data. Contact: privacy@mihnati.nl",
+  },
+  "privacy.s5.title": { ar: "٥. أمان البيانات", nl: "5. Beveiliging", en: "5. Data security" },
+  "privacy.s5.body": {
+    ar: "نستخدم تشفيراً وسياسات وصول صارمة (RLS) لحماية بياناتك ونطبق أفضل الممارسات المتاحة.",
+    nl: "Wij gebruiken encryptie en strikt toegangsbeheer (RLS) en passen best practices toe.",
+    en: "We use encryption and strict access controls (RLS) and apply industry best practices.",
+  },
+
+  // terms
+  "terms.title": { ar: "شروط الخدمة", nl: "Servicevoorwaarden", en: "Terms of Service" },
+  "terms.updated": { ar: "آخر تحديث: يوليو 2026", nl: "Laatst bijgewerkt: juli 2026", en: "Last updated: July 2026" },
+  "terms.intro": {
+    ar: "باستخدامك منصة مِهنتي فأنت توافق على هذه الشروط. يرجى قراءتها بعناية.",
+    nl: "Door Mihnati te gebruiken ga je akkoord met deze voorwaarden.",
+    en: "By using Mihnati you agree to these terms. Please read them carefully.",
+  },
+  "terms.s1.title": { ar: "١. طبيعة الخدمة", nl: "1. Aard van de dienst", en: "1. Nature of service" },
+  "terms.s1.body": {
+    ar: "مِهنتي منصة وسيطة تربط الزبائن بأصحاب المهن في هولندا. المنصة ليست طرفاً في العقد بين الزبون ومقدم الخدمة.",
+    nl: "Mihnati is een tussenplatform dat klanten en professionals in Nederland verbindt. Het platform is geen partij bij de overeenkomst.",
+    en: "Mihnati is an intermediary platform connecting clients with professionals in the Netherlands. It is not a party to the contract.",
+  },
+  "terms.s2.title": { ar: "٢. الحساب والاستخدام", nl: "2. Account en gebruik", en: "2. Account and use" },
+  "terms.s2.body": {
+    ar: "يجب تقديم معلومات صحيحة، أن يكون عمرك 18 سنة فأكثر، والحفاظ على سرية بيانات الدخول. أي استخدام احتيالي يؤدي إلى إغلاق الحساب.",
+    nl: "Verstrek correcte informatie, wees minstens 18 en houd je inloggegevens vertrouwelijk. Misbruik leidt tot accountsluiting.",
+    en: "Provide accurate information, be at least 18, and keep credentials confidential. Abuse leads to account termination.",
+  },
+  "terms.s3.title": { ar: "٣. الاشتراكات والمدفوعات", nl: "3. Abonnementen en betalingen", en: "3. Subscriptions and payments" },
+  "terms.s3.body": {
+    ar: "استخدام المنصة مجاني للزبائن. يحصل أصحاب المهن على شهرين تجريبيين مجاناً، وبعدها يلزم اشتراك مدفوع لتقديم عروض غير محدودة. يمكن إلغاء الاشتراك في أي وقت ويبقى ساري المفعول حتى نهاية الفترة المدفوعة.",
+    nl: "Gratis voor klanten. Professionals krijgen twee gratis proefmaanden; daarna is een betaald abonnement vereist voor onbeperkte offertes. Opzeggen kan altijd; blijft actief tot einde van de betaalde periode.",
+    en: "Free for clients. Professionals get a two-month free trial; a paid subscription is then required for unlimited bids. Cancellation is possible anytime and remains active until the end of the paid period.",
+  },
+  "terms.s4.title": { ar: "٤. المحتوى والسلوك", nl: "4. Inhoud en gedrag", en: "4. Content and conduct" },
+  "terms.s4.body": {
+    ar: "أنت مسؤول عن أي محتوى تنشره. يُحظر المحتوى غير القانوني أو المسيء أو المضلل، وانتحال هوية الغير، ومحاولة التحايل على المنصة.",
+    nl: "Je bent verantwoordelijk voor je inhoud. Illegale, aanstootgevende of misleidende content en misbruik zijn verboden.",
+    en: "You are responsible for content you post. Illegal, offensive or misleading content and platform circumvention are prohibited.",
+  },
+  "terms.s5.title": { ar: "٥. إخلاء المسؤولية", nl: "5. Aansprakelijkheid", en: "5. Disclaimer" },
+  "terms.s5.body": {
+    ar: "لا تضمن المنصة جودة الخدمة المقدمة من أصحاب المهن ولا تتحمل مسؤولية النزاعات. جميع الاتفاقيات وتنفيذ العمل تتم مباشرة بين الطرفين.",
+    nl: "Het platform garandeert geen dienstkwaliteit en is niet aansprakelijk voor geschillen. Afspraken en uitvoering zijn tussen partijen onderling.",
+    en: "The platform does not guarantee service quality and is not liable for disputes. Arrangements and delivery occur directly between the parties.",
+  },
+  "terms.s6.title": { ar: "٦. القانون المطبق", nl: "6. Toepasselijk recht", en: "6. Governing law" },
+  "terms.s6.body": {
+    ar: "تخضع هذه الشروط للقانون الهولندي وتختص محاكم هولندا بأي نزاع.",
+    nl: "Op deze voorwaarden is Nederlands recht van toepassing; geschillen bij de Nederlandse rechter.",
+    en: "Governed by Dutch law; disputes fall under Dutch courts.",
+  },
 } as const;
 
 type Key = keyof typeof DICT;
