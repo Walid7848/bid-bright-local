@@ -298,8 +298,20 @@ function Landing() {
         </Button>
       </section>
 
-      <footer className="border-t border-border/60 py-8 text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} {t("brand.name")} · {t("brand.tagline")}
+      <footer className="border-t border-border/60 py-8">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-4 text-sm text-muted-foreground md:flex-row md:justify-between">
+          <div>
+            © {new Date().getFullYear()} {t("brand.name")} · {t("brand.tagline")}
+          </div>
+          <nav className="flex items-center gap-4">
+            <Link to="/privacy" className="hover:text-foreground">
+              {t("footer.privacy")}
+            </Link>
+            <Link to="/terms" className="hover:text-foreground">
+              {t("footer.terms")}
+            </Link>
+          </nav>
+        </div>
       </footer>
     </div>
   );
