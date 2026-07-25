@@ -26,7 +26,7 @@ export const Route = createFileRoute("/terms")({
 function TermsPage() {
   const { t, lang } = useLang();
   const Arrow = lang === "ar" ? ArrowRight : ArrowLeft;
-  const sections = [1, 2, 3, 4, 5, 6] as const;
+  const sections = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] as const;
 
   return (
     <div className="min-h-screen bg-background">
