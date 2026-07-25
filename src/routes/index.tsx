@@ -303,12 +303,15 @@ function Landing() {
           <div>
             © {new Date().getFullYear()} {t("brand.name")} · {t("brand.tagline")}
           </div>
-          <nav className="flex items-center gap-4">
+          <nav className="flex flex-wrap items-center justify-center gap-4">
             <Link to="/privacy" className="hover:text-foreground">
               {t("footer.privacy")}
             </Link>
             <Link to="/terms" className="hover:text-foreground">
               {t("footer.terms")}
+            </Link>
+            <Link to="/cookie-policy" className="hover:text-foreground">
+              {t("footer.cookies")}
             </Link>
           </nav>
         </div>
