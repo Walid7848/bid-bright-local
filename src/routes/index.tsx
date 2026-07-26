@@ -313,6 +313,14 @@ function Landing() {
             <Link to="/cookie-policy" className="hover:text-foreground">
               {t("footer.cookies")}
             </Link>
+            <button
+              type="button"
+              onClick={openCookiePreferences}
+              className="hover:text-foreground"
+            >
+              {t("consent.manage")}
+            </button>
+
           </nav>
         </div>
       </footer>
