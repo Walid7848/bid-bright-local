@@ -390,8 +390,52 @@ const DICT = {
     en: "If you have any questions about this cookie policy, you can contact us at: privacy@mihnati.nl",
   },
 
+  // cookie consent banner
+  "consent.title": {
+    ar: "نحن نستخدم ملفات تعريف الارتباط",
+    nl: "Wij gebruiken cookies",
+    en: "We use cookies",
+  },
+  "consent.desc": {
+    ar: "نستخدم ملفات ضرورية لتشغيل المنصة، وملفات اختيارية للتحليل والتسويق. يمكنك اختيار ما توافق عليه.",
+    nl: "Wij gebruiken noodzakelijke cookies om het platform te laten werken, en optionele cookies voor analyse en marketing. Jij kiest waarmee je akkoord gaat.",
+    en: "We use necessary cookies to run the platform, and optional cookies for analytics and marketing. You choose what you accept.",
+  },
+  "consent.acceptAll": { ar: "قبول الكل", nl: "Alles accepteren", en: "Accept all" },
+  "consent.rejectAll": { ar: "رفض الاختياري", nl: "Optionele weigeren", en: "Reject optional" },
+  "consent.customize": { ar: "تخصيص", nl: "Aanpassen", en: "Customize" },
+  "consent.save": { ar: "حفظ التفضيلات", nl: "Voorkeuren opslaan", en: "Save preferences" },
+  "consent.manage": { ar: "إدارة ملفات تعريف الارتباط", nl: "Cookievoorkeuren", en: "Cookie preferences" },
+  "consent.prefsTitle": { ar: "تفضيلات ملفات تعريف الارتباط", nl: "Cookievoorkeuren", en: "Cookie preferences" },
+  "consent.prefsDesc": {
+    ar: "اختر فئات ملفات تعريف الارتباط التي توافق على استخدامها. يمكنك تغيير اختيارك في أي وقت.",
+    nl: "Kies welke categorieën cookies je toestaat. Je kunt dit altijd wijzigen.",
+    en: "Choose which cookie categories you allow. You can change this at any time.",
+  },
+  "consent.necessary": { ar: "ضرورية", nl: "Noodzakelijk", en: "Necessary" },
+  "consent.necessary.desc": {
+    ar: "لازمة لتسجيل الدخول والأمان وحفظ اللغة. لا يمكن تعطيلها.",
+    nl: "Nodig voor inloggen, beveiliging en taalvoorkeur. Kan niet worden uitgeschakeld.",
+    en: "Required for sign-in, security and language preference. Cannot be disabled.",
+  },
+  "consent.analytics": { ar: "التحليلات", nl: "Analyse", en: "Analytics" },
+  "consent.analytics.desc": {
+    ar: "تساعدنا على فهم كيفية استخدام المنصة لتحسينها.",
+    nl: "Helpen ons te begrijpen hoe het platform wordt gebruikt.",
+    en: "Help us understand how the platform is used so we can improve it.",
+  },
+  "consent.marketing": { ar: "التسويق", nl: "Marketing", en: "Marketing" },
+  "consent.marketing.desc": {
+    ar: "تُستخدم لعرض محتوى وإعلانات أكثر ملاءمة لك.",
+    nl: "Worden gebruikt voor relevantere content en advertenties.",
+    en: "Used to show you more relevant content and ads.",
+  },
+  "consent.savedAt": { ar: "تم تسجيل موافقتك بتاريخ", nl: "Toestemming geregistreerd op", en: "Consent recorded on" },
+  "consent.saved": { ar: "تم حفظ تفضيلاتك", nl: "Voorkeuren opgeslagen", en: "Preferences saved" },
+
   // footer
   "footer.cookies": { ar: "سياسة ملفات تعريف الارتباط", nl: "Cookiebeleid", en: "Cookie Policy" },
+
 } as const;
 
 type Key = keyof typeof DICT;
