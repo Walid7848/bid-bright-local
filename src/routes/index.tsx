@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { useLang, LanguageSwitch } from "@/lib/i18n";
+import { openCookiePreferences } from "@/lib/cookie-consent";
+
 import {
   ArrowLeft,
   ArrowRight,
@@ -313,6 +315,14 @@ function Landing() {
             <Link to="/cookie-policy" className="hover:text-foreground">
               {t("footer.cookies")}
             </Link>
+            <button
+              type="button"
+              onClick={openCookiePreferences}
+              className="hover:text-foreground"
+            >
+              {t("consent.manage")}
+            </button>
+
           </nav>
         </div>
       </footer>
