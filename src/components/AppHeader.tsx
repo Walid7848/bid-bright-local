@@ -1,5 +1,6 @@
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
-import { Briefcase, LogOut, Plus, Sparkles, User as UserIcon } from "lucide-react";
+import { Briefcase, Check, LogOut, Plus, Repeat, Sparkles, User as UserIcon } from "lucide-react";
+import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -14,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useLang, LanguageSwitch } from "@/lib/i18n";
+import { useRoles, type AppRole } from "@/hooks/useRoles";
 
 export function AppHeader() {
   const { user } = useAuth();
@@ -35,20 +37,21 @@ export function AppHeader() {
     },
   });
 
-  const { data: roleData } = useQuery({
-    queryKey: ["my-role", user?.id],
-    enabled: !!user?.id,
-    queryFn: async () => {
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user!.id)
-        .maybeSingle();
-      return data;
-    },
-  });
+  const { activeRole, hasRole, switchRole } = useRoles();
 
-  const isClient = roleData?.role === "client";
+  const isClient = activeRole === "client";
+  const isPro = activeRole === "professional";
+
+  async function changeRole(role: AppRole) {
+    if (role === activeRole) return;
+    try {
+      await switchRole(role);
+      toast.success(t("role.switched"));
+      navigate({ to: "/requests" });
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Error");
+    }
+  }
 
   async function signOut() {
     await qc.cancelQueries();
@@ -87,7 +90,7 @@ export function AppHeader() {
               {t("nav.myRequests")}
             </Link>
           )}
-          {roleData?.role === "professional" && (
+          {isPro && (
             <Link
               to="/my-bids"
               className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
@@ -126,13 +129,32 @@ export function AppHeader() {
                 )}
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
+              <DropdownMenuLabel className="text-xs font-normal text-muted-foreground">
+                {t("role.mode")}
+              </DropdownMenuLabel>
+              {(["client", "professional"] as AppRole[]).map((r) => (
+                <DropdownMenuItem key={r} onClick={() => changeRole(r)}>
+                  {activeRole === r ? (
+                    <Check className="ml-2 h-4 w-4 text-primary" />
+                  ) : (
+                    <Repeat className="ml-2 h-4 w-4 opacity-60" />
+                  )}
+                  <span className={activeRole === r ? "font-semibold" : undefined}>
+                    {t(`role.${r}` as never)}
+                  </span>
+                  {!hasRole(r) && (
+                    <span className="ms-auto text-[10px] text-muted-foreground">+</span>
+                  )}
+                </DropdownMenuItem>
+              ))}
+              <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <Link to="/profile">
                   <UserIcon className="ml-2 h-4 w-4" />
                   {t("nav.profile")}
                 </Link>
               </DropdownMenuItem>
-              {roleData?.role === "professional" && (
+              {isPro && (
                 <DropdownMenuItem asChild>
                   <Link to="/subscription">
                     <Sparkles className="ml-2 h-4 w-4" />

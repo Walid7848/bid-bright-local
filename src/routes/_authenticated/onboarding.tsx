@@ -41,9 +41,8 @@ function Onboarding() {
       const { data } = await supabase
         .from("user_roles")
         .select("role")
-        .eq("user_id", user.id)
-        .maybeSingle();
-      if (data?.role) {
+        .eq("user_id", user.id);
+      if (data && data.length > 0) {
         navigate({ to: "/requests" });
         return;
       }

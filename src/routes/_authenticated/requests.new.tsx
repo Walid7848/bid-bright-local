@@ -19,6 +19,8 @@ import {
 import { ImageUpload } from "@/components/ImageUpload";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useRoles } from "@/hooks/useRoles";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_authenticated/requests/new")({
   component: NewRequest,
@@ -36,23 +38,20 @@ function NewRequest() {
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [allowed, setAllowed] = useState<boolean | null>(null);
+  const { roles, hasRole, switchRole, loading: rolesLoading } = useRoles();
+  const { t } = useLang();
 
   useEffect(() => {
-    if (!user) return;
+    if (!user || rolesLoading) return;
+    if (roles.length === 0) {
+      navigate({ to: "/onboarding" });
+      return;
+    }
+    if (!hasRole("client")) {
+      setAllowed(false);
+      return;
+    }
     (async () => {
-      const { data: r } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id)
-        .maybeSingle();
-      if (!r) {
-        navigate({ to: "/onboarding" });
-        return;
-      }
-      if (r.role !== "client") {
-        setAllowed(false);
-        return;
-      }
       const { data: p } = await supabase
         .from("profiles")
         .select("city")
@@ -61,7 +60,7 @@ function NewRequest() {
       if (p?.city) setCity(p.city);
       setAllowed(true);
     })();
-  }, [user, navigate]);
+  }, [user, navigate, rolesLoading, roles.length, hasRole]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -95,10 +94,21 @@ function NewRequest() {
   if (allowed === false) {
     return (
       <div className="mx-auto max-w-md px-4 py-16 text-center">
-        <h1 className="text-xl font-bold">هذه الميزة للزبائن فقط</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          حسابك مسجل كصاحب مهنة، ولا يمكنك نشر طلبات.
-        </p>
+        <h1 className="text-xl font-bold">{t("role.client")}</h1>
+        <p className="mt-2 text-sm text-muted-foreground">{t("role.enableHint")}</p>
+        <Button
+          className="mt-4"
+          onClick={async () => {
+            try {
+              await switchRole("client");
+              setAllowed(true);
+            } catch (err) {
+              toast.error(err instanceof Error ? err.message : "Error");
+            }
+          }}
+        >
+          {t("role.switch")}
+        </Button>
       </div>
     );
   }
