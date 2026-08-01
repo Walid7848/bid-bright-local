@@ -25,6 +25,8 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { formatDistanceToNow } from "date-fns";
 import { ar } from "date-fns/locale";
 import { toast } from "sonner";
+import { useRoles, type AppRole } from "@/hooks/useRoles";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_authenticated/profile")({
   component: ProfilePage,
@@ -32,6 +34,7 @@ export const Route = createFileRoute("/_authenticated/profile")({
 
 function ProfilePage() {
   const { user } = useAuth();
+  const { t } = useLang();
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
@@ -39,18 +42,7 @@ function ProfilePage() {
   const [bio, setBio] = useState("");
   const [saving, setSaving] = useState(false);
 
-  const { data: role } = useQuery({
-    queryKey: ["my-role", user?.id],
-    enabled: !!user?.id,
-    queryFn: async () => {
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user!.id)
-        .maybeSingle();
-      return data?.role ?? null;
-    },
-  });
+  const { activeRole: role, roles, hasRole, switchRole } = useRoles();
 
   const { data: profile } = useQuery({
     queryKey: ["profile-full", user?.id],
@@ -98,12 +90,34 @@ function ProfilePage() {
     <div className="mx-auto max-w-2xl px-4 py-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">ملفي الشخصي</h1>
-        {role && (
-          <Badge variant="secondary">
-            {role === "client" ? "زبون" : "صاحب مهنة"}
-          </Badge>
-        )}
+        {role && <Badge variant="secondary">{t(`role.${role}` as never)}</Badge>}
       </div>
+      <Card className="mb-6 p-5 shadow-soft">
+        <div className="mb-1 text-sm font-semibold">{t("role.mode")}</div>
+        <p className="mb-3 text-xs text-muted-foreground">{t("role.enableHint")}</p>
+        <div className="grid gap-2 sm:grid-cols-2">
+          {(["client", "professional"] as AppRole[]).map((r) => (
+            <Button
+              key={r}
+              type="button"
+              variant={role === r ? "default" : "outline"}
+              onClick={async () => {
+                if (role === r) return;
+                try {
+                  await switchRole(r);
+                  toast.success(t("role.switched"));
+                } catch (err) {
+                  toast.error(err instanceof Error ? err.message : "Error");
+                }
+              }}
+            >
+              {t(`role.${r}` as never)}
+              {!hasRole(r) && <span className="ms-2 text-xs opacity-70">+</span>}
+            </Button>
+          ))}
+        </div>
+      </Card>
+
       <Card className="p-6 shadow-soft">
         <form onSubmit={save} className="space-y-4">
           <div className="space-y-1.5">

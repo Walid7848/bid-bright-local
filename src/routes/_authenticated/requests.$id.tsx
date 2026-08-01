@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { useRoles } from "@/hooks/useRoles";
 import { CATEGORY_MAP } from "@/lib/categories";
 import { SignedImage } from "@/components/SignedImage";
 import { Card } from "@/components/ui/card";
@@ -61,18 +62,7 @@ function RequestDetail() {
     },
   });
 
-  const { data: myRole } = useQuery({
-    queryKey: ["my-role", user?.id],
-    enabled: !!user?.id,
-    queryFn: async () => {
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user!.id)
-        .maybeSingle();
-      return data?.role ?? null;
-    },
-  });
+  const { isPro } = useRoles();
 
   const { data: bids } = useQuery({
     queryKey: ["bids", id],
@@ -99,7 +89,6 @@ function RequestDetail() {
   }
 
   const isOwner = user?.id === request.client_id;
-  const isPro = myRole === "professional";
   const canBid = isPro && request.status === "open" && !isOwner;
   const myBid = bids?.find((b: any) => b.professional_id === user?.id);
   const acceptedBid = bids?.find((b: any) => b.status === "accepted");

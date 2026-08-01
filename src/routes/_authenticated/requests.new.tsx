@@ -40,19 +40,6 @@ function NewRequest() {
   useEffect(() => {
     if (!user) return;
     (async () => {
-      const { data: r } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id)
-        .maybeSingle();
-      if (!r) {
-        navigate({ to: "/onboarding" });
-        return;
-      }
-      if (r.role !== "client") {
-        setAllowed(false);
-        return;
-      }
       const { data: p } = await supabase
         .from("profiles")
         .select("city")
