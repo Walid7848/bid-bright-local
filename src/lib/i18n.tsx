@@ -13,6 +13,19 @@ const DICT = {
   "nav.signIn": { ar: "تسجيل الدخول", nl: "Inloggen", en: "Sign in" },
   "nav.start": { ar: "ابدأ الآن", nl: "Begin nu", en: "Get started" },
 
+  // account mode / roles
+  "role.client": { ar: "طالب خدمة", nl: "Klant", en: "Client" },
+  "role.professional": { ar: "مقدم خدمة", nl: "Professional", en: "Professional" },
+  "role.mode": { ar: "وضع الحساب", nl: "Accountmodus", en: "Account mode" },
+  "role.switch": { ar: "تبديل الوضع", nl: "Wissel modus", en: "Switch mode" },
+  "role.switched": { ar: "تم تبديل وضع الحساب", nl: "Accountmodus gewijzigd", en: "Account mode switched" },
+  "role.enableHint": {
+    ar: "يمكنك تفعيل الوضع الآخر في أي وقت والتنقل بينهما بحرية.",
+    nl: "Je kunt de andere modus altijd activeren en vrij wisselen.",
+    en: "You can enable the other mode anytime and switch freely.",
+  },
+
+
   // brand
   "brand.name": { ar: "مِهنتي", nl: "Mihnati", en: "Mihnati" },
   "brand.tagline": {
