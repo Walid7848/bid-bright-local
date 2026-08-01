@@ -306,6 +306,9 @@ function Landing() {
             © {new Date().getFullYear()} {t("brand.name")} · {t("brand.tagline")}
           </div>
           <nav className="flex flex-wrap items-center justify-center gap-4">
+            <Link to="/about" className="hover:text-foreground">
+              {t("footer.about")}
+            </Link>
             <Link to="/privacy" className="hover:text-foreground">
               {t("footer.privacy")}
             </Link>
