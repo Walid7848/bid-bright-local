@@ -276,7 +276,11 @@ function RequestDetail() {
             )}
           </Card>
 
-          {canBid && !myBid && <BidForm requestId={id} />}
+          {canBidSlot && !myBid && (
+            <RoleGate role="professional" compact>
+              <BidForm requestId={id} />
+            </RoleGate>
+          )}
           {myBid && (
             <Card className="p-5 shadow-soft">
               <div className="text-xs font-medium uppercase text-muted-foreground">عرضك</div>
