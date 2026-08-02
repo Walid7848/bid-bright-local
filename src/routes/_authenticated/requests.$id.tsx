@@ -228,7 +228,7 @@ function RequestDetail() {
                     key={b.id}
                     bid={b}
                     isOwner={isOwner}
-                    canSelect={isOwner && request.status === "open"}
+                    canSelect={isOwner && isClient && request.status === "open"}
                     isAccepted={b.status === "accepted"}
                     onAccept={() => acceptBid(b.id)}
                   />
