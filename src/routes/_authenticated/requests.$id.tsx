@@ -62,7 +62,7 @@ function RequestDetail() {
     },
   });
 
-  const { isPro } = useRoles();
+  const { isClient } = useRoles();
 
   const { data: bids } = useQuery({
     queryKey: ["bids", id],
