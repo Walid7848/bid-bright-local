@@ -24,6 +24,21 @@ const DICT = {
     nl: "Je kunt de andere modus altijd activeren en vrij wisselen.",
     en: "You can enable the other mode anytime and switch freely.",
   },
+  "role.required": {
+    ar: "هذا الإجراء يتطلب الوضع",
+    nl: "Deze actie vereist de modus",
+    en: "This action requires the mode",
+  },
+  "role.requiredHint": {
+    ar: "فعّل الوضع المطلوب للمتابعة. يمكنك التبديل بين الوضعين في أي وقت.",
+    nl: "Activeer de vereiste modus om door te gaan. Je kunt altijd wisselen.",
+    en: "Activate the required mode to continue. You can switch anytime.",
+  },
+  "role.activate": {
+    ar: "تفعيل الوضع",
+    nl: "Modus activeren",
+    en: "Activate mode",
+  },
 
 
   // brand
