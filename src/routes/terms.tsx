@@ -5,16 +5,16 @@ import { useLang, LanguageSwitch } from "@/lib/i18n";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Servicevoorwaarden — Mihnati | شروط الخدمة" },
+      { title: "Servicevoorwaarden — Wasla | شروط الخدمة" },
       {
         name: "description",
         content:
-          "Servicevoorwaarden van Mihnati: gebruik van het platform, abonnementen en aansprakelijkheid. AR / NL / EN.",
+          "Servicevoorwaarden van Wasla: gebruik van het platform, abonnementen en aansprakelijkheid. AR / NL / EN.",
       },
-      { property: "og:title", content: "Servicevoorwaarden — Mihnati" },
+      { property: "og:title", content: "Servicevoorwaarden — Wasla" },
       {
         property: "og:description",
-        content: "Servicevoorwaarden van Mihnati in het Arabisch, Nederlands en Engels.",
+        content: "Servicevoorwaarden van Wasla in het Arabisch, Nederlands en Engels.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },

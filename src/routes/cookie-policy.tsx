@@ -5,16 +5,16 @@ import { useLang, LanguageSwitch } from "@/lib/i18n";
 export const Route = createFileRoute("/cookie-policy")({
   head: () => ({
     meta: [
-      { title: "Cookiebeleid — Mihnati | سياسة ملفات تعريف الارتباط" },
+      { title: "Cookiebeleid — Wasla | سياسة ملفات تعريف الارتباط" },
       {
         name: "description",
         content:
-          "Cookiebeleid van Mihnati: welke cookies wij gebruiken, waarvoor en hoe je ze beheert. AR / NL / EN.",
+          "Cookiebeleid van Wasla: welke cookies wij gebruiken, waarvoor en hoe je ze beheert. AR / NL / EN.",
       },
-      { property: "og:title", content: "Cookiebeleid — Mihnati" },
+      { property: "og:title", content: "Cookiebeleid — Wasla" },
       {
         property: "og:description",
-        content: "Cookiebeleid van Mihnati in het Arabisch, Nederlands en Engels.",
+        content: "Cookiebeleid van Wasla in het Arabisch, Nederlands en Engels.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },

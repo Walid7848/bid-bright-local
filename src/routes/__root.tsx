@@ -77,14 +77,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Mihnati — Syrische professionals in Nederland | مِهنتي" },
+      { title: "Wasla — Syrische professionals in Nederland | وصلة" },
       {
         name: "description",
         content:
           "Platform voor Syrische freelancers, advocaten, vertalers, docenten, consultants en ontwerpers in Nederland. منصة السوريين في هولندا للخدمات المهنية.",
       },
-      { name: "author", content: "Mihnati" },
-      { property: "og:title", content: "Mihnati — Syrische professionals in Nederland" },
+      { name: "author", content: "Wasla" },
+      { property: "og:title", content: "Wasla — Syrische professionals in Nederland" },
       {
         property: "og:description",
         content:
