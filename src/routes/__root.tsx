@@ -77,19 +77,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Wasla — Syrische professionals in Nederland | وصلة" },
+      { title: "Wasla — Betrouwbare lokale diensten in Nederland | وصلة" },
       {
         name: "description",
         content:
-          "Platform voor Syrische freelancers, advocaten, vertalers, docenten, consultants en ontwerpers in Nederland. منصة السوريين في هولندا للخدمات المهنية.",
+          "Wasla verbindt je met betrouwbare lokale vakmensen en professionals in Nederland. وصلة تربطك بمقدمي خدمات موثوقين في هولندا.",
       },
       { name: "author", content: "Wasla" },
-      { property: "og:title", content: "Wasla — Syrische professionals in Nederland" },
+      { property: "og:title", content: "Wasla — Betrouwbare lokale diensten in Nederland" },
       {
         property: "og:description",
         content:
-          "Vraag een dienst aan en ontvang offertes van Syrische professionals in jouw stad. منصتك للخدمات المهنية بالعربية والهولندية.",
+          "Plaats je aanvraag, ontvang offertes en kies de beste professional in jouw stad. منصة بسيطة وموثوقة للخدمات المحلية.",
       },
+
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
