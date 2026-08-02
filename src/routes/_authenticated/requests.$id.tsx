@@ -102,6 +102,9 @@ function RequestDetail() {
   }
 
   async function acceptBid(bidId: string) {
+    if (!isOwner || !isClient) {
+      return toast.error("هذا الإجراء متاح لصاحب الطلب في وضع «طالب خدمة» فقط");
+    }
     const { error: e1 } = await supabase
       .from("bids")
       .update({ status: "accepted" })
