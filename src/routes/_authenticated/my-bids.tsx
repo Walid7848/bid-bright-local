@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
+import { RoleGate } from "@/components/RoleGate";
 import { formatDistanceToNow } from "date-fns";
 import { ar } from "date-fns/locale";
 
@@ -31,6 +32,8 @@ function MyBids() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
       <h1 className="mb-6 text-3xl font-bold">عروضي</h1>
+      <RoleGate role="professional">
+      <>
       {isLoading ? (
         <div className="space-y-3">
           {Array.from({ length: 3 }).map((_, i) => (
@@ -92,6 +95,8 @@ function MyBids() {
           ))}
         </div>
       )}
+      </>
+      </RoleGate>
     </div>
   );
 }

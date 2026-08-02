@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CATEGORY_MAP } from "@/lib/categories";
 import { Plus, Users } from "lucide-react";
+import { RoleGate } from "@/components/RoleGate";
 
 export const Route = createFileRoute("/_authenticated/my-requests")({
   component: MyRequests,
@@ -39,6 +40,8 @@ function MyRequests() {
         </Button>
       </div>
 
+      <RoleGate role="client">
+      <>
       {isLoading ? (
         <div className="space-y-3">
           {Array.from({ length: 3 }).map((_, i) => (
@@ -92,6 +95,8 @@ function MyRequests() {
           ))}
         </div>
       )}
+      </>
+      </RoleGate>
     </div>
   );
 }
