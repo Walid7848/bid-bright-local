@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ReviewSection } from "@/components/ReviewSection";
+import { RoleGate } from "@/components/RoleGate";
 import { useSubscription as useSubscriptionGate } from "@/hooks/useSubscription";
 import {
   AlertDialog,
