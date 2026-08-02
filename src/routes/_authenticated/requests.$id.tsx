@@ -162,7 +162,7 @@ function RequestDetail() {
                     </span>
                   </div>
                 </div>
-                {isOwner && (
+                {isOwner && isClient && (
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <Button variant="outline" size="sm" className="gap-1 text-destructive">
