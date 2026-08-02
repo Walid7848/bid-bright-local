@@ -5,16 +5,16 @@ import { useLang, LanguageSwitch } from "@/lib/i18n";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacybeleid — Mihnati | سياسة الخصوصية" },
+      { title: "Privacybeleid — Wasla | سياسة الخصوصية" },
       {
         name: "description",
         content:
-          "Privacybeleid van Mihnati: hoe wij gegevens verzamelen, gebruiken en beschermen. AR / NL / EN.",
+          "Privacybeleid van Wasla: hoe wij gegevens verzamelen, gebruiken en beschermen. AR / NL / EN.",
       },
-      { property: "og:title", content: "Privacybeleid — Mihnati" },
+      { property: "og:title", content: "Privacybeleid — Wasla" },
       {
         property: "og:description",
-        content: "Privacybeleid van Mihnati in het Arabisch, Nederlands en Engels.",
+        content: "Privacybeleid van Wasla in het Arabisch, Nederlands en Engels.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },

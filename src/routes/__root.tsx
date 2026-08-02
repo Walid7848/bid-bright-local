@@ -77,19 +77,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Mihnati — Syrische professionals in Nederland | مِهنتي" },
+      { title: "Wasla — Betrouwbare lokale diensten in Nederland | وصلة" },
       {
         name: "description",
         content:
-          "Platform voor Syrische freelancers, advocaten, vertalers, docenten, consultants en ontwerpers in Nederland. منصة السوريين في هولندا للخدمات المهنية.",
+          "Wasla verbindt je met betrouwbare lokale vakmensen en professionals in Nederland. وصلة تربطك بمقدمي خدمات موثوقين في هولندا.",
       },
-      { name: "author", content: "Mihnati" },
-      { property: "og:title", content: "Mihnati — Syrische professionals in Nederland" },
+      { name: "author", content: "Wasla" },
+      { property: "og:title", content: "Wasla — Betrouwbare lokale diensten in Nederland" },
       {
         property: "og:description",
         content:
-          "Vraag een dienst aan en ontvang offertes van Syrische professionals in jouw stad. منصتك للخدمات المهنية بالعربية والهولندية.",
+          "Plaats je aanvraag, ontvang offertes en kies de beste professional in jouw stad. منصة بسيطة وموثوقة للخدمات المحلية.",
       },
+
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -98,8 +99,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap",
       },
+
     ],
   }),
   shellComponent: RootShell,

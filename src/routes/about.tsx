@@ -5,16 +5,16 @@ import { useLang, LanguageSwitch } from "@/lib/i18n";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "Over ons — Mihnati | من نحن" },
+      { title: "Over ons — Wasla | من نحن" },
       {
         name: "description",
         content:
-          "Leer Mihnati kennen: onze missie, visie, doelstellingen en waarden voor de Arabische gemeenschap in Nederland. AR / NL / EN.",
+          "Leer Wasla kennen: onze missie, visie, doelstellingen en waarden voor de Arabische gemeenschap in Nederland. AR / NL / EN.",
       },
-      { property: "og:title", content: "Over ons — Mihnati" },
+      { property: "og:title", content: "Over ons — Wasla" },
       {
         property: "og:description",
-        content: "Mihnati: missie, visie en waarden voor de Arabische gemeenschap in Nederland.",
+        content: "Wasla: missie, visie en waarden voor de Arabische gemeenschap in Nederland.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },
