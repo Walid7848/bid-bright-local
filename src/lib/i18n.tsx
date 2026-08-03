@@ -102,11 +102,23 @@ const DICT = {
     nl: "Professionals in Nederland sturen offertes met prijs en levertijd.",
     en: "Professionals in the Netherlands send offers with price and timeline.",
   },
-  "how.s3.title": { ar: "٣. قارن واختر", nl: "3. Vergelijk en kies", en: "3. Compare and choose" },
+  "how.s3.title": { ar: "٣. اختر الأنسب", nl: "3. Kies de beste", en: "3. Choose the best fit" },
   "how.s3.desc": {
-    ar: "قارن العروض والخبرات ثم اختر ما يناسبك.",
-    nl: "Vergelijk offertes en ervaring en kies wat bij je past.",
-    en: "Compare offers and experience, then pick what fits you best.",
+    ar: "قارن الأسعار والمدة والتقييمات ثم اختر العرض الأنسب لك.",
+    nl: "Vergelijk prijs, levertijd en beoordelingen en kies de beste offerte.",
+    en: "Compare price, timeline and ratings, then pick the best offer.",
+  },
+  "how.s4.title": { ar: "٤. تنفيذ الخدمة", nl: "4. Dienst uitvoeren", en: "4. Get the job done" },
+  "how.s4.desc": {
+    ar: "تواصل مباشرة مع مقدم الخدمة وتابع تنفيذ العمل حتى الانتهاء.",
+    nl: "Neem direct contact op met de professional en volg het werk tot oplevering.",
+    en: "Contact the professional directly and follow the work to completion.",
+  },
+  "how.s5.title": { ar: "٥. تقييم الخدمة", nl: "5. Beoordeel de dienst", en: "5. Rate the service" },
+  "how.s5.desc": {
+    ar: "قيّم مقدم الخدمة بالنجوم واكتب تجربتك لمساعدة الآخرين.",
+    nl: "Geef sterren en deel je ervaring om anderen te helpen kiezen.",
+    en: "Leave a star rating and share your experience to help others.",
   },
 
   // for pros
