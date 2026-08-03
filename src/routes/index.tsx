@@ -14,8 +14,10 @@ import {
   MessageSquare,
   ShieldCheck,
   Sparkles,
+  Star,
   Users,
   Wallet,
+  Wrench,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
