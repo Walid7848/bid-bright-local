@@ -202,11 +202,13 @@ function Landing() {
           <h2 className="text-3xl font-bold md:text-4xl">{t("how.title")}</h2>
           <p className="mt-3 text-muted-foreground">{t("how.subtitle")}</p>
         </div>
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[
             { icon: FileText, title: t("how.s1.title"), desc: t("how.s1.desc") },
             { icon: MessageSquare, title: t("how.s2.title"), desc: t("how.s2.desc") },
             { icon: CheckCircle2, title: t("how.s3.title"), desc: t("how.s3.desc") },
+            { icon: Wrench, title: t("how.s4.title"), desc: t("how.s4.desc") },
+            { icon: Star, title: t("how.s5.title"), desc: t("how.s5.desc") },
           ].map((s, i) => (
             <div
               key={i}
