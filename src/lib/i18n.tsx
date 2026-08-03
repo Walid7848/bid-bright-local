@@ -86,9 +86,9 @@ const DICT = {
   // how it works
   "how.title": { ar: "كيف تعمل المنصة؟", nl: "Hoe werkt het?", en: "How it works" },
   "how.subtitle": {
-    ar: "ثلاث خطوات بسيطة تفصلك عن إنجاز طلبك",
-    nl: "Drie eenvoudige stappen tot jouw dienst",
-    en: "Three simple steps to get your job done",
+    ar: "خمس خطوات بسيطة تفصلك عن إنجاز طلبك",
+    nl: "Vijf eenvoudige stappen tot jouw dienst",
+    en: "Five simple steps to get your job done",
   },
   "how.s1.title": { ar: "١. انشر طلبك", nl: "1. Plaats je aanvraag", en: "1. Post your request" },
   "how.s1.desc": {
