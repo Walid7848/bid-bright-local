@@ -133,7 +133,7 @@ export function BidScoreBadges({ scored }: { scored?: ScoredBid }) {
   return (
     <div className="flex flex-wrap items-center gap-1.5">
       {scored.isBestValue && (
-        <Badge className="gap-1 bg-cta text-cta-foreground hover:bg-cta/90">
+        <Badge className="gap-1 bg-secondary text-secondary-foreground hover:bg-secondary/90">
           <Sparkles className="h-3 w-3" /> الأفضل قيمة
         </Badge>
       )}
@@ -181,7 +181,7 @@ export function BidComparison({
     <Card className="p-5 shadow-soft">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="flex items-center gap-2 text-base font-bold">
-          <Sparkles className="h-4 w-4 text-cta" />
+          <Sparkles className="h-4 w-4 text-secondary" />
           المقارنة الذكية للعروض
         </h3>
         <span className="text-xs text-muted-foreground">
@@ -212,7 +212,7 @@ export function BidComparison({
               key={b.id}
               className={
                 "rounded-xl border p-3 " +
-                (s?.isBestValue ? "border-cta/50 bg-cta/5" : "border-border")
+                (s?.isBestValue ? "border-secondary/50 bg-secondary/10" : "border-border")
               }
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
@@ -223,7 +223,7 @@ export function BidComparison({
                   <span className="font-semibold">
                     {b.profiles?.full_name || "صاحب مهنة"}
                   </span>
-                  {s?.isBestValue && <Award className="h-4 w-4 text-cta" />}
+                  {s?.isBestValue && <Award className="h-4 w-4 text-secondary" />}
                 </div>
                 <div className="text-sm font-bold text-primary">{b.price} €</div>
               </div>
