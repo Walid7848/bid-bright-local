@@ -15,6 +15,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ReviewSection } from "@/components/ReviewSection";
 import { RoleGate } from "@/components/RoleGate";
+import {
+  BidComparison,
+  BidScoreBadges,
+  useBidScores,
+  type ScoredBid,
+} from "@/components/BidComparison";
 import { useSubscription as useSubscriptionGate } from "@/hooks/useSubscription";
 import {
   AlertDialog,
