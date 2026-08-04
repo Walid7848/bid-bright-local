@@ -338,12 +338,14 @@ function RequestDetail() {
 
 function BidCard({
   bid,
+  scored,
   isOwner,
   canSelect,
   isAccepted,
   onAccept,
 }: {
   bid: any;
+  scored?: ScoredBid;
   isOwner: boolean;
   canSelect: boolean;
   isAccepted: boolean;
