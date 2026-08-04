@@ -384,6 +384,16 @@ function BidCard({
           </div>
         </div>
       </div>
+      {scored && (
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <BidScoreBadges scored={scored} />
+          <span className="text-xs text-muted-foreground">
+            درجة الملاءمة: <span className="font-semibold text-foreground">{scored.score}%</span>
+            {scored.stats.rating !== null && ` · ${scored.stats.rating.toFixed(1)} ★`}
+            {scored.stats.completedJobs > 0 && ` · ${scored.stats.completedJobs} عمل منجز`}
+          </span>
+        </div>
+      )}
       {bid.profiles?.bio && (
         <p className="mt-3 text-xs text-muted-foreground">{bid.profiles.bio}</p>
       )}
