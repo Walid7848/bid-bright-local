@@ -15,6 +15,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ReviewSection } from "@/components/ReviewSection";
 import { RoleGate } from "@/components/RoleGate";
+import {
+  BidComparison,
+  BidScoreBadges,
+  useBidScores,
+  type ScoredBid,
+} from "@/components/BidComparison";
 import { useSubscription as useSubscriptionGate } from "@/hooks/useSubscription";
 import {
   AlertDialog,
@@ -77,6 +83,10 @@ function RequestDetail() {
       return data;
     },
   });
+
+  const scores = useBidScores(bids ?? undefined);
+
+
 
   if (isLoading) {
     return (
@@ -211,6 +221,15 @@ function RequestDetail() {
             )}
           </Card>
 
+          {isOwner && bids && bids.length > 1 && request.status === "open" && (
+            <BidComparison
+              bids={bids}
+              scores={scores}
+              canSelect={isOwner && isClient}
+              onAccept={acceptBid}
+            />
+          )}
+
           <div>
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-lg font-bold">
@@ -230,6 +249,7 @@ function RequestDetail() {
                   <BidCard
                     key={b.id}
                     bid={b}
+                    scored={scores[b.id]}
                     isOwner={isOwner}
                     canSelect={isOwner && isClient && request.status === "open"}
                     isAccepted={b.status === "accepted"}
@@ -239,6 +259,7 @@ function RequestDetail() {
               </div>
             )}
           </div>
+
 
           {(request.status === "awarded" || request.status === "in_progress" || request.status === "completed") && acceptedBid && (
             <ReviewSection
@@ -317,12 +338,14 @@ function RequestDetail() {
 
 function BidCard({
   bid,
+  scored,
   isOwner,
   canSelect,
   isAccepted,
   onAccept,
 }: {
   bid: any;
+  scored?: ScoredBid;
   isOwner: boolean;
   canSelect: boolean;
   isAccepted: boolean;
@@ -361,6 +384,16 @@ function BidCard({
           </div>
         </div>
       </div>
+      {scored && (
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <BidScoreBadges scored={scored} />
+          <span className="text-xs text-muted-foreground">
+            درجة الملاءمة: <span className="font-semibold text-foreground">{scored.score}%</span>
+            {scored.stats.rating !== null && ` · ${scored.stats.rating.toFixed(1)} ★`}
+            {scored.stats.completedJobs > 0 && ` · ${scored.stats.completedJobs} عمل منجز`}
+          </span>
+        </div>
+      )}
       {bid.profiles?.bio && (
         <p className="mt-3 text-xs text-muted-foreground">{bid.profiles.bio}</p>
       )}
