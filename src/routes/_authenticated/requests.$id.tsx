@@ -84,6 +84,10 @@ function RequestDetail() {
     },
   });
 
+  const scores = useBidScores(bids ?? undefined);
+
+
+
   if (isLoading) {
     return (
       <div className="grid min-h-[60vh] place-items-center">
