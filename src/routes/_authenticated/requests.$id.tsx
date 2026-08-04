@@ -221,6 +221,15 @@ function RequestDetail() {
             )}
           </Card>
 
+          {isOwner && bids && bids.length > 1 && request.status === "open" && (
+            <BidComparison
+              bids={bids}
+              scores={scores}
+              canSelect={isOwner && isClient}
+              onAccept={acceptBid}
+            />
+          )}
+
           <div>
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-lg font-bold">
@@ -240,6 +249,7 @@ function RequestDetail() {
                   <BidCard
                     key={b.id}
                     bid={b}
+                    scored={scores[b.id]}
                     isOwner={isOwner}
                     canSelect={isOwner && isClient && request.status === "open"}
                     isAccepted={b.status === "accepted"}
@@ -249,6 +259,7 @@ function RequestDetail() {
               </div>
             )}
           </div>
+
 
           {(request.status === "awarded" || request.status === "in_progress" || request.status === "completed") && acceptedBid && (
             <ReviewSection
