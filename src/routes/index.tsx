@@ -233,7 +233,7 @@ function Landing() {
 
       {/* For pros */}
       <section className="border-y border-border/60 bg-muted/40">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 md:grid-cols-2 md:items-center">
+        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 md:grid-cols-2 md:items-center md:gap-20">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
               <Wallet className="h-3.5 w-3.5" /> {t("pros.badge")}
