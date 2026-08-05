@@ -287,10 +287,12 @@ function Landing() {
                 value: "AR / NL / EN",
               },
             ].map((s) => (
-              <div key={s.label} className="rounded-2xl border bg-card p-5 shadow-soft">
-                <s.icon className="mb-3 h-6 w-6 text-primary" />
-                <div className="text-2xl font-extrabold">{s.value}</div>
-                <div className="text-xs text-muted-foreground">{s.label}</div>
+              <div key={s.label} className="rounded-2xl border bg-card p-6 shadow-soft">
+                <s.icon className="mb-3 h-7 w-7 text-primary" />
+                <div className="text-3xl font-extrabold leading-tight tracking-tight md:text-4xl">
+                  {s.value}
+                </div>
+                <div className="mt-1 text-sm text-muted-foreground">{s.label}</div>
               </div>
             ))}
           </div>
