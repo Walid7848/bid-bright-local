@@ -1,5 +1,5 @@
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
-import { Briefcase, Check, LogOut, Plus, Repeat, Sparkles, User as UserIcon } from "lucide-react";
+import { Check, LogOut, Plus, Repeat, Sparkles, User as UserIcon } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -16,6 +16,7 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useLang, LanguageSwitch } from "@/lib/i18n";
 import { useRoles, type AppRole } from "@/hooks/useRoles";
+import waslaLogo from "@/assets/wasla-logo.png.asset.json";
 
 export function AppHeader() {
   const { user } = useAuth();
@@ -67,10 +68,7 @@ export function AppHeader() {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-surface/80 backdrop-blur-lg">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link to="/requests" className="flex items-center gap-2">
-          <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-primary shadow-glow">
-            <Briefcase className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span className="text-lg font-bold tracking-tight">{t("brand.name")}</span>
+          <img src={waslaLogo.url} alt={t("brand.name")} className="h-9 w-auto" />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">

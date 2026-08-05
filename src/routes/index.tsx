@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { useLang, LanguageSwitch } from "@/lib/i18n";
 import { openCookiePreferences } from "@/lib/cookie-consent";
+import waslaLogo from "@/assets/wasla-logo.png.asset.json";
 
 import {
   ArrowLeft,
@@ -54,10 +55,7 @@ function Landing() {
       <header className="border-b border-border/60 bg-surface/80 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
           <div className="flex items-center gap-2">
-            <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-primary shadow-glow">
-              <Briefcase className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <span className="text-lg font-bold">{t("brand.name")}</span>
+            <img src={waslaLogo.url} alt={t("brand.name")} className="h-10 w-auto" />
           </div>
           <div className="flex items-center gap-2">
             <LanguageSwitch />
