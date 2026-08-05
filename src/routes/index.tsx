@@ -53,16 +53,16 @@ function Landing() {
     <div className="min-h-screen bg-background">
       {/* Nav */}
       <header className="border-b border-border/60 bg-surface/80 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+        <div className="mx-auto flex min-h-20 max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4 md:py-5">
           <div className="flex items-center gap-2">
-            <img src={waslaLogo.url} alt={t("brand.name")} className="h-10 w-auto" />
+            <img src={waslaLogo.url} alt={t("brand.name")} className="h-11 w-auto" />
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <LanguageSwitch />
             <Button asChild variant="ghost" size="sm">
               <Link to="/auth">{t("nav.signIn")}</Link>
             </Button>
-            <Button asChild size="sm">
+            <Button asChild variant="outline" size="sm">
               <Link to="/auth">{t("nav.start")}</Link>
             </Button>
           </div>
@@ -202,7 +202,7 @@ function Landing() {
           <h2 className="text-3xl font-bold md:text-4xl">{t("how.title")}</h2>
           <p className="mt-3 text-muted-foreground">{t("how.subtitle")}</p>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid items-stretch gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {[
             { icon: FileText, title: t("how.s1.title"), desc: t("how.s1.desc") },
             { icon: MessageSquare, title: t("how.s2.title"), desc: t("how.s2.desc") },
@@ -212,10 +212,17 @@ function Landing() {
           ].map((s, i) => (
             <div
               key={i}
-              className="group rounded-2xl border bg-card p-6 shadow-soft transition hover:shadow-elegant"
+              className="group flex h-full flex-col rounded-2xl border bg-card p-7 shadow-soft transition hover:shadow-elegant"
             >
-              <div className="mb-4 grid h-12 w-12 place-items-center rounded-xl bg-gradient-primary text-primary-foreground shadow-glow transition group-hover:scale-110">
-                <s.icon className="h-6 w-6" />
+              <div
+                className={
+                  "mb-5 grid h-16 w-16 place-items-center rounded-2xl shadow-glow transition group-hover:scale-110 " +
+                  (i % 2 === 0
+                    ? "bg-gradient-primary text-primary-foreground"
+                    : "bg-secondary text-secondary-foreground")
+                }
+              >
+                <s.icon className="h-8 w-8" />
               </div>
               <h3 className="text-lg font-bold">{s.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
@@ -226,7 +233,7 @@ function Landing() {
 
       {/* For pros */}
       <section className="border-y border-border/60 bg-muted/40">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 md:grid-cols-2 md:items-center">
+        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 md:grid-cols-2 md:items-center md:gap-20">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
               <Wallet className="h-3.5 w-3.5" /> {t("pros.badge")}
@@ -246,7 +253,7 @@ function Landing() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-5 sm:gap-6">
             {[
               {
                 icon: Users,
@@ -280,10 +287,12 @@ function Landing() {
                 value: "AR / NL / EN",
               },
             ].map((s) => (
-              <div key={s.label} className="rounded-2xl border bg-card p-5 shadow-soft">
-                <s.icon className="mb-3 h-6 w-6 text-primary" />
-                <div className="text-2xl font-extrabold">{s.value}</div>
-                <div className="text-xs text-muted-foreground">{s.label}</div>
+              <div key={s.label} className="rounded-2xl border bg-card p-6 shadow-soft">
+                <s.icon className="mb-3 h-7 w-7 text-primary" />
+                <div className="text-3xl font-extrabold leading-tight tracking-tight md:text-4xl">
+                  {s.value}
+                </div>
+                <div className="mt-1 text-sm text-muted-foreground">{s.label}</div>
               </div>
             ))}
           </div>
@@ -294,7 +303,7 @@ function Landing() {
       <section className="mx-auto max-w-4xl px-4 py-20 text-center">
         <h2 className="text-3xl font-bold md:text-4xl">{t("cta.ready")}</h2>
         <p className="mt-3 text-muted-foreground">{t("cta.readyDesc")}</p>
-        <Button asChild size="lg" className="mt-6 gap-1">
+        <Button asChild size="lg" variant="secondary" className="mt-6 gap-1 px-8 text-base shadow-elegant">
           <Link to="/auth">
             {t("cta.signup")}
             <Arrow className="h-4 w-4" />
@@ -302,32 +311,31 @@ function Landing() {
         </Button>
       </section>
 
-      <footer className="border-t border-border/60 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-4 text-sm text-muted-foreground md:flex-row md:justify-between">
+      <footer className="border-t border-border/60 py-10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-4 text-base text-muted-foreground md:flex-row md:justify-between">
           <div>
             © {new Date().getFullYear()} {t("brand.name")} · {t("brand.tagline")}
           </div>
-          <nav className="flex flex-wrap items-center justify-center gap-4">
-            <Link to="/about" className="hover:text-foreground">
+          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-base font-medium">
+            <Link to="/about" className="transition hover:text-foreground">
               {t("footer.about")}
             </Link>
-            <Link to="/privacy" className="hover:text-foreground">
+            <Link to="/privacy" className="transition hover:text-foreground">
               {t("footer.privacy")}
             </Link>
-            <Link to="/terms" className="hover:text-foreground">
+            <Link to="/terms" className="transition hover:text-foreground">
               {t("footer.terms")}
             </Link>
-            <Link to="/cookie-policy" className="hover:text-foreground">
+            <Link to="/cookie-policy" className="transition hover:text-foreground">
               {t("footer.cookies")}
             </Link>
             <button
               type="button"
               onClick={openCookiePreferences}
-              className="hover:text-foreground"
+              className="transition hover:text-foreground"
             >
               {t("consent.manage")}
             </button>
-
           </nav>
         </div>
       </footer>
