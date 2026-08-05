@@ -311,32 +311,31 @@ function Landing() {
         </Button>
       </section>
 
-      <footer className="border-t border-border/60 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-4 text-sm text-muted-foreground md:flex-row md:justify-between">
+      <footer className="border-t border-border/60 py-10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-4 text-base text-muted-foreground md:flex-row md:justify-between">
           <div>
             © {new Date().getFullYear()} {t("brand.name")} · {t("brand.tagline")}
           </div>
-          <nav className="flex flex-wrap items-center justify-center gap-4">
-            <Link to="/about" className="hover:text-foreground">
+          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-base font-medium">
+            <Link to="/about" className="transition hover:text-foreground">
               {t("footer.about")}
             </Link>
-            <Link to="/privacy" className="hover:text-foreground">
+            <Link to="/privacy" className="transition hover:text-foreground">
               {t("footer.privacy")}
             </Link>
-            <Link to="/terms" className="hover:text-foreground">
+            <Link to="/terms" className="transition hover:text-foreground">
               {t("footer.terms")}
             </Link>
-            <Link to="/cookie-policy" className="hover:text-foreground">
+            <Link to="/cookie-policy" className="transition hover:text-foreground">
               {t("footer.cookies")}
             </Link>
             <button
               type="button"
               onClick={openCookiePreferences}
-              className="hover:text-foreground"
+              className="transition hover:text-foreground"
             >
               {t("consent.manage")}
             </button>
-
           </nav>
         </div>
       </footer>
