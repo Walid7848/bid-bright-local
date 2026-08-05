@@ -303,7 +303,7 @@ function Landing() {
       <section className="mx-auto max-w-4xl px-4 py-20 text-center">
         <h2 className="text-3xl font-bold md:text-4xl">{t("cta.ready")}</h2>
         <p className="mt-3 text-muted-foreground">{t("cta.readyDesc")}</p>
-        <Button asChild size="lg" className="mt-6 gap-1">
+        <Button asChild size="lg" variant="secondary" className="mt-6 gap-1 px-8 text-base shadow-elegant">
           <Link to="/auth">
             {t("cta.signup")}
             <Arrow className="h-4 w-4" />
