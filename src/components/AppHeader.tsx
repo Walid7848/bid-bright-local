@@ -1,5 +1,5 @@
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
-import { Briefcase, Check, LogOut, Plus, Repeat, Sparkles, User as UserIcon } from "lucide-react";
+import { Check, LogOut, Plus, Repeat, Sparkles, User as UserIcon } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
