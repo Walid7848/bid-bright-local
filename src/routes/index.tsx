@@ -135,86 +135,105 @@ function Landing() {
           </div>
 
           <div className="relative">
-            <div className="rounded-2xl border border-white/20 bg-white/10 p-4 shadow-elegant backdrop-blur-xl">
-              <div className="rounded-xl bg-surface p-5 text-foreground shadow-soft" dir={lang === "ar" ? "rtl" : "ltr"}>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <div className="text-xs font-medium text-primary">
+            <div className="space-y-4" dir={lang === "ar" ? "rtl" : "ltr"}>
+              {[
+                {
+                  icon: Scale,
+                  cat:
+                    lang === "ar"
+                      ? "استشارة قانونية • أمستردام"
+                      : lang === "nl"
+                      ? "Juridisch advies • Amsterdam"
+                      : "Legal advice • Amsterdam",
+                  title:
+                    lang === "ar"
+                      ? "مراجعة عقد إيجار"
+                      : lang === "nl"
+                      ? "Huurcontract laten nakijken"
+                      : "Review a rental contract",
+                  price: "120",
+                  bids: 6,
+                  tone: "primary" as const,
+                },
+                {
+                  icon: FileText,
+                  cat:
+                    lang === "ar"
+                      ? "ترجمة محلّفة • روتردام"
+                      : lang === "nl"
+                      ? "Beëdigde vertaling • Rotterdam"
+                      : "Sworn translation • Rotterdam",
+                  title:
+                    lang === "ar"
+                      ? "ترجمة عقد عمل (AR ⇄ NL)"
+                      : lang === "nl"
+                      ? "Arbeidscontract vertalen (AR ⇄ NL)"
+                      : "Translate a work contract (AR ⇄ NL)",
+                  price: "75",
+                  bids: 9,
+                  tone: "secondary" as const,
+                },
+                {
+                  icon: Wrench,
+                  cat:
+                    lang === "ar"
+                      ? "سباكة • أوتريخت"
+                      : lang === "nl"
+                      ? "Loodgieter • Utrecht"
+                      : "Plumbing • Utrecht",
+                  title:
+                    lang === "ar"
+                      ? "إصلاح تسريب في المطبخ"
+                      : lang === "nl"
+                      ? "Lekkage in de keuken repareren"
+                      : "Fix a kitchen leak",
+                  price: "85",
+                  bids: 4,
+                  tone: "primary" as const,
+                },
+              ].map((c, i) => (
+                <div
+                  key={c.title}
+                  style={{ animationDelay: `${i * 140}ms` }}
+                  className={
+                    "flex animate-in items-center gap-4 rounded-2xl border border-white/20 bg-surface/95 p-4 text-foreground shadow-elegant backdrop-blur-xl transition duration-300 fade-in slide-in-from-bottom-3 hover:-translate-y-1 hover:shadow-glow " +
+                    (i === 1 ? "md:mx-4" : "")
+                  }
+                >
+                  <div
+                    className={
+                      "grid h-12 w-12 shrink-0 place-items-center rounded-xl " +
+                      (c.tone === "secondary"
+                        ? "bg-secondary text-secondary-foreground"
+                        : "bg-gradient-primary text-primary-foreground")
+                    }
+                  >
+                    <c.icon className="h-6 w-6" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[11px] font-medium text-primary">{c.cat}</div>
+                    <div className="truncate text-sm font-bold">{c.title}</div>
+                    <div className="mt-1 flex items-center gap-1 text-[11px] text-muted-foreground">
+                      <MessageSquare className="h-3 w-3" />
                       {lang === "ar"
-                        ? "سباكة • أمستردام"
+                        ? `${c.bids} عروض`
                         : lang === "nl"
-                        ? "Loodgieter • Amsterdam"
-                        : "Plumbing • Amsterdam"}
-                    </div>
-                    <div className="mt-1 text-lg font-bold">
-                      {lang === "ar"
-                        ? "إصلاح تسريب في المطبخ"
-                        : lang === "nl"
-                        ? "Lekkage in de keuken repareren"
-                        : "Fix a kitchen leak"}
+                        ? `${c.bids} offertes`
+                        : `${c.bids} offers`}
                     </div>
                   </div>
-                  <span className="rounded-full bg-success/15 px-2 py-0.5 text-xs font-medium text-success">
-                    {lang === "ar" ? "مفتوح" : lang === "nl" ? "Open" : "Open"}
-                  </span>
-                </div>
-                <p className="mt-3 text-sm text-muted-foreground">
-                  {lang === "ar"
-                    ? "تسريب أسفل الحوض يحتاج إصلاحاً سريعاً هذا الأسبوع."
-                    : lang === "nl"
-                    ? "Lekkage onder de gootsteen, deze week te repareren."
-                    : "Leak under the sink, needs a quick fix this week."}
-                </p>
-                <div className="mt-4 space-y-2">
-                  {[
-                    { name: lang === "ar" ? "يوسف م." : "Youssef M.", price: "85", days: 2 },
-                    {
-                      name: lang === "ar" ? "ساندرا ك." : "Sandra K.",
-                      price: "110",
-                      days: 1,
-                      best: true,
-                    },
-                    { name: lang === "ar" ? "عمر ح." : "Omar H.", price: "70", days: 3 },
-                  ].map((b) => (
-                    <div
-                      key={b.name}
-                      className={
-                        "flex items-center justify-between rounded-lg border p-3 " +
-                        (b.best
-                          ? "border-primary bg-primary/5 shadow-glow"
-                          : "border-border bg-muted/30")
-                      }
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="grid h-9 w-9 place-items-center rounded-full bg-gradient-primary text-xs font-semibold text-primary-foreground">
-                          {b.name.slice(0, 2)}
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold">{b.name}</div>
-                          <div className="text-xs text-muted-foreground">
-                            {lang === "ar"
-                              ? `خلال ${b.days} يوم`
-                              : lang === "nl"
-                              ? `${b.days} dagen`
-                              : `${b.days} days`}
-                          </div>
-                        </div>
-                      </div>
-                      <div className={lang === "ar" ? "text-left" : "text-right"}>
-                        <div className="text-base font-bold text-primary">€{b.price}</div>
-                        {b.best && (
-                          <div className="flex items-center gap-1 text-[10px] font-medium text-success">
-                            <CheckCircle2 className="h-3 w-3" />{" "}
-                            {lang === "ar" ? "الأنسب" : lang === "nl" ? "Beste keuze" : "Best pick"}
-                          </div>
-                        )}
-                      </div>
+                  <div className={lang === "ar" ? "text-left" : "text-right"}>
+                    <div className="text-base font-bold text-primary">€{c.price}</div>
+                    <div className="flex items-center gap-1 text-[10px] font-medium text-success">
+                      <CheckCircle2 className="h-3 w-3" />
+                      {lang === "ar" ? "الأنسب" : lang === "nl" ? "Beste keuze" : "Best pick"}
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
+
         </div>
       </section>
 
