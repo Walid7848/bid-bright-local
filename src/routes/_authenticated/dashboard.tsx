@@ -43,6 +43,7 @@ function Dashboard() {
   const { hasRole, activeRole } = useRoles();
   const { t, lang } = useLang();
   const locale = lang === "nl" ? nl : lang === "en" ? enUS : ar;
+  const ts = (s: string) => t(`status.${s}` as Parameters<typeof t>[0]);
 
   const [tab, setTab] = useState<string>(activeRole === "professional" ? "bids" : "requests");
   const [reqStatus, setReqStatus] = useState<string>("all");
@@ -117,7 +118,7 @@ function Dashboard() {
             value={reqStatus}
             onChange={setReqStatus}
             options={["all", ...REQ_STATUSES]}
-            label={(s) => t(`status.${s}`)}
+            label={(s) => ts(s)}
             count={countReq}
           />
           {loadingReq ? (
@@ -170,7 +171,7 @@ function Dashboard() {
                               : "bg-primary/15 text-primary"
                       }
                     >
-                      {t(`status.${r.status}`)}
+                      {ts(r.status)}
                     </Badge>
                   </div>
                 </Link>
@@ -184,7 +185,7 @@ function Dashboard() {
             value={bidStatus}
             onChange={setBidStatus}
             options={["all", ...BID_STATUSES]}
-            label={(s) => t(`status.${s}`)}
+            label={(s) => ts(s)}
             count={countBid}
           />
           {loadingBids ? (
@@ -232,7 +233,7 @@ function Dashboard() {
                               : "")
                         }
                       >
-                        {t(`status.${b.status}`)}
+                        {ts(b.status)}
                       </Badge>
                     </div>
                   </div>
