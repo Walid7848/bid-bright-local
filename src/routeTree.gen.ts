@@ -21,6 +21,7 @@ import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthenticatedMyRequestsRouteImport } from './routes/_authenticated/my-requests'
 import { Route as AuthenticatedMyBidsRouteImport } from './routes/_authenticated/my-bids'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedRequestsIndexRouteImport } from './routes/_authenticated/requests.index'
 import { Route as AuthenticatedSubscriptionHistoryRouteImport } from './routes/_authenticated/subscription.history'
 import { Route as AuthenticatedRequestsNewRouteImport } from './routes/_authenticated/requests.new'
@@ -86,6 +87,11 @@ const AuthenticatedMyBidsRoute = AuthenticatedMyBidsRouteImport.update({
   path: '/my-bids',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedRequestsIndexRoute =
   AuthenticatedRequestsIndexRouteImport.update({
     id: '/requests/',
@@ -117,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/cookie-policy': typeof CookiePolicyRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/my-bids': typeof AuthenticatedMyBidsRoute
   '/my-requests': typeof AuthenticatedMyRequestsRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/cookie-policy': typeof CookiePolicyRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/my-bids': typeof AuthenticatedMyBidsRoute
   '/my-requests': typeof AuthenticatedMyRequestsRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
@@ -153,6 +161,7 @@ export interface FileRoutesById {
   '/cookie-policy': typeof CookiePolicyRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/my-bids': typeof AuthenticatedMyBidsRoute
   '/_authenticated/my-requests': typeof AuthenticatedMyRequestsRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
@@ -172,6 +181,7 @@ export interface FileRouteTypes {
     | '/cookie-policy'
     | '/privacy'
     | '/terms'
+    | '/dashboard'
     | '/my-bids'
     | '/my-requests'
     | '/onboarding'
@@ -189,6 +199,7 @@ export interface FileRouteTypes {
     | '/cookie-policy'
     | '/privacy'
     | '/terms'
+    | '/dashboard'
     | '/my-bids'
     | '/my-requests'
     | '/onboarding'
@@ -207,6 +218,7 @@ export interface FileRouteTypes {
     | '/cookie-policy'
     | '/privacy'
     | '/terms'
+    | '/_authenticated/dashboard'
     | '/_authenticated/my-bids'
     | '/_authenticated/my-requests'
     | '/_authenticated/onboarding'
@@ -314,6 +326,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMyBidsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/requests/': {
       id: '/_authenticated/requests/'
       path: '/requests'
@@ -361,6 +380,7 @@ const AuthenticatedSubscriptionRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedMyBidsRoute: typeof AuthenticatedMyBidsRoute
   AuthenticatedMyRequestsRoute: typeof AuthenticatedMyRequestsRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
@@ -372,6 +392,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedMyBidsRoute: AuthenticatedMyBidsRoute,
   AuthenticatedMyRequestsRoute: AuthenticatedMyRequestsRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
