@@ -82,6 +82,26 @@ function Landing() {
               {t("hero.title")}
             </h1>
             <p className="text-lg text-white/85 md:text-xl">{t("hero.subtitle")}</p>
+
+            {/* Service badges */}
+            <div className="flex flex-wrap gap-2 pt-1">
+              {[
+                { icon: Scale, label: t("hero.badges.legal") },
+                { icon: Languages, label: t("hero.badges.translation") },
+                { icon: Calculator, label: t("hero.badges.accounting") },
+                { icon: Wrench, label: t("hero.badges.home") },
+                { icon: Truck, label: t("hero.badges.moving") },
+              ].map((b) => (
+                <span
+                  key={b.label}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-medium text-white backdrop-blur transition hover:border-secondary/70 hover:bg-white/20 md:text-sm"
+                >
+                  <b.icon className="h-4 w-4 text-secondary" />
+                  {b.label}
+                </span>
+              ))}
+            </div>
+
             <div className="flex flex-wrap gap-3 pt-2">
               <Button asChild size="lg" variant="secondary" className="gap-1 text-base">
                 <Link to="/auth">
