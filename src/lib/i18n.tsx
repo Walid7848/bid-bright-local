@@ -84,10 +84,16 @@ const DICT = {
     en: "Connecting professionals and tradespeople with clients in the Netherlands",
   },
   "hero.title": {
-    ar: "اطلب خدمتك، واختر أفضل عرض من أصحاب المهن في هولندا",
-    nl: "Vraag jouw dienst aan en kies de beste offerte in Nederland",
-    en: "Post your request and pick the best offer from pros in the Netherlands",
+    ar: "خدمتك المناسبة، من خبيرك الموثوق في هولندا",
+    nl: "De juiste dienst, van jouw vertrouwde expert in Nederland",
+    en: "The right service, from your trusted expert in the Netherlands",
   },
+  "hero.badges.legal": { ar: "محاماة واستشارات", nl: "Recht & advies", en: "Legal & advice" },
+  "hero.badges.translation": { ar: "ترجمة وتدقيق", nl: "Vertalen & proeflezen", en: "Translation & proofreading" },
+  "hero.badges.accounting": { ar: "محاسبة وضرائب", nl: "Boekhouding & belasting", en: "Accounting & tax" },
+  "hero.badges.home": { ar: "صيانة وتجهيز منازل", nl: "Klussen & woninginrichting", en: "Home repair & setup" },
+  "hero.badges.moving": { ar: "نقل وخدمات", nl: "Verhuizen & diensten", en: "Moving & services" },
+
   "hero.subtitle": {
     ar: "سباكون، كهربائيون، عمال نظافة، محامون، مترجمون، مدرسون، مصممون واستشاريون — لجميع القاطنين في هولندا، بلغة تناسبك.",
     nl: "Loodgieters, elektriciens, schoonmakers, advocaten, vertalers, docenten, ontwerpers en consultants — voor iedereen in Nederland, in jouw taal.",
