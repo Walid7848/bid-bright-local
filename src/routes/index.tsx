@@ -73,169 +73,154 @@ function Landing() {
       </header>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-hero text-white">
-        <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_20%_20%,white,transparent_40%),radial-gradient(circle_at_80%_60%,white,transparent_35%)]" />
-        <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-20 md:grid-cols-2 md:py-28">
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium backdrop-blur">
-              <Sparkles className="h-3.5 w-3.5" />
-              {t("hero.badge")}
-            </div>
-            <h1 className="text-4xl font-extrabold leading-tight md:text-6xl">
-              {t("hero.title")}
-            </h1>
-            <p className="text-lg text-white/85 md:text-xl">{t("hero.subtitle")}</p>
-
-            {/* Service badges */}
-            <div className="flex flex-wrap gap-2 pt-1">
-              {[
-                { icon: Scale, label: t("hero.badges.legal") },
-                { icon: Languages, label: t("hero.badges.translation") },
-                { icon: Calculator, label: t("hero.badges.accounting") },
-                { icon: Wrench, label: t("hero.badges.home") },
-                { icon: Truck, label: t("hero.badges.moving") },
-              ].map((b) => (
-                <span
-                  key={b.label}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-medium text-white backdrop-blur transition hover:border-secondary/70 hover:bg-white/20 md:text-sm"
-                >
-                  <b.icon className="h-4 w-4 text-secondary" />
-                  {b.label}
-                </span>
+      <section className="relative overflow-hidden bg-surface">
+        <div className="mx-auto max-w-6xl px-4 pt-10 pb-0 md:pt-14">
+          <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)_auto]">
+            {/* Service icon grid */}
+            <div className="order-2 grid grid-cols-5 gap-x-3 gap-y-5 lg:order-1">
+              {SERVICE_ICONS.map((s) => (
+                <div key={s.ar} className="flex flex-col items-center gap-1.5 text-center">
+                  <s.icon className="h-6 w-6 text-primary" strokeWidth={1.6} />
+                  <span className="text-[10px] font-medium leading-tight text-foreground/80">
+                    {lang === "ar" ? s.ar : lang === "nl" ? s.nl : s.en}
+                  </span>
+                </div>
               ))}
+              <div className="col-span-5 mt-1 inline-flex items-center justify-center gap-2 rounded-xl bg-muted px-3 py-2 text-[11px] font-medium text-primary">
+                <ShieldCheck className="h-4 w-4" />
+                {lang === "ar"
+                  ? "جميع مقدمي الخدمات موثوقون ومراجعون"
+                  : lang === "nl"
+                  ? "Alle vakmensen zijn geverifieerd en beoordeeld"
+                  : "All professionals are verified and reviewed"}
+              </div>
             </div>
 
-            <div className="flex flex-wrap gap-3 pt-2">
-              <Button asChild size="lg" variant="secondary" className="gap-1 text-base">
-                <Link to="/auth">
-                  {t("hero.cta.post")}
-                  <Arrow className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
-              >
-                <Link to="/auth">{t("hero.cta.pro")}</Link>
-              </Button>
+            {/* Center: logo + claim */}
+            <div className="order-1 text-center lg:order-2">
+              <img
+                src={waslaLogo.url}
+                alt={t("brand.name")}
+                className="mx-auto h-20 w-auto md:h-24"
+              />
+              <p className="mt-3 text-lg font-bold text-primary md:text-xl">
+                {t("brand.tagline")}
+              </p>
+              <div className="mx-auto my-4 h-px w-40 bg-border" />
+              <h1 className="text-xl font-extrabold leading-snug text-foreground md:text-2xl">
+                {t("hero.title")}
+              </h1>
+              <p className="mt-2 text-sm text-muted-foreground md:text-base">
+                {t("hero.subtitle")}
+              </p>
+              <div className="mt-6 flex flex-wrap justify-center gap-3">
+                <Button asChild size="lg" variant="secondary" className="gap-1 text-base">
+                  <Link to="/auth">
+                    {t("hero.cta.post")}
+                    <Arrow className="h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline">
+                  <Link to="/auth">{t("hero.cta.pro")}</Link>
+                </Button>
+              </div>
             </div>
-            <div className="flex flex-wrap items-center gap-6 pt-4 text-sm text-white/80">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4" /> {t("hero.feature.noCommission")}
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4" /> {t("hero.feature.local")}
-              </div>
-              <div className="flex items-center gap-2">
-                <Languages className="h-4 w-4" /> {t("hero.feature.bilingual")}
-              </div>
-            </div>
-          </div>
 
-          <div className="relative">
-            <div className="space-y-4" dir={lang === "ar" ? "rtl" : "ltr"}>
+            {/* Trust list */}
+            <div className="order-3 flex flex-row flex-wrap justify-center gap-4 lg:flex-col lg:gap-5">
               {[
                 {
-                  icon: Scale,
-                  cat:
-                    lang === "ar"
-                      ? "استشارة قانونية • أمستردام"
-                      : lang === "nl"
-                      ? "Juridisch advies • Amsterdam"
-                      : "Legal advice • Amsterdam",
-                  title:
-                    lang === "ar"
-                      ? "مراجعة عقد إيجار"
-                      : lang === "nl"
-                      ? "Huurcontract laten nakijken"
-                      : "Review a rental contract",
-                  price: "120",
-                  bids: 6,
-                  tone: "primary" as const,
+                  icon: ShieldCheck,
+                  ar: "مقدمون موثوقون",
+                  nl: "Betrouwbare vakmensen",
+                  en: "Trusted professionals",
                 },
+                { icon: Star, ar: "تقييمات حقيقية", nl: "Echte reviews", en: "Real reviews" },
                 {
-                  icon: FileText,
-                  cat:
-                    lang === "ar"
-                      ? "ترجمة محلّفة • روتردام"
-                      : lang === "nl"
-                      ? "Beëdigde vertaling • Rotterdam"
-                      : "Sworn translation • Rotterdam",
-                  title:
-                    lang === "ar"
-                      ? "ترجمة عقد عمل (AR ⇄ NL)"
-                      : lang === "nl"
-                      ? "Arbeidscontract vertalen (AR ⇄ NL)"
-                      : "Translate a work contract (AR ⇄ NL)",
-                  price: "75",
-                  bids: 9,
-                  tone: "secondary" as const,
+                  icon: MessageSquare,
+                  ar: "دعم بلغتك",
+                  nl: "Support in jouw taal",
+                  en: "Support in your language",
                 },
-                {
-                  icon: Wrench,
-                  cat:
-                    lang === "ar"
-                      ? "سباكة • أوتريخت"
-                      : lang === "nl"
-                      ? "Loodgieter • Utrecht"
-                      : "Plumbing • Utrecht",
-                  title:
-                    lang === "ar"
-                      ? "إصلاح تسريب في المطبخ"
-                      : lang === "nl"
-                      ? "Lekkage in de keuken repareren"
-                      : "Fix a kitchen leak",
-                  price: "85",
-                  bids: 4,
-                  tone: "primary" as const,
-                },
-              ].map((c, i) => (
-                <div
-                  key={c.title}
-                  style={{ animationDelay: `${i * 140}ms` }}
-                  className={
-                    "flex animate-in items-center gap-4 rounded-2xl border border-white/20 bg-surface/95 p-4 text-foreground shadow-elegant backdrop-blur-xl transition duration-300 fade-in slide-in-from-bottom-3 hover:-translate-y-1 hover:shadow-glow " +
-                    (i === 1 ? "md:mx-4" : "")
-                  }
-                >
-                  <div
-                    className={
-                      "grid h-12 w-12 shrink-0 place-items-center rounded-xl " +
-                      (c.tone === "secondary"
-                        ? "bg-secondary text-secondary-foreground"
-                        : "bg-gradient-primary text-primary-foreground")
-                    }
-                  >
-                    <c.icon className="h-6 w-6" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="text-[11px] font-medium text-primary">{c.cat}</div>
-                    <div className="truncate text-sm font-bold">{c.title}</div>
-                    <div className="mt-1 flex items-center gap-1 text-[11px] text-muted-foreground">
-                      <MessageSquare className="h-3 w-3" />
-                      {lang === "ar"
-                        ? `${c.bids} عروض`
-                        : lang === "nl"
-                        ? `${c.bids} offertes`
-                        : `${c.bids} offers`}
-                    </div>
-                  </div>
-                  <div className={lang === "ar" ? "text-left" : "text-right"}>
-                    <div className="text-base font-bold text-primary">€{c.price}</div>
-                    <div className="flex items-center gap-1 text-[10px] font-medium text-success">
-                      <CheckCircle2 className="h-3 w-3" />
-                      {lang === "ar" ? "الأنسب" : lang === "nl" ? "Beste keuze" : "Best pick"}
-                    </div>
-                  </div>
+                { icon: Lock, ar: "أمان وشفافية", nl: "Veilig en transparant", en: "Safe & transparent" },
+              ].map((f) => (
+                <div key={f.en} className="flex items-center gap-2 text-xs font-semibold text-primary">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
+                    <f.icon className="h-4 w-4" />
+                  </span>
+                  {lang === "ar" ? f.ar : lang === "nl" ? f.nl : f.en}
                 </div>
               ))}
             </div>
           </div>
+        </div>
 
+        {/* Photo band */}
+        <div className="relative mt-8">
+          <img
+            src={heroTeam}
+            alt={
+              lang === "ar"
+                ? "مجموعة من أصحاب المهن والمختصين في هولندا"
+                : lang === "nl"
+                ? "Groep vakmensen en professionals in Nederland"
+                : "A group of professionals and tradespeople in the Netherlands"
+            }
+            width={1920}
+            height={1088}
+            className="h-[280px] w-full object-cover object-top md:h-[420px]"
+          />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-surface to-transparent" />
+        </div>
+
+        {/* Trust bar */}
+        <div className="bg-gradient-hero text-white">
+          <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:grid-cols-2 lg:grid-cols-5">
+            {[
+              {
+                icon: ShieldCheck,
+                ar: ["موثوقون", "جميع مقدمي الخدمات موثوقون ومراجعون"],
+                nl: ["Betrouwbaar", "Alle vakmensen zijn geverifieerd"],
+                en: ["Trusted", "All professionals are verified"],
+              },
+              {
+                icon: Users,
+                ar: ["مجتمع قوي", "نخدم كل المقيمين في هولندا"],
+                nl: ["Sterke community", "Voor iedereen in Nederland"],
+                en: ["Strong community", "For everyone in the Netherlands"],
+              },
+              {
+                icon: Handshake,
+                ar: ["سهولة وراحة", "اطلب الخدمة واستلم العروض بسهولة"],
+                nl: ["Simpel en gemakkelijk", "Plaats je aanvraag, ontvang offertes"],
+                en: ["Simple & easy", "Post a request, receive offers"],
+              },
+              {
+                icon: Clock,
+                ar: ["يوفر وقتك وجهدك", "نساعدك في العثور على المختص بسرعة"],
+                nl: ["Bespaart tijd", "Snel de juiste vakman vinden"],
+                en: ["Saves time", "Find the right pro fast"],
+              },
+              {
+                icon: TrendingUp,
+                ar: ["فرص عمل ونمو", "ندعم المهنيين لتطوير أعمالهم"],
+                nl: ["Groeikansen", "Wij helpen vakmensen groeien"],
+                en: ["Growth opportunities", "We help professionals grow"],
+              },
+            ].map((f) => {
+              const [title, desc] = lang === "ar" ? f.ar : lang === "nl" ? f.nl : f.en;
+              return (
+                <div key={title} className="text-center">
+                  <f.icon className="mx-auto h-7 w-7 text-secondary" strokeWidth={1.6} />
+                  <div className="mt-2 text-sm font-bold">{title}</div>
+                  <div className="mt-1 text-xs text-white/75">{desc}</div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
+
 
 
       {/* How it works */}
