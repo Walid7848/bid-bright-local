@@ -3,49 +3,24 @@ import { Button } from "@/components/ui/button";
 import { useLang, LanguageSwitch } from "@/lib/i18n";
 import { openCookiePreferences } from "@/lib/cookie-consent";
 import waslaLogo from "@/assets/wasla-logo.png.asset.json";
-import heroTeam from "@/assets/wasla-hero-team.jpg";
+import waslaCover from "@/assets/wasla-cover.jpg.asset.json";
 
 import {
   ArrowLeft,
   ArrowRight,
   Briefcase,
-  Car,
   CheckCircle2,
-  ClipboardList,
-  Clock,
   FileText,
-  Hammer,
-  Handshake,
-  Home,
   Languages,
-  Laptop,
-  Lock,
   MapPin,
   MessageSquare,
-  PaintRoller,
-  SprayCan,
   Star,
-  ShieldCheck,
-  TrendingUp,
-  Truck,
+  CheckCircle2 as _CheckCircle2,
   Users,
   Wallet,
   Wrench,
-  Zap,
 } from "lucide-react";
 
-const SERVICE_ICONS = [
-  { icon: Home, ar: "خدمات منزلية", nl: "Huisdiensten", en: "Home services" },
-  { icon: Wrench, ar: "سباكة", nl: "Loodgieter", en: "Plumbing" },
-  { icon: Zap, ar: "كهرباء", nl: "Elektra", en: "Electrical" },
-  { icon: PaintRoller, ar: "دهان وديكور", nl: "Schilderwerk", en: "Painting" },
-  { icon: Truck, ar: "نقل وتخزين", nl: "Verhuizen", en: "Moving" },
-  { icon: SprayCan, ar: "تنظيف", nl: "Schoonmaak", en: "Cleaning" },
-  { icon: Hammer, ar: "نجارة", nl: "Timmerwerk", en: "Carpentry" },
-  { icon: Car, ar: "ميكانيك سيارات", nl: "Automonteur", en: "Car repair" },
-  { icon: Laptop, ar: "دعم تقني", nl: "IT-support", en: "Tech support" },
-  { icon: ClipboardList, ar: "استشارات مهنية", nl: "Professioneel advies", en: "Pro advice" },
-];
 
 
 export const Route = createFileRoute("/")({
