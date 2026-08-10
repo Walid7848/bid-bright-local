@@ -116,6 +116,11 @@ const DICT = {
     nl: "Arabisch / Nederlands / Engels",
     en: "Arabic / Dutch / English",
   },
+  "hero.trust.professionals": {
+    ar: "جميعهم محترفون في مجال عملهم",
+    nl: "Allemaal professionals in hun vakgebied",
+    en: "All professionals in their field",
+  },
 
   // how it works
   "how.title": { ar: "كيف تعمل المنصة؟", nl: "Hoe werkt het?", en: "How it works" },
