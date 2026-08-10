@@ -76,20 +76,119 @@ function Landing() {
       </header>
 
       {/* Hero cover */}
-      <section className="bg-surface">
+      <section className="relative overflow-hidden bg-surface">
         <img
-          src={waslaCover.url}
+          src={waslaHeroBg}
           alt={
             lang === "ar"
-              ? "وصلة — خدمات موثوقة بلغة تفهمها، مجموعة من المهنيين في هولندا"
+              ? "وصلة — خدمات مهنية بلغة تفهمها، مجموعة من المهنيين في هولندا"
               : lang === "nl"
-              ? "Wasla — betrouwbare diensten in jouw taal, vakmensen in Nederland"
-              : "Wasla — trusted services in your language, professionals in the Netherlands"
+              ? "Wasla — professionele diensten in jouw taal, vakmensen in Nederland"
+              : "Wasla — professional services in your language, skilled workers in the Netherlands"
           }
           width={1656}
           height={946}
-          className="w-full"
+          className="absolute inset-0 h-full w-full object-cover"
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-surface/95 via-surface/80 to-surface/60" />
+        <div className="relative mx-auto max-w-6xl px-4 py-16 md:py-24">
+          <div className="grid items-center gap-10 lg:grid-cols-12">
+            {/* Service badges */}
+            <div className="order-2 hidden grid-cols-2 gap-3 lg:order-1 lg:col-span-3 lg:grid">
+              {[
+                { icon: Scale, label: t("hero.badges.legal") },
+                { icon: Languages, label: t("hero.badges.translation") },
+                { icon: Briefcase, label: t("hero.badges.accounting") },
+                { icon: Wrench, label: t("hero.badges.home") },
+                { icon: Truck, label: t("hero.badges.moving") },
+                { icon: Paintbrush, label: lang === "ar" ? "تصميم وديكور" : lang === "nl" ? "Design & decor" : "Design & decor" },
+              ].map((s, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col items-center gap-2 rounded-xl border bg-card/80 p-4 text-center shadow-soft backdrop-blur"
+                >
+                  <s.icon className="h-6 w-6 text-primary" />
+                  <span className="text-xs font-semibold">{s.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Center content */}
+            <div className="order-1 text-center lg:order-2 lg:col-span-6">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
+                <ShieldCheck className="h-4 w-4" />
+                {t("hero.trust.professionals")}
+              </div>
+              <img
+                src={waslaLogo.url}
+                alt={t("brand.name")}
+                className="mx-auto mb-4 h-16 w-auto md:h-20"
+              />
+              <p className="mb-3 text-lg font-medium text-primary md:text-xl">
+                {t("brand.tagline")}
+              </p>
+              <h1 className="text-3xl font-extrabold leading-tight text-foreground md:text-5xl">
+                {t("hero.title")}
+              </h1>
+              <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground md:text-lg">
+                {t("hero.subtitle")}
+              </p>
+              <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <Button asChild size="lg" className="gap-2 px-6">
+                  <Link to="/auth">
+                    {t("hero.cta.post")}
+                    <Arrow className="h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="px-6">
+                  <Link to="/auth">{t("hero.cta.pro")}</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Trust benefits */}
+            <div className="order-3 lg:col-span-3">
+              <div className="rounded-2xl border bg-card/90 p-5 shadow-elegant backdrop-blur">
+                <h3 className="mb-4 text-center text-lg font-bold">
+                  {lang === "ar" ? "لماذا وصلة؟" : lang === "nl" ? "Waarom Wasla?" : "Why Wasla?"}
+                </h3>
+                <ul className="space-y-3">
+                  {[
+                    { icon: Users, text: t("hero.feature.local") },
+                    { icon: Star, text: t("hero.trust.professionals") },
+                    { icon: Languages, text: t("hero.feature.bilingual") },
+                    { icon: Wallet, text: t("hero.feature.noCommission") },
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-center gap-3 text-sm font-medium">
+                      <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+                        <item.icon className="h-4 w-4" />
+                      </div>
+                      {item.text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom trust bar */}
+          <div className="relative mt-12 rounded-2xl bg-gradient-to-r from-primary to-primary/90 p-6 text-primary-foreground shadow-elegant md:mt-16">
+            <div className="grid gap-6 text-center sm:grid-cols-2 lg:grid-cols-5">
+              {[
+                { value: "+200", label: lang === "ar" ? "مقدم خدمة" : lang === "nl" ? "Professionals" : "Professionals" },
+                { value: "25", label: lang === "ar" ? "مدينة هولندية" : lang === "nl" ? "Nederlandse steden" : "Dutch cities" },
+                { value: "AR / NL / EN", label: lang === "ar" ? "لغة مدعومة" : lang === "nl" ? "Talen" : "Languages" },
+                { value: "0%", label: lang === "ar" ? "عمولة على العروض" : lang === "nl" ? "Commissie op offertes" : "Commission on bids" },
+                { value: "24/7", label: lang === "ar" ? "تواصل مباشر" : lang === "nl" ? "Direct contact" : "Direct contact" },
+              ].map((s, i) => (
+                <div key={i} className="flex flex-col items-center">
+                  <div className="text-2xl font-extrabold md:text-3xl">{s.value}</div>
+                  <div className="mt-1 text-sm opacity-90">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
 
