@@ -91,10 +91,10 @@ function Landing() {
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-surface/80 via-surface/45 to-surface/20" />
-        <div className="relative mx-auto max-w-6xl px-4 py-16 md:py-24">
-          <div className="grid items-stretch gap-6 lg:grid-cols-12 lg:gap-10">
+        <div className="relative mx-auto max-w-6xl px-4 py-10 sm:py-14 md:py-20 lg:py-24">
+          <div className="grid items-stretch gap-6 lg:grid-cols-12 lg:gap-8 xl:gap-10">
             {/* Service badges */}
-            <div className="order-2 hidden grid-cols-2 gap-3 lg:order-1 lg:col-span-3 lg:grid">
+            <div className="order-2 hidden grid-cols-2 gap-3 lg:order-1 xl:col-span-3 xl:grid">
               {[
                 { icon: Scale, label: t("hero.badges.legal") },
                 { icon: Languages, label: t("hero.badges.translation") },
@@ -114,7 +114,7 @@ function Landing() {
             </div>
 
             {/* Center content */}
-            <div className="order-1 self-center lg:order-2 lg:col-span-6">
+            <div className="order-1 self-center lg:order-2 lg:col-span-7 xl:col-span-6">
               <div className="rounded-3xl border border-border/50 bg-card/85 p-6 text-center shadow-elegant backdrop-blur-md md:p-8">
                 <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
                   <ShieldCheck className="h-4 w-4" />
@@ -145,7 +145,7 @@ function Landing() {
 
 
             {/* Why Wasla */}
-            <div className="order-3 flex h-full lg:col-span-3">
+            <div className="order-3 flex h-full lg:col-span-5 xl:col-span-3">
               <div className="flex h-full w-full flex-col rounded-2xl border bg-card/90 p-5 shadow-elegant backdrop-blur md:p-6">
                 <h3 className="mb-5 text-center text-lg font-bold text-balance md:text-xl">
                   {t("hero.why.title")}
