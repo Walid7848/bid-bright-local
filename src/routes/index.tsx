@@ -92,7 +92,7 @@ function Landing() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-surface/95 via-surface/80 to-surface/60" />
         <div className="relative mx-auto max-w-6xl px-4 py-16 md:py-24">
-          <div className="grid items-center gap-10 lg:grid-cols-12">
+          <div className="grid items-stretch gap-6 lg:grid-cols-12 lg:gap-10">
             {/* Service badges */}
             <div className="order-2 hidden grid-cols-2 gap-3 lg:order-1 lg:col-span-3 lg:grid">
               {[
@@ -114,7 +114,7 @@ function Landing() {
             </div>
 
             {/* Center content */}
-            <div className="order-1 text-center lg:order-2 lg:col-span-6">
+            <div className="order-1 self-center text-center lg:order-2 lg:col-span-6">
               <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
                 <ShieldCheck className="h-4 w-4" />
                 {t("hero.trust.professionals")}
@@ -147,22 +147,22 @@ function Landing() {
             </div>
 
             {/* Why Wasla */}
-            <div className="order-3 lg:col-span-3">
-              <div className="rounded-2xl border bg-card/90 p-5 shadow-elegant backdrop-blur">
-                <h3 className="mb-4 text-center text-lg font-bold">
+            <div className="order-3 flex h-full lg:col-span-3">
+              <div className="flex h-full w-full flex-col rounded-2xl border bg-card/90 p-5 shadow-elegant backdrop-blur md:p-6">
+                <h3 className="mb-5 text-center text-lg font-bold text-balance md:text-xl">
                   {t("hero.why.title")}
                 </h3>
-                <ul className="space-y-4">
+                <ul className="flex flex-1 flex-col justify-center gap-5">
                   {[
                     { icon: Languages, text: t("hero.why.point1") },
                     { icon: Users, text: t("hero.why.point2") },
                     { icon: Star, text: t("hero.why.point3") },
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm font-medium">
-                      <div className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+                    <li key={i} className="flex items-start gap-3 text-sm font-medium md:gap-4">
+                      <div className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primary/10 text-primary md:h-9 md:w-9">
                         <item.icon className="h-4 w-4" />
                       </div>
-                      <span className="leading-relaxed">{item.text}</span>
+                      <span className="min-w-0 flex-1 leading-relaxed text-balance">{item.text}</span>
                     </li>
                   ))}
                 </ul>
