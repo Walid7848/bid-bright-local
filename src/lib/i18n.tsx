@@ -121,6 +121,22 @@ const DICT = {
     nl: "Allemaal professionals in hun vakgebied",
     en: "All professionals in their field",
   },
+  "hero.why.title": { ar: "لماذا وصلة؟", nl: "Waarom Wasla?", en: "Why Wasla?" },
+  "hero.why.point1": {
+    ar: "بلغة تفهمها، وبدون عمولات: منصة مجانية بالكامل تربطك بأفضل المهنيين والحرفيين بلغات متعددة.",
+    nl: "In een taal die je begrijpt, zonder commissie: een volledig gratis platform dat je verbindt met de beste professionals en vakmensen in meerdere talen.",
+    en: "In a language you understand, with no commissions: a completely free platform connecting you with the best professionals and tradespeople in multiple languages.",
+  },
+  "hero.why.point2": {
+    ar: "حساب واحد لجميع احتياجاتك: تنقّل بسلاسة بين تقديم الخدمات أو طلبها من نفس الحساب.",
+    nl: "Eén account voor al je behoeften: schakel naadloos tussen het aanbieden van diensten en het aanvragen ervan vanuit hetzelfde account.",
+    en: "One account for all your needs: seamlessly switch between offering services and requesting them from the same account.",
+  },
+  "hero.why.point3": {
+    ar: "أفضل العروض والفرص: سواء كنت تبحث عن منفّذ لخدمتك بأفضل سعر، أو ترغب في زيادة دخلك كمهني، فأنت في المكان المناسب.",
+    nl: "De beste aanbiedingen en kansen: of je nu op zoek bent naar iemand die je dienst tegen de beste prijs uitvoert, of je inkomen als professional wilt vergroten, je bent op de juiste plek.",
+    en: "The best offers and opportunities: whether you're looking for someone to perform your service at the best price, or want to increase your income as a professional, you're in the right place.",
+  },
 
   // how it works
   "how.title": { ar: "كيف تعمل المنصة؟", nl: "Hoe werkt het?", en: "How it works" },
