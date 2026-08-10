@@ -146,24 +146,23 @@ function Landing() {
               </div>
             </div>
 
-            {/* Trust benefits */}
+            {/* Why Wasla */}
             <div className="order-3 lg:col-span-3">
               <div className="rounded-2xl border bg-card/90 p-5 shadow-elegant backdrop-blur">
                 <h3 className="mb-4 text-center text-lg font-bold">
-                  {lang === "ar" ? "لماذا وصلة؟" : lang === "nl" ? "Waarom Wasla?" : "Why Wasla?"}
+                  {t("hero.why.title")}
                 </h3>
-                <ul className="space-y-3">
+                <ul className="space-y-4">
                   {[
-                    { icon: Users, text: t("hero.feature.local") },
-                    { icon: Star, text: t("hero.trust.professionals") },
-                    { icon: Languages, text: t("hero.feature.bilingual") },
-                    { icon: Wallet, text: t("hero.feature.noCommission") },
+                    { icon: Languages, text: t("hero.why.point1") },
+                    { icon: Users, text: t("hero.why.point2") },
+                    { icon: Star, text: t("hero.why.point3") },
                   ].map((item, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm font-medium">
-                      <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+                    <li key={i} className="flex items-start gap-3 text-sm font-medium">
+                      <div className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
                         <item.icon className="h-4 w-4" />
                       </div>
-                      {item.text}
+                      <span className="leading-relaxed">{item.text}</span>
                     </li>
                   ))}
                 </ul>
