@@ -15,7 +15,7 @@ import {
   MapPin,
   MessageSquare,
   Star,
-  CheckCircle2 as _CheckCircle2,
+  
   Users,
   Wallet,
   Wrench,
