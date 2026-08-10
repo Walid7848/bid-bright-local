@@ -114,37 +114,35 @@ function Landing() {
             </div>
 
             {/* Center content */}
-            <div className="order-1 self-center text-center lg:order-2 lg:col-span-6">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
-                <ShieldCheck className="h-4 w-4" />
-                {t("hero.trust.professionals")}
-              </div>
-              <img
-                src={waslaLogo.url}
-                alt={t("brand.name")}
-                className="mx-auto mb-4 h-16 w-auto md:h-20"
-              />
-              <p className="mb-3 text-lg font-medium text-primary md:text-xl">
-                {t("brand.tagline")}
-              </p>
-              <h1 className="text-3xl font-extrabold leading-tight text-foreground md:text-5xl">
-                {t("hero.title")}
-              </h1>
-              <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground md:text-lg">
-                {t("hero.subtitle")}
-              </p>
-              <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Button asChild size="lg" className="gap-2 px-6">
-                  <Link to="/auth">
-                    {t("hero.cta.post")}
-                    <Arrow className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="px-6">
-                  <Link to="/auth">{t("hero.cta.pro")}</Link>
-                </Button>
+            <div className="order-1 self-center lg:order-2 lg:col-span-6">
+              <div className="rounded-3xl border border-border/50 bg-card/85 p-6 text-center shadow-elegant backdrop-blur-md md:p-8">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
+                  <ShieldCheck className="h-4 w-4" />
+                  {t("hero.trust.professionals")}
+                </div>
+                <p className="mb-3 text-lg font-medium text-primary md:text-xl">
+                  {t("brand.tagline")}
+                </p>
+                <h1 className="text-3xl font-extrabold leading-tight text-foreground md:text-5xl">
+                  {t("hero.title")}
+                </h1>
+                <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                  <Button asChild size="lg" className="gap-2 px-6 shadow-elegant">
+                    <Link to="/auth">
+                      {t("hero.cta.post")}
+                      <Arrow className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                  <Button asChild variant="outline" size="lg" className="border-primary/40 bg-card px-6 text-primary shadow-soft">
+                    <Link to="/auth">{t("hero.cta.pro")}</Link>
+                  </Button>
+                </div>
+                <p className="mx-auto mt-6 max-w-xl text-sm text-muted-foreground md:text-base">
+                  {t("hero.subtitle")}
+                </p>
               </div>
             </div>
+
 
             {/* Why Wasla */}
             <div className="order-3 flex h-full lg:col-span-3">
