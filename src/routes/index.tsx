@@ -90,7 +90,7 @@ function Landing() {
           height={946}
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-surface/95 via-surface/80 to-surface/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-surface/80 via-surface/45 to-surface/20" />
         <div className="relative mx-auto max-w-6xl px-4 py-16 md:py-24">
           <div className="grid items-stretch gap-6 lg:grid-cols-12 lg:gap-10">
             {/* Service badges */}
