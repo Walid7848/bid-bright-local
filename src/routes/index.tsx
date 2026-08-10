@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useLang, LanguageSwitch } from "@/lib/i18n";
 import { openCookiePreferences } from "@/lib/cookie-consent";
 import waslaLogo from "@/assets/wasla-logo.png.asset.json";
-import waslaCover from "@/assets/wasla-cover.jpg.asset.json";
+import waslaHeroBg from "@/assets/wasla-hero-bg.jpg";
 
 import {
   ArrowLeft,
@@ -11,11 +11,15 @@ import {
   Briefcase,
   CheckCircle2,
   FileText,
+  Gavel,
   Languages,
   MapPin,
   MessageSquare,
+  Paintbrush,
+  Scale,
+  ShieldCheck,
   Star,
-  
+  Truck,
   Users,
   Wallet,
   Wrench,
