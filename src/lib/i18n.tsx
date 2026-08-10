@@ -84,9 +84,9 @@ const DICT = {
     en: "Connecting professionals and tradespeople with clients in the Netherlands",
   },
   "hero.title": {
-    ar: "خدمتك المناسبة، من خبيرك الموثوق في هولندا",
-    nl: "De juiste dienst, van jouw vertrouwde expert in Nederland",
-    en: "The right service, from your trusted expert in the Netherlands",
+    ar: "خدمتك المناسبة، من خبيرك المحترف في هولندا",
+    nl: "De juiste dienst, van jouw professionele expert in Nederland",
+    en: "The right service, from your professional expert in the Netherlands",
   },
   "hero.badges.legal": { ar: "محاماة واستشارات", nl: "Recht & advies", en: "Legal & advice" },
   "hero.badges.translation": { ar: "ترجمة وتدقيق", nl: "Vertalen & proeflezen", en: "Translation & proofreading" },
