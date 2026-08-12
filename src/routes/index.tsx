@@ -87,7 +87,7 @@ function Landing() {
       <header className="border-b border-border/60 bg-surface/80 backdrop-blur">
         <div className="mx-auto flex min-h-20 max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 md:py-5">
           <div className="flex items-center gap-2">
-            <img src={waslaLogo.url} alt={t("brand.name")} className="h-11 w-auto" />
+            <img src={waslaLogo} alt={t("brand.name")} className="h-11 w-auto" />
           </div>
           <div className="flex items-center gap-3">
             <LanguageSwitch />
