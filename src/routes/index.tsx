@@ -56,6 +56,30 @@ export const Route = createFileRoute("/")({
 function Landing() {
   const { t, lang } = useLang();
   const Arrow = lang === "ar" ? ArrowLeft : ArrowRight;
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [visibleSteps, setVisibleSteps] = useState<Set<number>>(new Set());
+
+  useEffect(() => {
+    if (typeof window === "undefined" || window.innerWidth >= 768) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = Number(entry.target.getAttribute("data-step-index"));
+          if (entry.isIntersecting) {
+            setVisibleSteps((prev) => new Set([...prev, index]));
+          }
+        });
+      },
+      { threshold: 0.25, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    stepRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
