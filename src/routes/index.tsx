@@ -6,6 +6,7 @@ import waslaLogo from "@/assets/wasla-logo.png.asset.json";
 import waslaHeroBg from "@/assets/wasla-hero-bg.jpg";
 
 import {
+  ArrowDown,
   ArrowLeft,
   ArrowRight,
   Briefcase,
@@ -197,7 +198,7 @@ function Landing() {
           <h2 className="text-3xl font-bold md:text-4xl">{t("how.title")}</h2>
           <p className="mt-3 text-muted-foreground">{t("how.subtitle")}</p>
         </div>
-        <div className="grid items-stretch gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="flex flex-col md:flex-row md:items-stretch md:gap-3 lg:gap-5">
           {[
             { icon: FileText, title: t("how.s1.title"), desc: t("how.s1.desc") },
             { icon: MessageSquare, title: t("how.s2.title"), desc: t("how.s2.desc") },
@@ -205,22 +206,25 @@ function Landing() {
             { icon: Wrench, title: t("how.s4.title"), desc: t("how.s4.desc") },
             { icon: Star, title: t("how.s5.title"), desc: t("how.s5.desc") },
           ].map((s, i) => (
-            <div
-              key={i}
-              className="group flex h-full flex-col rounded-2xl border bg-card p-7 shadow-soft transition hover:shadow-elegant"
-            >
-              <div
-                className={
-                  "mb-5 grid h-16 w-16 place-items-center rounded-2xl shadow-glow transition group-hover:scale-110 " +
-                  (i % 2 === 0
-                    ? "bg-gradient-primary text-primary-foreground"
-                    : "bg-secondary text-secondary-foreground")
-                }
-              >
-                <s.icon className="h-8 w-8" />
+            <div key={i} className="flex items-stretch gap-3 md:flex-1 md:flex-col md:gap-0">
+              <div className="group flex flex-1 flex-col rounded-2xl border bg-card p-5 shadow-soft transition hover:shadow-elegant md:p-6">
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-primary text-primary-foreground shadow-glow transition group-hover:scale-110">
+                    <s.icon className="h-6 w-6" />
+                  </div>
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-muted text-sm font-bold text-muted-foreground">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <h3 className="text-base font-bold md:text-lg">{s.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
               </div>
-              <h3 className="text-lg font-bold">{s.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
+              {i < 4 && (
+                <div className="flex items-center justify-center py-2 md:px-1 md:py-0">
+                  <ArrowDown className="h-5 w-5 text-primary/40 md:hidden" />
+                  <Arrow className="hidden h-5 w-5 shrink-0 text-primary/40 md:block" />
+                </div>
+              )}
             </div>
           ))}
         </div>
