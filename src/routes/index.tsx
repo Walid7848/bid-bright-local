@@ -207,7 +207,7 @@ function Landing() {
             { icon: Wrench, title: t("how.s4.title"), desc: t("how.s4.desc") },
             { icon: Star, title: t("how.s5.title"), desc: t("how.s5.desc") },
           ].map((s, i) => (
-            <div key={i} className="flex items-stretch gap-3 md:flex-1 md:flex-col md:gap-0">
+            <div key={i} className="flex flex-1 flex-col items-stretch gap-0 md:flex-row md:gap-3">
               <div className="group flex flex-1 flex-col rounded-2xl border bg-card p-5 shadow-soft transition hover:shadow-elegant md:p-6">
                 <div className="mb-4 flex items-center gap-3">
                   <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-primary text-primary-foreground shadow-glow transition group-hover:scale-110">
