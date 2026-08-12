@@ -59,7 +59,7 @@ function Landing() {
     <div className="min-h-screen bg-background">
       {/* Nav */}
       <header className="border-b border-border/60 bg-surface/80 backdrop-blur">
-        <div className="mx-auto flex min-h-20 max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4 md:py-5">
+        <div className="mx-auto flex min-h-20 max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 md:py-5">
           <div className="flex items-center gap-2">
             <img src={waslaLogo.url} alt={t("brand.name")} className="h-11 w-auto" />
           </div>
@@ -91,7 +91,7 @@ function Landing() {
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-surface/80 via-surface/45 to-surface/20" />
-        <div className="relative mx-auto max-w-6xl px-4 py-10 sm:py-14 md:py-20 lg:py-24">
+        <div className="relative mx-auto max-w-7xl px-4 py-10 sm:py-14 md:py-20 lg:py-24">
           <div className="grid items-stretch gap-6 lg:grid-cols-12 lg:gap-8 xl:gap-10">
             {/* Service badges */}
             <div className="order-2 hidden grid-cols-2 gap-3 lg:order-1 xl:col-span-3 xl:grid">
@@ -192,7 +192,7 @@ function Landing() {
 
 
       {/* How it works */}
-      <section className="mx-auto max-w-6xl px-4 py-20">
+      <section className="mx-auto max-w-7xl px-4 py-20">
         <div className="mb-14 text-center">
           <h2 className="text-3xl font-bold md:text-4xl">{t("how.title")}</h2>
           <p className="mt-3 text-muted-foreground">{t("how.subtitle")}</p>
@@ -228,7 +228,7 @@ function Landing() {
 
       {/* For pros */}
       <section className="border-y border-border/60 bg-muted/40">
-        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 md:grid-cols-2 md:items-center md:gap-20">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 md:grid-cols-2 md:items-center md:gap-20">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
               <Wallet className="h-3.5 w-3.5" /> {t("pros.badge")}
@@ -307,7 +307,7 @@ function Landing() {
       </section>
 
       <footer className="border-t border-border/60 py-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-4 text-base text-muted-foreground md:flex-row md:justify-between">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-5 px-4 text-base text-muted-foreground md:flex-row md:justify-between">
           <div>
             © {new Date().getFullYear()} {t("brand.name")} · {t("brand.tagline")}
           </div>
