@@ -267,3 +267,34 @@
     background-color: var(--secondary);
   }
 }
+
+/* Sequential step entrance — mobile only */
+@keyframes step-enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.step-card {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .step-card {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.45s ease-out,
+      transform 0.45s ease-out;
+  }
+
+  .step-card.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
