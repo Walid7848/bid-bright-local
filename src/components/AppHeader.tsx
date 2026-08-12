@@ -16,7 +16,7 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useLang, LanguageSwitch } from "@/lib/i18n";
 import { useRoles, type AppRole } from "@/hooks/useRoles";
-import waslaLogo from "@/assets/wasla-logo.png.asset.json";
+import waslaLogo from "@/assets/wasla-logo.png";
 
 export function AppHeader() {
   const { user } = useAuth();
@@ -68,7 +68,7 @@ export function AppHeader() {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-surface/80 backdrop-blur-lg">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link to="/requests" className="flex items-center gap-2">
-          <img src={waslaLogo.url} alt={t("brand.name")} className="h-9 w-auto" />
+          <img src={waslaLogo} alt={t("brand.name")} className="h-9 w-auto" />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
