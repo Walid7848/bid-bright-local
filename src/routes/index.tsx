@@ -233,7 +233,12 @@ function Landing() {
             { icon: Star, title: t("how.s5.title"), desc: t("how.s5.desc") },
           ].map((s, i) => (
             <div key={i} className="flex flex-1 flex-col items-stretch gap-0 md:flex-row md:gap-3">
-              <div className="group flex flex-1 flex-col rounded-2xl border bg-card p-5 shadow-soft transition hover:shadow-elegant md:p-6">
+              <div
+                ref={(el) => { stepRefs.current[i] = el; }}
+                data-step-index={i}
+                className={`step-card group flex flex-1 flex-col rounded-2xl border bg-card p-5 shadow-soft transition hover:shadow-elegant md:p-6 ${visibleSteps.has(i) ? "in-view" : ""}`}
+                style={{ transitionDelay: `${i * 90}ms` }}
+              >
                 <div className="mb-4 flex items-center gap-3">
                   <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-primary text-primary-foreground shadow-glow transition group-hover:scale-110">
                     <s.icon className="h-6 w-6" />
