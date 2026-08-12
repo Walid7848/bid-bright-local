@@ -124,17 +124,17 @@ function Landing() {
                 <p className="mb-3 text-lg font-medium text-primary md:text-xl">
                   {t("brand.tagline")}
                 </p>
-                <h1 className="text-3xl font-extrabold leading-tight text-foreground md:text-5xl">
+                <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-primary-dark md:text-5xl">
                   {t("hero.title")}
                 </h1>
                 <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                  <Button asChild size="lg" className="gap-2 px-6 shadow-elegant">
+                  <Button asChild size="lg" variant="cta" className="gap-2 px-7 text-base">
                     <Link to="/auth">
                       {t("hero.cta.post")}
                       <Arrow className="h-4 w-4" />
                     </Link>
                   </Button>
-                  <Button asChild variant="outline" size="lg" className="border-primary/40 bg-card px-6 text-primary shadow-soft">
+                  <Button asChild variant="outline" size="lg" className="px-7 text-base">
                     <Link to="/auth">{t("hero.cta.pro")}</Link>
                   </Button>
                 </div>
@@ -148,7 +148,7 @@ function Landing() {
             {/* Why Wasla */}
             <div className="order-3 flex h-full lg:col-span-5 xl:col-span-3">
               <div className="flex h-full w-full flex-col rounded-2xl border bg-card/90 p-5 shadow-elegant backdrop-blur md:p-6">
-                <h3 className="mb-5 text-center text-lg font-bold text-balance md:text-xl">
+                <h3 className="heading-strong mb-5 text-center text-lg text-balance md:text-xl">
                   {t("hero.why.title")}
                 </h3>
                 <ul className="flex flex-1 flex-col justify-center gap-5">
@@ -193,10 +193,11 @@ function Landing() {
 
 
       {/* How it works */}
-      <section className="mx-auto max-w-7xl px-4 py-20">
+      <section className="section-tint border-y border-border/60">
+        <div className="mx-auto max-w-7xl px-4 py-20">
         <div className="mb-14 text-center">
-          <h2 className="text-3xl font-bold md:text-4xl">{t("how.title")}</h2>
-          <p className="mt-3 text-muted-foreground">{t("how.subtitle")}</p>
+          <h2 className="heading-strong heading-rule-center text-3xl md:text-4xl">{t("how.title")}</h2>
+          <p className="mt-4 text-muted-foreground">{t("how.subtitle")}</p>
         </div>
         <div className="flex flex-col md:flex-row md:items-stretch md:gap-3 lg:gap-5">
           {[
@@ -212,11 +213,11 @@ function Landing() {
                   <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-primary text-primary-foreground shadow-glow transition group-hover:scale-110">
                     <s.icon className="h-6 w-6" />
                   </div>
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-muted text-sm font-bold text-muted-foreground">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-secondary/20 text-sm font-bold text-primary-dark">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                 </div>
-                <h3 className="text-base font-bold md:text-lg">{s.title}</h3>
+                <h3 className="text-base font-bold text-primary-dark md:text-lg">{s.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
               </div>
               {i < 4 && (
@@ -228,16 +229,17 @@ function Landing() {
             </div>
           ))}
         </div>
+        </div>
       </section>
 
       {/* For pros */}
-      <section className="border-y border-border/60 bg-muted/40">
+      <section className="border-b border-border/60 bg-surface">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 md:grid-cols-2 md:items-center md:gap-20">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
               <Wallet className="h-3.5 w-3.5" /> {t("pros.badge")}
             </div>
-            <h2 className="mt-4 text-3xl font-bold md:text-4xl">{t("pros.title")}</h2>
+            <h2 className="heading-strong heading-rule mt-4 text-3xl md:text-4xl">{t("pros.title")}</h2>
             <p className="mt-4 text-muted-foreground">{t("pros.desc")}</p>
             <ul className="mt-5 space-y-3">
               {[t("pros.point1"), t("pros.point2"), t("pros.point3")].map((tx) => (
@@ -247,7 +249,7 @@ function Landing() {
                 </li>
               ))}
             </ul>
-            <Button asChild size="lg" className="mt-6">
+            <Button asChild size="lg" variant="cta" className="mt-6 px-7">
               <Link to="/auth">{t("pros.cta")}</Link>
             </Button>
           </div>
@@ -286,9 +288,9 @@ function Landing() {
                 value: "AR / NL / EN",
               },
             ].map((s) => (
-              <div key={s.label} className="rounded-2xl border bg-card p-6 shadow-soft">
+              <div key={s.label} className="section-tint rounded-2xl border border-primary/15 p-6 shadow-soft">
                 <s.icon className="mb-3 h-7 w-7 text-primary" />
-                <div className="text-3xl font-extrabold leading-tight tracking-tight md:text-4xl">
+                <div className="text-3xl font-extrabold leading-tight tracking-tight text-primary-dark md:text-4xl">
                   {s.value}
                 </div>
                 <div className="mt-1 text-sm text-muted-foreground">{s.label}</div>
@@ -299,15 +301,17 @@ function Landing() {
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-4xl px-4 py-20 text-center">
-        <h2 className="text-3xl font-bold md:text-4xl">{t("cta.ready")}</h2>
-        <p className="mt-3 text-muted-foreground">{t("cta.readyDesc")}</p>
-        <Button asChild size="lg" variant="secondary" className="mt-6 gap-1 px-8 text-base shadow-elegant">
-          <Link to="/auth">
-            {t("cta.signup")}
-            <Arrow className="h-4 w-4" />
-          </Link>
-        </Button>
+      <section className="px-4 py-16 md:py-20">
+        <div className="mx-auto max-w-5xl rounded-3xl bg-gradient-primary px-6 py-14 text-center text-primary-foreground shadow-elegant md:px-12">
+          <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">{t("cta.ready")}</h2>
+          <p className="mt-3 text-primary-foreground/85">{t("cta.readyDesc")}</p>
+          <Button asChild size="lg" variant="cta" className="mt-7 gap-1 px-8 text-base">
+            <Link to="/auth">
+              {t("cta.signup")}
+              <Arrow className="h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
       </section>
 
       <footer className="border-t border-border/60 py-10">
