@@ -55,6 +55,8 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-surface: var(--surface);
+  --color-tint: var(--tint);
+  --color-tint-strong: var(--tint-strong);
 
   --gradient-primary: var(--gradient-primary);
   --gradient-hero: var(--gradient-hero);
@@ -71,6 +73,8 @@
   --foreground: oklch(0.2449 0.0388 264.4); /* #172033 */
 
   --surface: oklch(1 0 0); /* #FFFFFF */
+  --tint: oklch(0.9707 0.0128 254); /* #EDF3FB — very light blue section bg */
+  --tint-strong: oklch(0.9455 0.0212 253); /* #DDE9F8 */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.2449 0.0388 264.4);
   --popover: oklch(1 0 0);
@@ -121,6 +125,8 @@
   --background: oklch(0.19 0.028 264);
   --foreground: oklch(0.97 0.005 250);
   --surface: oklch(0.24 0.032 262);
+  --tint: oklch(0.235 0.032 258);
+  --tint-strong: oklch(0.28 0.04 258);
   --card: oklch(0.24 0.032 262);
   --card-foreground: oklch(0.97 0.005 250);
   --popover: oklch(0.24 0.032 262);
@@ -223,4 +229,41 @@
 }
 @utility shadow-glow {
   box-shadow: var(--shadow-glow);
+}
+
+/* Sections with a very light blue wash */
+@utility section-tint {
+  background-color: var(--color-tint);
+}
+@utility section-tint-strong {
+  background-color: var(--color-tint-strong);
+}
+/* Strong headings — dark brand blue */
+@utility heading-strong {
+  color: var(--primary-dark);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+/* Accent underline for section headings */
+@utility heading-rule {
+  &::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 4px;
+    border-radius: 999px;
+    margin-block-start: 12px;
+    background-color: var(--secondary);
+  }
+}
+@utility heading-rule-center {
+  &::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 4px;
+    border-radius: 999px;
+    margin: 12px auto 0;
+    background-color: var(--secondary);
+  }
 }

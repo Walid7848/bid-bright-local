@@ -18,15 +18,16 @@ const buttonVariants = cva(
     variants: {
       variant: {
         /* Primary — blue background, white text */
-        default: "bg-primary text-primary-foreground shadow-soft hover:bg-primary-dark",
+        default:
+          "bg-primary text-primary-foreground shadow-elegant hover:bg-primary-dark active:bg-primary-dark",
         /* CTA — orange background */
-        cta: "bg-secondary text-secondary-foreground shadow-soft hover:brightness-95",
+        cta: "bg-secondary text-secondary-foreground font-bold shadow-elegant hover:brightness-95 active:brightness-90",
         secondary: "bg-secondary text-secondary-foreground shadow-soft hover:brightness-95",
         /* Secondary — white background, blue text, border */
         outline:
-          "border border-border bg-card text-primary shadow-soft hover:bg-accent hover:border-primary/40",
+          "border-2 border-primary/30 bg-card text-primary-dark shadow-soft hover:bg-accent hover:border-primary",
         /* Ghost — transparent, blue text */
-        ghost: "text-primary hover:bg-accent",
+        ghost: "text-primary-dark hover:bg-accent",
         /* Danger */
         destructive: "bg-destructive text-destructive-foreground shadow-soft hover:brightness-95",
         link: "text-primary underline-offset-4 hover:underline",
