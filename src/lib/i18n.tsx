@@ -179,14 +179,14 @@ const DICT = {
   // for pros
   "pros.badge": { ar: "لأصحاب المهن", nl: "Voor professionals", en: "For professionals" },
   "pros.title": {
-    ar: "وسّع مصادر دخلك في هولندا",
-    nl: "Vergroot je inkomen in Nederland",
-    en: "Grow your income in the Netherlands",
+    ar: "حوّل مهارتك إلى فرصة جديدة",
+    nl: "Zet je vaardigheid om in een nieuwe kans",
+    en: "Turn your skill into a new opportunity",
   },
   "pros.desc": {
-    ar: "تصفح طلبات العملاء في هولندا، قدم عرضك مباشرة مع السعر والمدة، وابدأ العمل بمجرد قبول الزبون. بدون عمولة على العروض.",
-    nl: "Bekijk klantaanvragen in Nederland, dien je offerte in met prijs en levertijd en start zodra de klant je kiest. Geen commissie op offertes.",
-    en: "Browse client requests across the Netherlands, submit your offer with price and timeline, and start as soon as the client picks you. No commission on bids.",
+    ar: "لديك مهنة أو حرفة أو خبرة؟ اعرض خدماتك، وصل إلى عملاء جدد، وابنِ سمعتك المهنية عبر وصلة.",
+    nl: "Heb je een beroep, vak of ervaring? Bied je diensten aan, bereik nieuwe klanten en bouw je professionele reputatie via Wasla.",
+    en: "Have a profession, trade or experience? Offer your services, reach new clients and build your professional reputation through Wasla.",
   },
   "pros.point1": {
     ar: "عملاء حقيقيون بعدة لغات",
