@@ -84,9 +84,9 @@ const DICT = {
     en: "Connecting professionals and tradespeople with clients in the Netherlands",
   },
   "hero.title": {
-    ar: "خدمتك المناسبة، من خبيرك المحترف في هولندا",
-    nl: "De juiste dienst, van jouw professionele expert in Nederland",
-    en: "The right service, from your professional expert in the Netherlands",
+    ar: "خدمتك المناسبة، من الشخص المناسب في هولندا",
+    nl: "De juiste dienst, van de juiste persoon in Nederland",
+    en: "The right service, from the right person in the Netherlands",
   },
   "hero.badges.legal": { ar: "محاماة واستشارات", nl: "Recht & advies", en: "Legal & advice" },
   "hero.badges.translation": { ar: "ترجمة وتدقيق", nl: "Vertalen & proeflezen", en: "Translation & proofreading" },
@@ -95,9 +95,9 @@ const DICT = {
   "hero.badges.moving": { ar: "نقل وخدمات", nl: "Verhuizen & diensten", en: "Moving & services" },
 
   "hero.subtitle": {
-    ar: "سباكون، كهربائيون، عمال نظافة، محامون، مترجمون، مدرسون، مصممون واستشاريون — لجميع القاطنين في هولندا، بلغة تناسبك.",
-    nl: "Loodgieters, elektriciens, schoonmakers, advocaten, vertalers, docenten, ontwerpers en consultants — voor iedereen in Nederland, in jouw taal.",
-    en: "Plumbers, electricians, cleaners, lawyers, translators, teachers, designers and consultants — for everyone living in the Netherlands, in your language.",
+    ar: "من الحرفيين وأصحاب المهن الحرة إلى الخبراء والمتخصصين، تساعدك وصلة في العثور على الخدمة التي تحتاجها بسهولة وثقة.",
+    nl: "Van vakmensen en zelfstandigen tot experts en specialisten: Wasla helpt je eenvoudig en vertrouwd de dienst te vinden die je nodig hebt.",
+    en: "From tradespeople and freelancers to experts and specialists, Wasla helps you find the service you need, easily and confidently.",
   },
   "hero.cta.post": { ar: "انشر طلبك الآن", nl: "Plaats je aanvraag", en: "Post your request" },
   "hero.cta.pro": { ar: "أنا مقدم خدمة", nl: "Ik ben professional", en: "I'm a professional" },
