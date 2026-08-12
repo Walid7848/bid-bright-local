@@ -16,7 +16,7 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useLang, LanguageSwitch } from "@/lib/i18n";
 import { useRoles, type AppRole } from "@/hooks/useRoles";
-import waslaLogo from "@/assets/wasla-logo.png.asset.json";
+import waslaLogo from "@/assets/wasla-logo.png";
 
 export function AppHeader() {
   const { user } = useAuth();
