@@ -6,6 +6,7 @@ import waslaLogo from "@/assets/wasla-logo.png.asset.json";
 import waslaHeroBg from "@/assets/wasla-hero-bg.jpg";
 
 import {
+  ArrowDown,
   ArrowLeft,
   ArrowRight,
   Briefcase,
