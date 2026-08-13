@@ -40,6 +40,14 @@ const DICT = {
   "nav.signOut": { ar: "تسجيل الخروج", nl: "Uitloggen", en: "Sign out" },
   "nav.signIn": { ar: "تسجيل الدخول", nl: "Inloggen", en: "Sign in" },
   "nav.start": { ar: "ابدأ الآن", nl: "Begin nu", en: "Get started" },
+  "nav.home": { ar: "الرئيسية", nl: "Home", en: "Home" },
+  "nav.services": { ar: "الخدمات", nl: "Diensten", en: "Services" },
+  "nav.providers": { ar: "مقدمو الخدمات", nl: "Professionals", en: "Professionals" },
+  "nav.how": { ar: "كيف تعمل المنصة", nl: "Hoe het werkt", en: "How it works" },
+  "nav.about": { ar: "عن وصلة", nl: "Over Wasla", en: "About Wasla" },
+  "nav.menu": { ar: "القائمة", nl: "Menu", en: "Menu" },
+  "nav.close": { ar: "إغلاق", nl: "Sluiten", en: "Close" },
+  "nav.language": { ar: "اللغة", nl: "Taal", en: "Language" },
 
   // account mode / roles
   "role.client": { ar: "طالب خدمة", nl: "Klant", en: "Client" },
