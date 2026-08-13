@@ -109,7 +109,6 @@ function ServicesPage() {
   const navigate = useNavigate({ from: "/services" });
   const { q, cat, city, rating } = Route.useSearch();
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [selected, setSelected] = useState<ProviderCard | null>(null);
   const [visible, setVisible] = useState(PAGE_SIZE);
 
   const setSearch = (patch: Partial<{ q: string; cat: string; city: string; rating: number }>) =>
@@ -437,12 +436,17 @@ function ServicesPage() {
 
                       <div className="mt-auto grid grid-cols-2 gap-2 pt-1">
                         <Button
+                          asChild
                           variant="outline"
                           className="h-10 w-full"
-                          onClick={() => setSelected(p)}
-                          aria-label={`${t("search.viewProfile")} — ${p.full_name}`}
                         >
-                          {t("search.viewProfile")}
+                          <Link
+                            to="/providers/$id"
+                            params={{ id: p.id }}
+                            aria-label={`${t("search.viewProfile")} — ${p.full_name}`}
+                          >
+                            {t("search.viewProfile")}
+                          </Link>
                         </Button>
                         <Button asChild variant="cta" className="h-10 w-full">
                           <Link to="/requests/new">{t("search.requestBid")}</Link>
@@ -472,55 +476,6 @@ function ServicesPage() {
         </div>
       </section>
 
-      <Sheet open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
-        <SheetContent side="bottom" className="max-h-[85vh] overflow-y-auto rounded-t-3xl sm:max-w-lg">
-          <SheetTitle className="text-primary-dark">
-            {selected?.profession ? categoryLabel(selected.profession, lang) : t("search.viewProfile")}
-          </SheetTitle>
-          {selected && (
-            <div className="mt-4 grid gap-4">
-              <div className="flex items-center gap-3">
-                <Avatar className="h-14 w-14 shrink-0 border border-border">
-                  {selected.avatar_url && (
-                    <AvatarImage src={selected.avatar_url} alt={t("results.avatarAlt")} />
-                  )}
-                  <AvatarFallback className="bg-primary/10 font-semibold text-primary">
-                    {initials(selected.full_name) || "?"}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="min-w-0">
-                  <div className="truncate text-base font-semibold">{selected.full_name}</div>
-                  <div className="mt-1 inline-flex items-center gap-1 text-sm text-muted-foreground">
-                    <MapPin className="h-4 w-4" aria-hidden />
-                    {selected.city}
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                {selected.count > 0 ? (
-                  <>
-                    <StarRating value={selected.avg} readOnly size={16} />
-                    <span className="font-medium">{selected.avg.toFixed(1)}</span>
-                    <span className="text-muted-foreground">
-                      ({selected.count}{" "}
-                      {selected.count === 1 ? t("results.reviewsOne") : t("search.reviews")})
-                    </span>
-                  </>
-                ) : (
-                  <span className="text-muted-foreground">{t("search.noRating")}</span>
-                )}
-              </div>
-              <div>
-                <div className="text-sm font-semibold">{t("search.about")}</div>
-                <p className="mt-1 text-sm text-foreground/80">{selected.bio || t("search.noBio")}</p>
-              </div>
-              <Button asChild variant="cta" className="h-11 w-full">
-                <Link to="/requests/new">{t("search.requestBid")}</Link>
-              </Button>
-            </div>
-          )}
-        </SheetContent>
-      </Sheet>
     </div>
   );
 }
