@@ -82,7 +82,7 @@ function Landing() {
   }, []);
 
   return (
-    <div id="top" className="min-h-screen overflow-x-hidden bg-background">
+    <div id="top" className="min-h-screen bg-background">
       {/* Nav */}
       <SiteHeader />
 
