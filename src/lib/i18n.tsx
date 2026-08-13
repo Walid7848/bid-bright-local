@@ -662,7 +662,29 @@ const DICT = {
   "results.avatarAlt": { ar: "صورة مقدم الخدمة", nl: "Foto van de professional", en: "Professional's photo" },
   "results.reviewsOne": { ar: "تقييم", nl: "beoordeling", en: "review" },
 
+  "profile.back": { ar: "العودة إلى الخدمات", nl: "Terug naar diensten", en: "Back to services" },
+  "profile.about": { ar: "نبذة عن مقدم الخدمة", nl: "Over de professional", en: "About the professional" },
+  "profile.noBio": { ar: "لم تتم إضافة نبذة بعد.", nl: "Nog geen omschrijving toegevoegd.", en: "No bio added yet." },
+  "profile.info": { ar: "معلومات الخدمة", nl: "Diensteninformatie", en: "Service information" },
+  "profile.serviceType": { ar: "نوع الخدمة", nl: "Type dienst", en: "Service type" },
+  "profile.city": { ar: "المدينة", nl: "Stad", en: "City" },
+  "profile.memberSince": { ar: "عضو منذ", nl: "Lid sinds", en: "Member since" },
+  "profile.reviewsTitle": { ar: "التقييمات", nl: "Beoordelingen", en: "Reviews" },
+  "profile.noReviews": { ar: "لا توجد تقييمات بعد", nl: "Nog geen beoordelingen", en: "No reviews yet" },
+  "profile.notFound": {
+    ar: "لم يتم العثور على مقدم الخدمة",
+    nl: "Professional niet gevonden",
+    en: "Professional not found",
+  },
+  "profile.notFoundDesc": {
+    ar: "قد يكون الملف غير متاح أو تم حذفه.",
+    nl: "Dit profiel bestaat mogelijk niet meer.",
+    en: "This profile may no longer be available.",
+  },
+  "profile.summary": { ar: "معلومات مختصرة", nl: "Samenvatting", en: "At a glance" },
+  "profile.reviewer": { ar: "زبون", nl: "Klant", en: "Client" },
 } as const;
+
 
 
 type Key = keyof typeof DICT;
