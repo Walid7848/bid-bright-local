@@ -90,7 +90,7 @@ export function SiteHeader() {
             </SheetTrigger>
             <SheetContent side="top" className="max-h-[92vh] overflow-y-auto p-0">
               <SheetTitle className="sr-only">{t("nav.menu")}</SheetTitle>
-              <div className="flex items-center justify-between border-b border-border/50 px-4 py-3">
+              <div className="flex items-center justify-center border-b border-border/50 px-14 py-3">
                 <img src={waslaLogo} alt={t("brand.name")} className="h-9 w-auto" />
               </div>
 
