@@ -641,6 +641,27 @@ const DICT = {
   "search.languages": { ar: "اللغات", nl: "Talen", en: "Languages" },
   "search.languagesValue": { ar: "العربية · الهولندية · الإنجليزية (حسب مقدم الخدمة)", nl: "Arabisch · Nederlands · Engels (afhankelijk van de professional)", en: "Arabic · Dutch · English (varies per professional)" },
 
+  "results.heading": { ar: "الخدمات المتاحة", nl: "Beschikbare diensten", en: "Available services" },
+  "results.sub": {
+    ar: "وجدنا لك مقدمي خدمة مناسبين لطلبك",
+    nl: "We hebben passende professionals voor je gevonden",
+    en: "We found professionals that match your request",
+  },
+  "results.inNL": { ar: "في هولندا", nl: "in Nederland", en: "in the Netherlands" },
+  "results.forQuery": { ar: "نتائج البحث عن", nl: "Resultaten voor", en: "Results for" },
+  "results.clearFilters": { ar: "مسح الفلاتر", nl: "Filters wissen", en: "Clear filters" },
+  "results.showAll": { ar: "عرض جميع الخدمات", nl: "Alle diensten tonen", en: "Show all services" },
+  "results.loadMore": { ar: "عرض المزيد", nl: "Meer tonen", en: "Show more" },
+  "results.showingOf": { ar: "من", nl: "van", en: "of" },
+  "results.suggestions": { ar: "جرّب هذه الخدمات", nl: "Probeer deze diensten", en: "Try these services" },
+  "results.empty.desc": {
+    ar: "جرّب تعديل البحث أو اختيار تصنيف مختلف.",
+    nl: "Pas je zoekopdracht aan of kies een andere categorie.",
+    en: "Try adjusting your search or choosing a different category.",
+  },
+  "results.avatarAlt": { ar: "صورة مقدم الخدمة", nl: "Foto van de professional", en: "Professional's photo" },
+  "results.reviewsOne": { ar: "تقييم", nl: "beoordeling", en: "review" },
+
 } as const;
 
 
