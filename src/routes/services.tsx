@@ -1,9 +1,9 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { z } from "zod";
-import { MapPin, SlidersHorizontal, Star, UserRound, SearchX } from "lucide-react";
+import { MapPin, SlidersHorizontal, Star, UserRound, SearchX, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -11,6 +11,8 @@ import { ServiceSearchBar } from "@/components/ServiceSearchBar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import {
   Select,
@@ -60,8 +62,46 @@ type ProviderRow = {
   city: string;
   profession: string | null;
   bio: string | null;
+  avatar_url: string | null;
   reviews: { rating: number }[] | null;
 };
+
+type ProviderCard = ProviderRow & { avg: number; count: number };
+
+const PAGE_SIZE = 12;
+
+function initials(name: string) {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+}
+
+function ResultSkeleton() {
+  return (
+    <Card className="flex flex-col gap-4 p-5">
+      <div className="flex items-start gap-3">
+        <Skeleton className="h-12 w-12 shrink-0 rounded-full" />
+        <div className="min-w-0 flex-1 space-y-2">
+          <Skeleton className="h-4 w-2/3" />
+          <Skeleton className="h-3 w-1/2" />
+        </div>
+      </div>
+      <Skeleton className="h-3 w-1/3" />
+      <div className="space-y-2">
+        <Skeleton className="h-3 w-full" />
+        <Skeleton className="h-3 w-5/6" />
+      </div>
+      <div className="mt-auto flex gap-2 pt-1">
+        <Skeleton className="h-9 flex-1 rounded-xl" />
+        <Skeleton className="h-9 flex-1 rounded-xl" />
+      </div>
+    </Card>
+  );
+}
 
 function ServicesPage() {
   const { t, lang } = useLang();
@@ -69,8 +109,8 @@ function ServicesPage() {
   const navigate = useNavigate({ from: "/services" });
   const { q, cat, city, rating } = Route.useSearch();
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [selected, setSelected] = useState<(ProviderRow & { avg: number; count: number }) | null>(null);
-
+  const [selected, setSelected] = useState<ProviderCard | null>(null);
+  const [visible, setVisible] = useState(PAGE_SIZE);
 
   const setSearch = (patch: Partial<{ q: string; cat: string; city: string; rating: number }>) =>
     navigate({ search: (prev) => ({ ...prev, ...patch }) });
@@ -81,7 +121,9 @@ function ServicesPage() {
     queryFn: async () => {
       let query = supabase
         .from("profiles")
-        .select("id, full_name, city, profession, bio, reviews!reviews_professional_profile_fkey(rating)")
+        .select(
+          "id, full_name, city, profession, bio, avatar_url, reviews!reviews_professional_profile_fkey(rating)",
+        )
         .not("profession", "is", null)
         .neq("profession", "")
         .order("full_name");
@@ -116,14 +158,26 @@ function ServicesPage() {
       .sort((a, b) => b.avg - a.avg || b.count - a.count);
   }, [providers, rating, q, cat, lang]);
 
-  const relatedTerms = useMemo(() => (q ? suggestServices(q, lang, 5) : []), [q, lang]);
+  useEffect(() => setVisible(PAGE_SIZE), [q, cat, city, rating]);
+
+  const shown = results.slice(0, visible);
+  const relatedTerms = useMemo(() => suggestServices(q || "", lang, 6), [q, lang]);
+  const activeFilters = (cat ? 1 : 0) + (city ? 1 : 0) + (rating ? 1 : 0);
+
+  const headline = cat
+    ? `${categoryLabel(cat, lang)} — ${t("results.inNL")}`
+    : q
+      ? `${t("results.forQuery")} “${q}”`
+      : t("results.sub");
 
   const Filters = (
     <div className="grid gap-4">
       <div className="grid gap-1.5">
-        <label className="text-sm font-medium">{t("search.service")}</label>
+        <label htmlFor="filter-service" className="text-sm font-medium">
+          {t("search.service")}
+        </label>
         <Select value={cat || "__all__"} onValueChange={(v) => setSearch({ cat: v === "__all__" ? "" : v })}>
-          <SelectTrigger>
+          <SelectTrigger id="filter-service" aria-label={t("search.service")}>
             <SelectValue placeholder={t("search.allServices")} />
           </SelectTrigger>
           <SelectContent>
@@ -138,9 +192,11 @@ function ServicesPage() {
       </div>
 
       <div className="grid gap-1.5">
-        <label className="text-sm font-medium">{t("search.city")}</label>
+        <label htmlFor="filter-city" className="text-sm font-medium">
+          {t("search.city")}
+        </label>
         <Select value={city || "__all__"} onValueChange={(v) => setSearch({ city: v === "__all__" ? "" : v })}>
-          <SelectTrigger>
+          <SelectTrigger id="filter-city" aria-label={t("search.city")}>
             <SelectValue placeholder={t("search.allCities")} />
           </SelectTrigger>
           <SelectContent>
@@ -155,9 +211,11 @@ function ServicesPage() {
       </div>
 
       <div className="grid gap-1.5">
-        <label className="text-sm font-medium">{t("search.rating")}</label>
+        <label htmlFor="filter-rating" className="text-sm font-medium">
+          {t("search.rating")}
+        </label>
         <Select value={String(rating)} onValueChange={(v) => setSearch({ rating: Number(v) })}>
-          <SelectTrigger>
+          <SelectTrigger id="filter-rating" aria-label={t("search.rating")}>
             <SelectValue placeholder={t("search.anyRating")} />
           </SelectTrigger>
           <SelectContent>
@@ -171,15 +229,19 @@ function ServicesPage() {
         </Select>
       </div>
 
-      <Button
-        variant="outline"
-        onClick={() => {
-          setSearch({ cat: "", city: "", rating: 0 });
-          setFiltersOpen(false);
-        }}
-      >
-        {t("search.filtersReset")}
-      </Button>
+      {activeFilters > 0 && (
+        <Button
+          variant="ghost"
+          className="justify-start gap-2 text-sm text-muted-foreground hover:text-foreground"
+          onClick={() => {
+            setSearch({ cat: "", city: "", rating: 0 });
+            setFiltersOpen(false);
+          }}
+        >
+          <X className="h-4 w-4" aria-hidden />
+          {t("results.clearFilters")}
+        </Button>
+      )}
     </div>
   );
 
@@ -187,11 +249,16 @@ function ServicesPage() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
 
-      {/* Search header */}
+      {/* Results header */}
       <section className="section-tint border-b border-border/60">
-        <div className="mx-auto max-w-7xl px-4 py-8 md:py-12">
-          <h1 className="heading-strong text-2xl md:text-3xl">{t("search.title")}</h1>
-          <p className="mt-2 max-w-2xl text-sm text-muted-foreground md:text-base">{t("search.subtitle")}</p>
+        <div className="mx-auto max-w-7xl px-4 py-7 md:py-11">
+          <h1 className="heading-strong text-2xl md:text-3xl">{t("results.heading")}</h1>
+          <p className="mt-2 max-w-2xl text-sm text-muted-foreground md:text-base">{headline}</p>
+          {user && !isLoading && (
+            <p className="mt-1 text-sm font-medium text-primary-dark">
+              {results.length} {t("search.resultsCount")}
+            </p>
+          )}
           <div className="mt-5 max-w-3xl">
             <ServiceSearchBar initialQuery={q} />
           </div>
@@ -205,8 +272,9 @@ function ServicesPage() {
                 <button
                   key={g.id}
                   type="button"
+                  aria-pressed={isActive}
                   onClick={() => setSearch({ cat: isActive ? "" : gCat, q: "" })}
-                  className={`flex items-center gap-2 rounded-2xl border p-3 text-start text-sm font-medium shadow-soft transition hover:-translate-y-0.5 hover:shadow-elegant ${
+                  className={`flex min-h-11 items-center gap-2 rounded-2xl border p-3 text-start text-sm font-medium shadow-soft transition hover:-translate-y-0.5 hover:shadow-elegant focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                     isActive ? "border-primary bg-primary/10 text-primary-dark" : "border-border bg-card"
                   }`}
                 >
@@ -223,44 +291,43 @@ function ServicesPage() {
 
       {/* Results */}
       <section className="mx-auto max-w-7xl px-4 py-8">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h2 className="text-lg font-bold text-primary-dark md:text-xl">{t("search.results")}</h2>
-            {user && !isLoading && (
-              <p className="mt-1 text-sm text-muted-foreground">
-                {results.length} {t("search.resultsCount")}
-              </p>
-            )}
-          </div>
-
-          {/* Mobile filters */}
-          <Sheet open={filtersOpen} onOpenChange={setFiltersOpen}>
-            <SheetTrigger asChild>
-              <Button variant="outline" className="gap-2 lg:hidden">
-                <SlidersHorizontal className="h-4 w-4" />
-                {t("search.filters")}
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="bottom" className="max-h-[85vh] overflow-y-auto rounded-t-3xl">
-              <SheetTitle className="mb-4">{t("search.filters")}</SheetTitle>
-              {Filters}
-              <Button className="mt-4 w-full" onClick={() => setFiltersOpen(false)}>
-                {t("search.filtersApply")}
-              </Button>
-            </SheetContent>
-          </Sheet>
-        </div>
-
-        <div className="mt-5 grid gap-6 lg:grid-cols-[260px_1fr]">
+        <div className="grid gap-6 lg:grid-cols-[248px_1fr]">
           <aside className="hidden lg:block">
-            <Card className="p-4">{Filters}</Card>
+            <div className="sticky top-24 rounded-2xl border border-border/70 bg-card/60 p-4">
+              <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-primary-dark">
+                <SlidersHorizontal className="h-4 w-4" aria-hidden />
+                {t("search.filters")}
+              </div>
+              {Filters}
+            </div>
           </aside>
 
           <div className="min-w-0">
+            {/* Mobile filter bar */}
+            <div className="mb-4 flex items-center justify-between gap-3 lg:hidden">
+              <h2 className="text-base font-bold text-primary-dark">{t("search.results")}</h2>
+              <Sheet open={filtersOpen} onOpenChange={setFiltersOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="outline" className="h-11 gap-2">
+                    <SlidersHorizontal className="h-4 w-4" aria-hidden />
+                    {t("search.filters")}
+                    {activeFilters > 0 && ` (${activeFilters})`}
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="bottom" className="max-h-[85vh] overflow-y-auto rounded-t-3xl">
+                  <SheetTitle className="mb-4">{t("search.filters")}</SheetTitle>
+                  {Filters}
+                  <Button className="mt-4 h-11 w-full" onClick={() => setFiltersOpen(false)}>
+                    {t("search.filtersApply")}
+                  </Button>
+                </SheetContent>
+              </Sheet>
+            </div>
+
             {!user ? (
               <Card className="p-8 text-center">
                 <div className="mx-auto mb-3 grid h-14 w-14 place-items-center rounded-full bg-primary/10 text-primary">
-                  <UserRound className="h-6 w-6" />
+                  <UserRound className="h-6 w-6" aria-hidden />
                 </div>
                 <h3 className="text-lg font-bold text-primary-dark">{t("search.signInTitle")}</h3>
                 <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">{t("search.signInDesc")}</p>
@@ -274,94 +341,132 @@ function ServicesPage() {
                 </div>
               </Card>
             ) : isLoading ? (
-              <div className="grid gap-4 sm:grid-cols-2">
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <div key={i} className="h-48 animate-pulse rounded-2xl bg-muted" />
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <ResultSkeleton key={i} />
                 ))}
               </div>
             ) : results.length === 0 ? (
-              <Card className="p-10 text-center">
-                <div className="mx-auto mb-3 grid h-14 w-14 place-items-center rounded-full bg-muted text-muted-foreground">
-                  <SearchX className="h-6 w-6" />
+              <Card className="p-8 text-center md:p-12">
+                <div className="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-full bg-primary/10 text-primary">
+                  <SearchX className="h-7 w-7" aria-hidden />
                 </div>
-                <h3 className="text-lg font-bold text-primary-dark">{t("search.empty.title")}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{t("search.empty.desc")}</p>
+                <h3 className="text-lg font-bold text-primary-dark md:text-xl">{t("search.empty.title")}</h3>
+                <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">{t("results.empty.desc")}</p>
+
                 {relatedTerms.length > 0 && (
-                  <div className="mt-4 flex flex-wrap justify-center gap-2">
-                    {relatedTerms.map((s) => (
-                      <button
-                        key={s.label + s.category}
-                        type="button"
-                        onClick={() => setSearch({ q: s.label, cat: s.category })}
-                        className="rounded-full border border-border bg-card px-3 py-1.5 text-xs font-medium transition hover:border-primary hover:text-primary"
-                      >
-                        {s.label}
-                      </button>
-                    ))}
+                  <div className="mt-5">
+                    <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                      {t("results.suggestions")}
+                    </div>
+                    <div className="mt-3 flex flex-wrap justify-center gap-2">
+                      {relatedTerms.map((s) => (
+                        <button
+                          key={s.label + s.category}
+                          type="button"
+                          onClick={() => setSearch({ q: s.label, cat: s.category })}
+                          className="min-h-9 rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-medium transition hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        >
+                          {s.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 )}
-                <Button asChild variant="cta" className="mt-5">
-                  <Link to="/requests/new">{t("search.empty.cta")}</Link>
-                </Button>
+
+                <div className="mt-6 flex flex-col justify-center gap-2 sm:flex-row">
+                  <Button
+                    variant="outline"
+                    className="h-11"
+                    onClick={() => setSearch({ q: "", cat: "", city: "", rating: 0 })}
+                  >
+                    {t("results.showAll")}
+                  </Button>
+                  <Button asChild variant="cta" className="h-11">
+                    <Link to="/requests/new">{t("search.empty.cta")}</Link>
+                  </Button>
+                </div>
               </Card>
             ) : (
-              <div className="grid gap-4 sm:grid-cols-2">
-                {results.map((p) => (
-                  <Card key={p.id} className="flex flex-col gap-3 p-5">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <h3 className="truncate font-bold text-primary-dark">
-                          {p.profession ? categoryLabel(p.profession, lang) : t("search.service")}
-                        </h3>
-                        <p className="truncate text-sm text-muted-foreground">{p.full_name}</p>
+              <>
+                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                  {shown.map((p) => (
+                    <Card
+                      key={p.id}
+                      className="flex flex-col gap-3 p-5 transition hover:-translate-y-0.5 hover:shadow-elegant"
+                    >
+                      <div className="flex items-start gap-3">
+                        <Avatar className="h-12 w-12 shrink-0 border border-border">
+                          {p.avatar_url && <AvatarImage src={p.avatar_url} alt={t("results.avatarAlt")} />}
+                          <AvatarFallback className="bg-primary/10 text-sm font-semibold text-primary">
+                            {initials(p.full_name) || "?"}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="min-w-0 flex-1">
+                          <h3 className="truncate font-bold text-primary-dark">{p.full_name}</h3>
+                          {p.profession && (
+                            <Badge variant="secondary" className="mt-1 max-w-full truncate">
+                              {categoryLabel(p.profession, lang)}
+                            </Badge>
+                          )}
+                        </div>
                       </div>
-                      {p.profession && (
-                        <Badge variant="secondary" className="shrink-0">
-                          {categoryLabel(p.profession, lang)}
-                        </Badge>
-                      )}
-                    </div>
 
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-                      <span className="inline-flex items-center gap-1">
-                        <MapPin className="h-4 w-4" />
-                        {p.city}
-                      </span>
-                      {p.count > 0 ? (
-                        <span className="inline-flex items-center gap-1.5">
-                          <StarRating value={p.avg} readOnly size={14} />
-                          <span className="font-medium text-foreground">{p.avg.toFixed(1)}</span>
-                          <span>
-                            ({p.count} {t("search.reviews")})
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-muted-foreground">
+                        <span className="inline-flex min-w-0 items-center gap-1">
+                          <MapPin className="h-4 w-4 shrink-0" aria-hidden />
+                          <span className="truncate">{p.city}</span>
+                        </span>
+                        {p.count > 0 ? (
+                          <span className="inline-flex items-center gap-1.5">
+                            <StarRating value={p.avg} readOnly size={14} />
+                            <span className="font-semibold text-foreground">{p.avg.toFixed(1)}</span>
+                            <span>
+                              ({p.count} {p.count === 1 ? t("results.reviewsOne") : t("search.reviews")})
+                            </span>
                           </span>
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1">
-                          <Star className="h-4 w-4" />
-                          {t("search.noRating")}
-                        </span>
-                      )}
-                    </div>
+                        ) : (
+                          <span className="inline-flex items-center gap-1">
+                            <Star className="h-4 w-4" aria-hidden />
+                            {t("search.noRating")}
+                          </span>
+                        )}
+                      </div>
 
-                    <p className="line-clamp-3 text-sm text-foreground/80">{p.bio || t("search.noBio")}</p>
+                      <p className="line-clamp-3 text-sm text-foreground/80">{p.bio || t("search.noBio")}</p>
 
-                    <div className="mt-auto flex flex-wrap gap-2 pt-1">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1"
-                        onClick={() => setSelected(p)}
-                      >
-                        {t("search.viewProfile")}
-                      </Button>
+                      <div className="mt-auto grid grid-cols-2 gap-2 pt-1">
+                        <Button
+                          variant="outline"
+                          className="h-10 w-full"
+                          onClick={() => setSelected(p)}
+                          aria-label={`${t("search.viewProfile")} — ${p.full_name}`}
+                        >
+                          {t("search.viewProfile")}
+                        </Button>
+                        <Button asChild variant="cta" className="h-10 w-full">
+                          <Link to="/requests/new">{t("search.requestBid")}</Link>
+                        </Button>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
 
-                      <Button asChild variant="cta" size="sm" className="flex-1">
-                        <Link to="/requests/new">{t("search.requestBid")}</Link>
-                      </Button>
-                    </div>
-                  </Card>
-                ))}
-              </div>
+                {visible < results.length && (
+                  <div className="mt-8 flex flex-col items-center gap-2">
+                    <p className="text-xs text-muted-foreground">
+                      {shown.length} {t("results.showingOf")} {results.length}
+                    </p>
+                    <Button
+                      variant="outline"
+                      className="h-11 px-8"
+                      onClick={() => setVisible((v) => v + PAGE_SIZE)}
+                    >
+                      {t("results.loadMore")}
+                    </Button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
@@ -374,11 +479,21 @@ function ServicesPage() {
           </SheetTitle>
           {selected && (
             <div className="mt-4 grid gap-4">
-              <div>
-                <div className="text-base font-semibold">{selected.full_name}</div>
-                <div className="mt-1 inline-flex items-center gap-1 text-sm text-muted-foreground">
-                  <MapPin className="h-4 w-4" />
-                  {selected.city}
+              <div className="flex items-center gap-3">
+                <Avatar className="h-14 w-14 shrink-0 border border-border">
+                  {selected.avatar_url && (
+                    <AvatarImage src={selected.avatar_url} alt={t("results.avatarAlt")} />
+                  )}
+                  <AvatarFallback className="bg-primary/10 font-semibold text-primary">
+                    {initials(selected.full_name) || "?"}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="min-w-0">
+                  <div className="truncate text-base font-semibold">{selected.full_name}</div>
+                  <div className="mt-1 inline-flex items-center gap-1 text-sm text-muted-foreground">
+                    <MapPin className="h-4 w-4" aria-hidden />
+                    {selected.city}
+                  </div>
                 </div>
               </div>
               <div className="flex items-center gap-2 text-sm">
@@ -387,7 +502,8 @@ function ServicesPage() {
                     <StarRating value={selected.avg} readOnly size={16} />
                     <span className="font-medium">{selected.avg.toFixed(1)}</span>
                     <span className="text-muted-foreground">
-                      ({selected.count} {t("search.reviews")})
+                      ({selected.count}{" "}
+                      {selected.count === 1 ? t("results.reviewsOne") : t("search.reviews")})
                     </span>
                   </>
                 ) : (
@@ -398,7 +514,7 @@ function ServicesPage() {
                 <div className="text-sm font-semibold">{t("search.about")}</div>
                 <p className="mt-1 text-sm text-foreground/80">{selected.bio || t("search.noBio")}</p>
               </div>
-              <Button asChild variant="cta" className="w-full">
+              <Button asChild variant="cta" className="h-11 w-full">
                 <Link to="/requests/new">{t("search.requestBid")}</Link>
               </Button>
             </div>
@@ -406,6 +522,5 @@ function ServicesPage() {
         </SheetContent>
       </Sheet>
     </div>
-
   );
 }
