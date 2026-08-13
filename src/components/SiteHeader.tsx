@@ -10,11 +10,12 @@ type NavItem = { key: "nav.home" | "nav.services" | "nav.providers" | "nav.how" 
 
 const NAV_ITEMS: NavItem[] = [
   { key: "nav.home", to: "/", hash: "top" },
-  { key: "nav.services", to: "/", hash: "services" },
+  { key: "nav.services", to: "/services" },
   { key: "nav.providers", to: "/", hash: "providers" },
   { key: "nav.how", to: "/", hash: "how-it-works" },
   { key: "nav.about", to: "/about" },
 ];
+
 
 export function SiteHeader() {
   const { t } = useLang();

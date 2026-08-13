@@ -4,7 +4,10 @@ import { Button } from "@/components/ui/button";
 import { useLang } from "@/lib/i18n";
 import { SiteHeader } from "@/components/SiteHeader";
 import { openCookiePreferences } from "@/lib/cookie-consent";
+import { ServiceSearchBar } from "@/components/ServiceSearchBar";
+import { SERVICE_GROUPS } from "@/lib/service-search";
 import waslaHeroBg from "@/assets/wasla-hero-bg.jpg";
+
 
 import {
   ArrowDown,
@@ -199,7 +202,40 @@ function Landing() {
         </div>
       </section>
 
-
+      {/* Find a service */}
+      <section id="find-service" className="border-b border-border/60 bg-background">
+        <div className="mx-auto max-w-7xl px-4 py-12 md:py-16">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="heading-strong heading-rule-center text-2xl md:text-4xl">{t("search.title")}</h2>
+            <p className="mt-4 text-sm text-muted-foreground md:text-base">{t("search.subtitle")}</p>
+          </div>
+          <div className="mx-auto mt-7 max-w-3xl">
+            <ServiceSearchBar />
+          </div>
+          <div className="mx-auto mt-8 grid max-w-5xl grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5">
+            {SERVICE_GROUPS.map((g) => (
+              <Link
+                key={g.id}
+                to="/services"
+                search={{ q: "", cat: g.categories[0], city: "", rating: 0 }}
+                className="flex items-center gap-2 rounded-2xl border border-border bg-card p-3 text-start text-sm font-medium shadow-soft transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-elegant"
+              >
+                <span aria-hidden className="text-lg leading-none">
+                  {g.emoji}
+                </span>
+                <span className="min-w-0 flex-1 truncate">{g[lang]}</span>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-6 text-center">
+            <Button asChild variant="outline">
+              <Link to="/services" search={{ q: "", cat: "", city: "", rating: 0 }}>
+                {t("search.browseAll")}
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
 
       {/* How it works */}

@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -30,6 +31,11 @@ import { Route as AuthenticatedRequestsIdRouteImport } from './routes/_authentic
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -122,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/privacy': typeof PrivacyRoute
+  '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/my-bids': typeof AuthenticatedMyBidsRoute
@@ -140,6 +147,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/privacy': typeof PrivacyRoute
+  '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/my-bids': typeof AuthenticatedMyBidsRoute
@@ -160,6 +168,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/privacy': typeof PrivacyRoute
+  '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/my-bids': typeof AuthenticatedMyBidsRoute
@@ -180,6 +189,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cookie-policy'
     | '/privacy'
+    | '/services'
     | '/terms'
     | '/dashboard'
     | '/my-bids'
@@ -198,6 +208,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cookie-policy'
     | '/privacy'
+    | '/services'
     | '/terms'
     | '/dashboard'
     | '/my-bids'
@@ -217,6 +228,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cookie-policy'
     | '/privacy'
+    | '/services'
     | '/terms'
     | '/_authenticated/dashboard'
     | '/_authenticated/my-bids'
@@ -237,6 +249,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
   PrivacyRoute: typeof PrivacyRoute
+  ServicesRoute: typeof ServicesRoute
   TermsRoute: typeof TermsRoute
 }
 
@@ -247,6 +260,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -413,6 +433,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   CookiePolicyRoute: CookiePolicyRoute,
   PrivacyRoute: PrivacyRoute,
+  ServicesRoute: ServicesRoute,
   TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
