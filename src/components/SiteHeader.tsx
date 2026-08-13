@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
 import { useLang, LanguageSwitch } from "@/lib/i18n";
@@ -92,15 +92,6 @@ export function SiteHeader() {
               <SheetTitle className="sr-only">{t("nav.menu")}</SheetTitle>
               <div className="flex items-center justify-between border-b border-border/50 px-4 py-3">
                 <img src={waslaLogo} alt={t("brand.name")} className="h-9 w-auto" />
-                <SheetClose asChild>
-                  <button
-                    type="button"
-                    aria-label={t("nav.close")}
-                    className="grid h-11 w-11 place-items-center rounded-xl border border-border/60 text-primary-dark transition hover:bg-accent"
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
-                </SheetClose>
               </div>
 
               <nav className="flex flex-col px-2 py-2">
