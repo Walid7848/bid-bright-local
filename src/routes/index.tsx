@@ -82,27 +82,12 @@ function Landing() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div id="top" className="min-h-screen overflow-x-hidden bg-background">
       {/* Nav */}
-      <header className="border-b border-border/60 bg-surface/80 backdrop-blur">
-        <div className="mx-auto flex min-h-20 max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 md:py-5">
-          <div className="flex items-center gap-2">
-            <img src={waslaLogo} alt={t("brand.name")} className="h-11 w-auto" />
-          </div>
-          <div className="flex items-center gap-3">
-            <LanguageSwitch />
-            <Button asChild variant="ghost" size="sm">
-              <Link to="/auth">{t("nav.signIn")}</Link>
-            </Button>
-            <Button asChild variant="outline" size="sm">
-              <Link to="/auth">{t("nav.start")}</Link>
-            </Button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Hero cover */}
-      <section className="relative overflow-hidden bg-surface">
+      <section id="services" className="relative overflow-hidden bg-surface">
         <img
           src={waslaHeroBg}
           alt={
