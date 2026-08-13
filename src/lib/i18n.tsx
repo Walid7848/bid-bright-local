@@ -579,7 +579,70 @@ const DICT = {
     en: "Trust: building relationships based on authenticity and transparency. Respect: respecting cultural diversity, privacy and the rights of all users. Innovation: developing digital solutions that meet the needs of the community. Quality: delivering reliable services to high standards. Community: supporting cooperation and empowering community members to grow and succeed together.",
   },
 
+  // service search
+  "search.title": {
+    ar: "ما الخدمة التي تحتاجها؟",
+    nl: "Welke dienst heb je nodig?",
+    en: "What service do you need?",
+  },
+  "search.subtitle": {
+    ar: "ابحث عن الخدمة أو المهنة التي تحتاجها وسنساعدك في العثور على مقدم الخدمة المناسب.",
+    nl: "Zoek de dienst of het vak dat je nodig hebt en wij helpen je de juiste professional te vinden.",
+    en: "Search for the service or trade you need and we'll help you find the right professional.",
+  },
+  "search.placeholder": {
+    ar: "مثلاً: كهربائي، سباك، محاسب، مترجم...",
+    nl: "Bijv.: elektricien, loodgieter, boekhouder, vertaler...",
+    en: "e.g. electrician, plumber, accountant, translator...",
+  },
+  "search.button": { ar: "ابحث", nl: "Zoeken", en: "Search" },
+  "search.suggestions": { ar: "اقتراحات", nl: "Suggesties", en: "Suggestions" },
+  "search.browseAll": { ar: "تصفح كل الخدمات", nl: "Alle diensten bekijken", en: "Browse all services" },
+  "search.categories": { ar: "التصنيفات الرئيسية", nl: "Hoofdcategorieën", en: "Main categories" },
+  "search.results": { ar: "نتائج البحث", nl: "Zoekresultaten", en: "Search results" },
+  "search.resultsCount": { ar: "مقدم خدمة", nl: "professionals", en: "professionals" },
+  "search.filters": { ar: "تصفية النتائج", nl: "Resultaten filteren", en: "Filter results" },
+  "search.filtersApply": { ar: "عرض النتائج", nl: "Resultaten tonen", en: "Show results" },
+  "search.filtersReset": { ar: "إعادة الضبط", nl: "Herstellen", en: "Reset" },
+  "search.city": { ar: "المدينة", nl: "Stad", en: "City" },
+  "search.allCities": { ar: "كل المدن", nl: "Alle steden", en: "All cities" },
+  "search.service": { ar: "نوع الخدمة", nl: "Type dienst", en: "Service type" },
+  "search.allServices": { ar: "كل الخدمات", nl: "Alle diensten", en: "All services" },
+  "search.rating": { ar: "التقييم", nl: "Beoordeling", en: "Rating" },
+  "search.anyRating": { ar: "أي تقييم", nl: "Elke beoordeling", en: "Any rating" },
+  "search.ratingPlus": { ar: "فأعلى", nl: "en hoger", en: "and up" },
+  "search.noRating": { ar: "لا توجد تقييمات بعد", nl: "Nog geen beoordelingen", en: "No reviews yet" },
+  "search.reviews": { ar: "تقييم", nl: "beoordelingen", en: "reviews" },
+  "search.viewProfile": { ar: "عرض الملف", nl: "Profiel bekijken", en: "View profile" },
+  "search.requestBid": { ar: "طلب عرض", nl: "Offerte aanvragen", en: "Request a quote" },
+  "search.empty.title": {
+    ar: "لم نجد مقدم خدمة مطابقًا لبحثك",
+    nl: "We hebben geen passende professional gevonden",
+    en: "We couldn't find a matching professional",
+  },
+  "search.empty.desc": {
+    ar: "جرّب كلمة أخرى أو وسّع نطاق البحث.",
+    nl: "Probeer een ander woord of verbreed je zoekopdracht.",
+    en: "Try another word or widen your search.",
+  },
+  "search.empty.cta": { ar: "طلب خدمة مخصصة", nl: "Aangepaste aanvraag plaatsen", en: "Post a custom request" },
+  "search.signInTitle": {
+    ar: "سجّل الدخول لعرض مقدمي الخدمات",
+    nl: "Log in om professionals te bekijken",
+    en: "Sign in to view professionals",
+  },
+  "search.signInDesc": {
+    ar: "نحمي خصوصية مقدمي الخدمات، لذلك تظهر ملفاتهم للمستخدمين المسجّلين فقط. التسجيل مجاني ويستغرق دقيقة.",
+    nl: "We beschermen de privacy van professionals, daarom zijn profielen alleen zichtbaar voor ingelogde gebruikers. Registreren is gratis.",
+    en: "We protect professionals' privacy, so profiles are visible to signed-in users only. Signing up is free and takes a minute.",
+  },
+  "search.about": { ar: "نبذة", nl: "Over", en: "About" },
+  "search.noBio": { ar: "لم يضف مقدم الخدمة نبذة بعد.", nl: "Deze professional heeft nog geen omschrijving.", en: "This professional hasn't added a bio yet." },
+  "search.languages": { ar: "اللغات", nl: "Talen", en: "Languages" },
+  "search.languagesValue": { ar: "العربية · الهولندية · الإنجليزية (حسب مقدم الخدمة)", nl: "Arabisch · Nederlands · Engels (afhankelijk van de professional)", en: "Arabic · Dutch · English (varies per professional)" },
+
 } as const;
+
 
 type Key = keyof typeof DICT;
 
