@@ -86,7 +86,16 @@ function ProviderProfilePage() {
 
   const cta = (
     <Button asChild variant="cta" className="h-12 w-full text-base">
-      <Link to={user ? "/requests/new" : "/auth"}>{t("search.requestBid")}</Link>
+      <Link
+        to={user ? "/requests/new" : "/auth"}
+        search={
+          user && data?.profile.profession
+            ? { category: data.profile.profession, from: "provider" }
+            : undefined
+        }
+      >
+        {t("search.requestBid")}
+      </Link>
     </Button>
   );
 

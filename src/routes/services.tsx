@@ -449,7 +449,16 @@ function ServicesPage() {
                           </Link>
                         </Button>
                         <Button asChild variant="cta" className="h-10 w-full">
-                          <Link to="/requests/new">{t("search.requestBid")}</Link>
+                          <Link
+                            to="/requests/new"
+                            search={
+                              p.profession
+                                ? { category: p.profession, from: "provider" }
+                                : undefined
+                            }
+                          >
+                            {t("search.requestBid")}
+                          </Link>
                         </Button>
                       </div>
                     </Card>
