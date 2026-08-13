@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Briefcase, ArrowLeft, ArrowRight } from "lucide-react";
-import { useLang, LanguageSwitch } from "@/lib/i18n";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useLang } from "@/lib/i18n";
+import { SiteHeader } from "@/components/SiteHeader";
 
 export const Route = createFileRoute("/terms")({
   head: () => ({
@@ -30,17 +31,7 @@ function TermsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border/60 bg-surface/80 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-4">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-primary shadow-glow">
-              <Briefcase className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <span className="text-lg font-bold">{t("brand.name")}</span>
-          </Link>
-          <LanguageSwitch />
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="mx-auto max-w-3xl px-4 py-12">
         <Link

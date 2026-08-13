@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { useLang, LanguageSwitch } from "@/lib/i18n";
+import { useLang } from "@/lib/i18n";
+import { SiteHeader } from "@/components/SiteHeader";
 import { openCookiePreferences } from "@/lib/cookie-consent";
-import waslaLogo from "@/assets/wasla-logo.png";
 import waslaHeroBg from "@/assets/wasla-hero-bg.jpg";
 
 import {
@@ -82,27 +82,12 @@ function Landing() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div id="top" className="min-h-screen bg-background">
       {/* Nav */}
-      <header className="border-b border-border/60 bg-surface/80 backdrop-blur">
-        <div className="mx-auto flex min-h-20 max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 md:py-5">
-          <div className="flex items-center gap-2">
-            <img src={waslaLogo} alt={t("brand.name")} className="h-11 w-auto" />
-          </div>
-          <div className="flex items-center gap-3">
-            <LanguageSwitch />
-            <Button asChild variant="ghost" size="sm">
-              <Link to="/auth">{t("nav.signIn")}</Link>
-            </Button>
-            <Button asChild variant="outline" size="sm">
-              <Link to="/auth">{t("nav.start")}</Link>
-            </Button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Hero cover */}
-      <section className="relative overflow-hidden bg-surface">
+      <section id="services" className="relative overflow-hidden bg-surface">
         <img
           src={waslaHeroBg}
           alt={
@@ -218,7 +203,7 @@ function Landing() {
 
 
       {/* How it works */}
-      <section className="section-tint border-y border-border/60">
+      <section id="how-it-works" className="section-tint border-y border-border/60">
         <div className="mx-auto max-w-7xl px-4 py-20">
         <div className="mb-14 text-center">
           <h2 className="heading-strong heading-rule-center text-3xl md:text-4xl">{t("how.title")}</h2>
@@ -263,7 +248,7 @@ function Landing() {
       </section>
 
       {/* For pros */}
-      <section className="border-b border-border/60 bg-surface">
+      <section id="providers" className="border-b border-border/60 bg-surface">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 md:grid-cols-2 md:items-center md:gap-20">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
