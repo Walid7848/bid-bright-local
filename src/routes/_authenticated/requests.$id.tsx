@@ -663,13 +663,21 @@ function RequestDetail() {
 
           {canBidSlot && !myBid && (
             <RoleGate role="professional" compact>
-              <BidForm requestId={id} />
+              <BidForm
+                requestId={id}
+                budgetMin={request.budget_min}
+                budgetMax={request.budget_max}
+              />
             </RoleGate>
           )}
           {myBid && (
-            <Card className="p-5 shadow-soft">
-              <div className="text-xs font-medium uppercase text-muted-foreground">
-                {t("rd.myBid")}
+            <Card className="border-success/40 bg-success/5 p-5 shadow-soft">
+              <div className="flex items-center gap-2 text-sm font-semibold text-success">
+                <CheckCircle2 className="h-4 w-4" />
+                {t("bf.alreadyTitle")}
+              </div>
+              <div className="mt-3 text-xs font-medium uppercase text-muted-foreground">
+                {t("bf.myOffer")}
               </div>
               <div className="mt-2 text-2xl font-bold text-primary">{myBid.price} €</div>
               <div className="text-sm text-muted-foreground">
