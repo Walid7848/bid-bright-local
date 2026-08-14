@@ -803,7 +803,47 @@ const DICT = {
   "rd.cta.closed": { ar: "الطلب مغلق", nl: "Aanvraag gesloten", en: "Request closed" },
   "rd.myBid": { ar: "عرضك", nl: "Jouw offerte", en: "Your offer" },
   "rd.delete": { ar: "حذف", nl: "Verwijderen", en: "Delete" },
+
+  // ── Professional: available requests (/requests) ──
+  "pro.title": { ar: "طلبات مناسبة لك", nl: "Aanvragen die bij je passen", en: "Requests that match you" },
+  "pro.subtitle": {
+    ar: "استعرض طلبات العملاء واختر الخدمات التي تناسب خبرتك.",
+    nl: "Bekijk aanvragen van klanten en kies wat bij jouw expertise past.",
+    en: "Browse client requests and pick the ones that fit your expertise.",
+  },
+  "pro.countLabel": { ar: "طلب متاح", nl: "beschikbare aanvragen", en: "available requests" },
+  "pro.searchPlaceholder": { ar: "ابحث عن خدمة أو طلب...", nl: "Zoek een dienst of aanvraag...", en: "Search a service or request..." },
+  "pro.filters": { ar: "تصفية الطلبات", nl: "Aanvragen filteren", en: "Filter requests" },
+  "pro.clearFilters": { ar: "مسح الفلاتر", nl: "Filters wissen", en: "Clear filters" },
+  "pro.allCities": { ar: "كل المدن", nl: "Alle steden", en: "All cities" },
+  "pro.allCategories": { ar: "كل الخدمات", nl: "Alle diensten", en: "All services" },
+  "pro.allStatuses": { ar: "كل الحالات", nl: "Alle statussen", en: "All statuses" },
+  "pro.city": { ar: "المدينة", nl: "Stad", en: "City" },
+  "pro.category": { ar: "نوع الخدمة", nl: "Soort dienst", en: "Service type" },
+  "pro.status": { ar: "حالة الطلب", nl: "Status", en: "Status" },
+  "pro.budget": { ar: "الميزانية", nl: "Budget", en: "Budget" },
+  "pro.anyBudget": { ar: "أي ميزانية", nl: "Elk budget", en: "Any budget" },
+  "pro.withBudget": { ar: "طلبات بميزانية محددة", nl: "Met opgegeven budget", en: "With a stated budget" },
+  "pro.sort": { ar: "الترتيب", nl: "Sorteren", en: "Sort" },
+  "pro.sortNewest": { ar: "الأحدث", nl: "Nieuwste", en: "Newest" },
+  "pro.sortBudget": { ar: "الأعلى ميزانية", nl: "Hoogste budget", en: "Highest budget" },
+  "pro.sortFewestBids": { ar: "الأقل عروضاً", nl: "Minste offertes", en: "Fewest offers" },
+  "pro.myCity": { ar: "في مدينتي", nl: "In mijn stad", en: "In my city" },
+  "pro.myProfession": { ar: "ضمن مهنتي", nl: "Binnen mijn vak", en: "In my profession" },
+  "pro.bidsCount": { ar: "عرض", nl: "offertes", en: "offers" },
+  "pro.noBidsYet": { ar: "لا عروض بعد", nl: "Nog geen offertes", en: "No offers yet" },
+  "pro.view": { ar: "عرض الطلب", nl: "Aanvraag bekijken", en: "View request" },
+  "pro.bid": { ar: "تقديم عرض", nl: "Offerte indienen", en: "Submit offer" },
+  "pro.alreadyBid": { ar: "قدّمت عرضاً", nl: "Offerte ingediend", en: "Offer submitted" },
+  "pro.emptyTitle": { ar: "لا توجد طلبات مناسبة حاليًا", nl: "Nu geen passende aanvragen", en: "No matching requests right now" },
+  "pro.emptyDesc": {
+    ar: "تحقق مرة أخرى لاحقًا، ستظهر هنا الطلبات المتاحة لخدماتك.",
+    nl: "Kom later terug; beschikbare aanvragen voor jouw diensten verschijnen hier.",
+    en: "Check back later — requests available for your services will show up here.",
+  },
+  "pro.opportunity": { ar: "فرص عمل جديدة", nl: "Nieuwe kansen", en: "New opportunities" },
 } as const;
+
 
 
 
