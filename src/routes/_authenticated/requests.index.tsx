@@ -102,7 +102,8 @@ function RequestsIndex() {
         .from("requests")
         .select("*, bids(count)")
         .order("created_at", { ascending: false });
-      if (statusFilter !== "all") q = q.eq("status", statusFilter);
+      if (statusFilter !== "all")
+        q = q.eq("status", statusFilter as (typeof STATUSES)[number]);
       if (activeCity) q = q.eq("city", activeCity);
       if (categoryFilter) q = q.eq("category", categoryFilter);
       const { data, error } = await q;
