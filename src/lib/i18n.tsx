@@ -804,6 +804,62 @@ const DICT = {
   "rd.myBid": { ar: "عرضك", nl: "Jouw offerte", en: "Your offer" },
   "rd.delete": { ar: "حذف", nl: "Verwijderen", en: "Delete" },
 
+  // ── Bid form (/requests/$id) ──
+  "bf.title": { ar: "قدّم عرضك", nl: "Doe je aanbod", en: "Make your offer" },
+  "bf.subtitle": {
+    ar: "أخبر العميل بسعرك ولماذا أنت مناسب لتنفيذ هذه الخدمة.",
+    nl: "Vertel de klant je prijs en waarom jij de juiste bent voor deze klus.",
+    en: "Tell the client your price and why you are the right fit for this job.",
+  },
+  "bf.price": { ar: "قيمة العرض", nl: "Bedrag van je offerte", en: "Offer amount" },
+  "bf.pricePlaceholder": { ar: "مثال: 250", nl: "Bijv. 250", en: "e.g. 250" },
+  "bf.clientBudget": { ar: "ميزانية العميل", nl: "Budget van de klant", en: "Client budget" },
+  "bf.duration": { ar: "مدة التنفيذ (أيام)", nl: "Uitvoeringstijd (dagen)", en: "Delivery time (days)" },
+  "bf.durationPlaceholder": { ar: "مثال: 3", nl: "Bijv. 3", en: "e.g. 3" },
+  "bf.message": { ar: "رسالة للعميل", nl: "Bericht aan de klant", en: "Message to the client" },
+  "bf.messagePlaceholder": {
+    ar: "اشرح باختصار كيف ستنفذ الخدمة ولماذا أنت مناسب لها...",
+    nl: "Leg kort uit hoe je de klus uitvoert en waarom jij geschikt bent...",
+    en: "Briefly explain how you will do the job and why you are a good fit...",
+  },
+  "bf.messageHint": {
+    ar: "اجعل رسالتك واضحة ومباشرة.",
+    nl: "Houd je bericht duidelijk en direct.",
+    en: "Keep your message clear and direct.",
+  },
+  "bf.preview": { ar: "راجع عرضك قبل الإرسال", nl: "Controleer je offerte voor verzending", en: "Review your offer before sending" },
+  "bf.submit": { ar: "إرسال العرض", nl: "Offerte versturen", en: "Send offer" },
+  "bf.submitting": { ar: "جارٍ إرسال العرض...", nl: "Offerte wordt verstuurd...", en: "Sending offer..." },
+  "bf.errPrice": { ar: "يرجى إدخال قيمة العرض.", nl: "Vul het bedrag van je offerte in.", en: "Please enter your offer amount." },
+  "bf.errDuration": { ar: "يرجى إدخال مدة التنفيذ.", nl: "Vul de uitvoeringstijd in.", en: "Please enter the delivery time." },
+  "bf.errMessage": { ar: "يرجى كتابة رسالة للعميل.", nl: "Schrijf een bericht aan de klant.", en: "Please write a message to the client." },
+  "bf.successTitle": { ar: "تم إرسال عرضك بنجاح", nl: "Je offerte is verstuurd", en: "Your offer has been sent" },
+  "bf.successDesc": {
+    ar: "سيظهر عرضك للعميل ضمن العروض المقدمة.",
+    nl: "Je offerte verschijnt bij de ontvangen offertes van de klant.",
+    en: "Your offer will appear among the offers the client received.",
+  },
+  "bf.followRequest": { ar: "متابعة الطلب", nl: "Aanvraag volgen", en: "Track this request" },
+  "bf.backToRequests": { ar: "العودة إلى الطلبات", nl: "Terug naar aanvragen", en: "Back to requests" },
+  "bf.alreadyTitle": { ar: "لقد قدمت عرضاً على هذا الطلب", nl: "Je hebt al een offerte gestuurd", en: "You already sent an offer" },
+  "bf.myOffer": { ar: "عرضك الحالي", nl: "Jouw huidige offerte", en: "Your current offer" },
+  "bf.gateTitle": { ar: "تحتاج اشتراك مقدم الخدمة", nl: "Je hebt een abonnement nodig", en: "You need a provider subscription" },
+  "bf.gateDesc": {
+    ar: "لإرسال عروضك على طلبات العملاء، تحتاج إلى تفعيل اشتراك مقدم الخدمة.",
+    nl: "Om offertes op klantaanvragen te sturen, heb je een actief abonnement nodig.",
+    en: "To send offers on client requests, you need an active provider subscription.",
+  },
+  "bf.gateUsed": { ar: "عروضك هذا الشهر", nl: "Offertes deze maand", en: "Offers this month" },
+  "bf.gateCta": { ar: "عرض خطط الاشتراك", nl: "Abonnementen bekijken", en: "View subscription plans" },
+  "bf.trial": { ar: "تجربة مجانية", nl: "Gratis proefperiode", en: "Free trial" },
+  "bf.subscribed": { ar: "مشترك", nl: "Geabonneerd", en: "Subscribed" },
+  "bf.freeLeft": { ar: "عرض مجاني متبقٍ", nl: "gratis offerte over", en: "free offer left" },
+  "bf.limitError": {
+    ar: "لقد استنفدت العرض المجاني لهذا الشهر. اشترك للاستمرار في تقديم العروض.",
+    nl: "Je gratis offerte van deze maand is op. Neem een abonnement om door te gaan.",
+    en: "You have used your free offer this month. Subscribe to keep sending offers.",
+  },
+
   // ── Professional: available requests (/requests) ──
   "pro.title": { ar: "طلبات مناسبة لك", nl: "Aanvragen die bij je passen", en: "Requests that match you" },
   "pro.subtitle": {
