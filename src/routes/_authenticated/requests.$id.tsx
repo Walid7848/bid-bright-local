@@ -663,13 +663,21 @@ function RequestDetail() {
 
           {canBidSlot && !myBid && (
             <RoleGate role="professional" compact>
-              <BidForm requestId={id} />
+              <BidForm
+                requestId={id}
+                budgetMin={request.budget_min}
+                budgetMax={request.budget_max}
+              />
             </RoleGate>
           )}
           {myBid && (
-            <Card className="p-5 shadow-soft">
-              <div className="text-xs font-medium uppercase text-muted-foreground">
-                {t("rd.myBid")}
+            <Card className="border-success/40 bg-success/5 p-5 shadow-soft">
+              <div className="flex items-center gap-2 text-sm font-semibold text-success">
+                <CheckCircle2 className="h-4 w-4" />
+                {t("bf.alreadyTitle")}
+              </div>
+              <div className="mt-3 text-xs font-medium uppercase text-muted-foreground">
+                {t("bf.myOffer")}
               </div>
               <div className="mt-2 text-2xl font-bold text-primary">{myBid.price} €</div>
               <div className="text-sm text-muted-foreground">
@@ -840,10 +848,19 @@ function BidCard({
   );
 }
 
-function BidForm({ requestId }: { requestId: string }) {
+function BidForm({
+  requestId,
+  budgetMin,
+  budgetMax,
+}: {
+  requestId: string;
+  budgetMin?: number | null;
+  budgetMax?: number | null;
+}) {
   const { user } = useAuth();
   const qc = useQueryClient();
   const navigate = useNavigate();
+  const { t } = useLang();
   const {
     canBid,
     isActive,
@@ -857,10 +874,28 @@ function BidForm({ requestId }: { requestId: string }) {
   const [days, setDays] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [errors, setErrors] = useState<{ price?: string; days?: string; message?: string }>({});
+
+  const MAX_MESSAGE = 500;
+  const hasBudget = !!(budgetMin || budgetMax);
+  const budgetText = hasBudget
+    ? budgetMax && budgetMin
+      ? `€${budgetMin} – €${budgetMax}`
+      : `€${budgetMin || budgetMax}`
+    : null;
+  const showPreview = !!price.trim() && !!message.trim();
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!user) return;
+    const next: typeof errors = {};
+    if (!price.trim() || Number(price) <= 0) next.price = t("bf.errPrice");
+    if (!days.trim() || Number(days) <= 0) next.days = t("bf.errDuration");
+    if (!message.trim()) next.message = t("bf.errMessage");
+    setErrors(next);
+    if (Object.keys(next).length) return;
+
     setLoading(true);
     const { error } = await supabase.from("bids").insert({
       request_id: requestId,
@@ -872,90 +907,186 @@ function BidForm({ requestId }: { requestId: string }) {
     setLoading(false);
     if (error) {
       if (error.message.includes("row-level security")) {
-        return toast.error(
-          "لقد استنفدت العرض المجاني لهذا الشهر. اشترك للاستمرار في تقديم العروض.",
-        );
+        return toast.error(t("bf.limitError"));
       }
       return toast.error(error.message);
     }
-    toast.success("تم تقديم عرضك");
+    toast.success(t("bf.successTitle"));
     setPrice("");
     setDays("");
     setMessage("");
+    setSent(true);
     qc.invalidateQueries({ queryKey: ["bids", requestId] });
     qc.invalidateQueries({ queryKey: ["bids-this-month", user.id] });
   }
 
+  if (sent) {
+    return (
+      <Card className="border-success/40 bg-success/5 p-5 shadow-soft">
+        <div className="flex items-start gap-3">
+          <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-success" />
+          <div className="min-w-0">
+            <div className="font-semibold text-success">{t("bf.successTitle")}</div>
+            <p className="mt-1 text-sm text-muted-foreground">{t("bf.successDesc")}</p>
+          </div>
+        </div>
+        <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+          <Button
+            variant="outline"
+            className="h-11 flex-1"
+            onClick={() => setSent(false)}
+            type="button"
+          >
+            {t("bf.followRequest")}
+          </Button>
+          <Button asChild variant="cta" className="h-11 flex-1">
+            <Link to="/requests">{t("bf.backToRequests")}</Link>
+          </Button>
+        </div>
+      </Card>
+    );
+  }
+
+  // Subscription gate — informational only, no logic change
+  if (!subLoading && !canBid) {
+    return (
+      <Card className="p-5 shadow-soft">
+        <div className="text-base font-bold">{t("bf.gateTitle")}</div>
+        <p className="mt-1 text-sm text-muted-foreground">{t("bf.gateDesc")}</p>
+        <div className="mt-3 rounded-xl bg-muted/50 p-3 text-sm">
+          <span className="text-muted-foreground">{t("bf.gateUsed")}: </span>
+          <span className="font-semibold">{bidsThisMonth}</span>
+        </div>
+        <Button
+          type="button"
+          variant="cta"
+          className="mt-4 h-11 w-full"
+          onClick={() => navigate({ to: "/subscription" })}
+        >
+          {t("bf.gateCta")}
+        </Button>
+      </Card>
+    );
+  }
+
   return (
     <Card className="p-5 shadow-soft">
-      <div className="flex items-center justify-between">
-        <div className="text-xs font-medium uppercase text-muted-foreground">قدّم عرضك</div>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h2 className="text-base font-bold">{t("bf.title")}</h2>
+          <p className="mt-1 text-sm text-muted-foreground">{t("bf.subtitle")}</p>
+        </div>
         {!subLoading && (
-          <Badge variant={isActive ? "default" : canBid ? "secondary" : "destructive"}>
+          <Badge variant={isActive ? "default" : "secondary"} className="shrink-0">
             {trialActive
-              ? `تجربة مجانية · ${trialDaysLeft} يوم`
+              ? `${t("bf.trial")} · ${trialDaysLeft} ${t("rd.days")}`
               : isActive
-                ? "مشترك"
-                : `عرض مجاني: ${remainingFree}/1`}
+                ? t("bf.subscribed")
+                : `${remainingFree} ${t("bf.freeLeft")}`}
           </Badge>
         )}
       </div>
 
-      {!subLoading && !canBid && (
-        <div className="mt-3 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm">
-          <div className="font-medium">استنفدت عرضك المجاني لهذا الشهر</div>
-          <div className="mt-1 text-muted-foreground">
-            قدّمت {bidsThisMonth} عرضاً هذا الشهر. اشترك لتقديم عروض غير محدودة.
+      <form onSubmit={submit} className="mt-4 space-y-4" noValidate>
+        <div className="space-y-1.5">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <Label htmlFor="bid-price">{t("bf.price")}</Label>
+            {budgetText && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                <Wallet className="h-3.5 w-3.5" />
+                {t("bf.clientBudget")}: <span dir="ltr">{budgetText}</span>
+              </span>
+            )}
           </div>
-          <Button
-            type="button"
-            size="sm"
-            className="mt-3"
-            onClick={() => navigate({ to: "/subscription" })}
-          >
-            الاشتراك الآن
-          </Button>
+          <div className="relative">
+            <span className="pointer-events-none absolute inset-y-0 start-3 flex items-center text-sm font-semibold text-muted-foreground">
+              €
+            </span>
+            <Input
+              id="bid-price"
+              type="number"
+              inputMode="decimal"
+              min={1}
+              className="h-12 ps-8 text-base"
+              placeholder={t("bf.pricePlaceholder")}
+              aria-invalid={!!errors.price}
+              aria-describedby={errors.price ? "bid-price-err" : undefined}
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </div>
+          {errors.price && (
+            <p id="bid-price-err" className="text-xs font-medium text-destructive">
+              {errors.price}
+            </p>
+          )}
         </div>
-      )}
 
-      <form onSubmit={submit} className="mt-3 space-y-3">
         <div className="space-y-1.5">
-          <Label>السعر (€)</Label>
+          <Label htmlFor="bid-days">{t("bf.duration")}</Label>
           <Input
+            id="bid-days"
             type="number"
+            inputMode="numeric"
             min={1}
-            required
-            disabled={!canBid}
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-        </div>
-        <div className="space-y-1.5">
-          <Label>مدة التنفيذ (أيام)</Label>
-          <Input
-            type="number"
-            min={1}
-            required
-            disabled={!canBid}
+            className="h-12 text-base"
+            placeholder={t("bf.durationPlaceholder")}
+            aria-invalid={!!errors.days}
+            aria-describedby={errors.days ? "bid-days-err" : undefined}
             value={days}
             onChange={(e) => setDays(e.target.value)}
           />
+          {errors.days && (
+            <p id="bid-days-err" className="text-xs font-medium text-destructive">
+              {errors.days}
+            </p>
+          )}
         </div>
+
         <div className="space-y-1.5">
-          <Label>رسالة للزبون</Label>
+          <Label htmlFor="bid-message">{t("bf.message")}</Label>
           <Textarea
-            required
-            rows={3}
-            maxLength={500}
-            disabled={!canBid}
+            id="bid-message"
+            rows={4}
+            maxLength={MAX_MESSAGE}
+            className="text-base"
+            placeholder={t("bf.messagePlaceholder")}
+            aria-invalid={!!errors.message}
+            aria-describedby="bid-message-hint"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="اشرح خطة العمل باختصار..."
           />
+          <div className="flex items-center justify-between gap-2">
+            <p id="bid-message-hint" className="text-xs text-muted-foreground">
+              {t("bf.messageHint")}
+            </p>
+            <span className="shrink-0 text-xs tabular-nums text-muted-foreground" dir="ltr">
+              {message.length}/{MAX_MESSAGE}
+            </span>
+          </div>
+          {errors.message && (
+            <p className="text-xs font-medium text-destructive">{errors.message}</p>
+          )}
         </div>
-        <Button type="submit" className="h-11 w-full" disabled={loading || !canBid}>
-          {loading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
-          إرسال العرض
+
+        {showPreview && (
+          <div className="rounded-xl border border-border bg-muted/40 p-3">
+            <div className="text-xs font-medium text-muted-foreground">{t("bf.preview")}</div>
+            <div className="mt-2 text-2xl font-extrabold text-primary" dir="ltr">
+              €{price}
+              {days && (
+                <span className="ms-2 text-sm font-medium text-muted-foreground">
+                  · {days} {t("rd.days")}
+                </span>
+              )}
+            </div>
+            <p className="mt-2 whitespace-pre-wrap break-words text-sm">{message}</p>
+          </div>
+        )}
+
+        <Button type="submit" variant="cta" className="h-12 w-full text-base" disabled={loading}>
+          {loading && <Loader2 className="me-2 h-4 w-4 animate-spin" />}
+          {loading ? t("bf.submitting") : t("bf.submit")}
         </Button>
       </form>
     </Card>
