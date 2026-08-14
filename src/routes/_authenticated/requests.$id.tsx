@@ -380,7 +380,8 @@ function RequestDetail() {
   const CtaButton = ({ className = "" }: { className?: string }) =>
     cta.variant === "cta" ? (
       <Button
-        className={"h-11 w-full bg-cta text-cta-foreground hover:bg-cta/90 " + className}
+        variant="cta"
+        className={"h-11 w-full " + className}
         onClick={cta.onClick}
       >
         {cta.label}
@@ -816,7 +817,7 @@ function BidCard({
         {canSelect && (
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button className="h-11 flex-1 gap-1 bg-cta text-cta-foreground hover:bg-cta/90">
+              <Button variant="cta" className="h-11 flex-1 gap-1">
                 <CheckCircle2 className="h-4 w-4" /> {t("rd.selectBid")}
               </Button>
             </AlertDialogTrigger>
