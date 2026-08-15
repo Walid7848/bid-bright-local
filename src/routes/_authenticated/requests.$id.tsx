@@ -21,10 +21,12 @@ import { ReviewSection } from "@/components/ReviewSection";
 import { RoleGate } from "@/components/RoleGate";
 import {
   BidComparison,
-  BidScoreBadges,
-  useBidScores,
-  type ScoredBid,
+  BidFacts,
+  RatingInline,
+  useBidStats,
+  type BidStats,
 } from "@/components/BidComparison";
+
 import { useSubscription as useSubscriptionGate } from "@/hooks/useSubscription";
 import {
   AlertDialog,
