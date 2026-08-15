@@ -342,19 +342,24 @@ function RequestDetail() {
   }
 
   async function acceptBid(bidId: string) {
-    if (!isOwner || !isClient) {
+    if (!isOwner || !isClient || accepting) {
       return toast.error("هذا الإجراء متاح لصاحب الطلب في وضع «طالب خدمة» فقط");
     }
+    setAccepting(true);
     const { error } = await supabase.rpc("accept_bid", {
       _request_id: id,
       _bid_id: bidId,
     });
+    setAccepting(false);
     if (error) return toast.error(error.message);
 
-    toast.success("تم قبول العرض");
+    setPendingBid(null);
+    setJustAccepted(true);
+    toast.success(t("bc.successTitle"));
     qc.invalidateQueries({ queryKey: ["request", id] });
     qc.invalidateQueries({ queryKey: ["bids", id] });
   }
+
 
   function scrollTo(anchor: string) {
     document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
