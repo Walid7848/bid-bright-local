@@ -2,10 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { useLang } from "@/lib/i18n";
+import { categoryLabel } from "@/lib/service-search";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { CATEGORY_MAP } from "@/lib/categories";
 import { Plus, Users } from "lucide-react";
 import { RoleGate } from "@/components/RoleGate";
 
@@ -13,8 +14,20 @@ export const Route = createFileRoute("/_authenticated/my-requests")({
   component: MyRequests,
 });
 
+type Status = "open" | "awarded" | "in_progress" | "completed" | "closed";
+
+const STATUS_STYLE: Record<Status, string> = {
+  open: "bg-success/15 text-success",
+  awarded: "bg-primary/15 text-primary",
+  in_progress: "bg-primary/15 text-primary",
+  completed: "bg-success/15 text-success",
+  closed: "bg-destructive/10 text-destructive",
+};
+
 function MyRequests() {
   const { user } = useAuth();
+  const { t, lang } = useLang();
+  const ts = (s: string) => t(`status.${s}` as Parameters<typeof t>[0]);
   const { data: requests, isLoading } = useQuery({
     queryKey: ["my-requests", user?.id],
     enabled: !!user?.id,
@@ -28,6 +41,7 @@ function MyRequests() {
       return data;
     },
   });
+
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
