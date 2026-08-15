@@ -277,7 +277,7 @@ function RequestDetail() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("requests")
-        .select("*, profiles!requests_client_profile_fkey(full_name, phone, city)")
+        .select("*, profiles!requests_client_profile_fkey(full_name, city)")
         .eq("id", id)
         .maybeSingle();
       if (error) throw error;
@@ -293,7 +293,7 @@ function RequestDetail() {
       const { data, error } = await supabase
         .from("bids")
         .select(
-          "*, profiles!bids_professional_profile_fkey(full_name, city, phone, profession, bio, avatar_url)",
+          "*, profiles!bids_professional_profile_fkey(full_name, city, profession, bio, avatar_url)",
         )
         .eq("request_id", id)
         .order("price", { ascending: true });
@@ -301,6 +301,28 @@ function RequestDetail() {
       return data;
     },
   });
+
+  // Contact details come from a relationship-checked RPC, never from a plain
+  // profiles select. Cached per request AND per signed-in user.
+  const { data: contact } = useQuery({
+    queryKey: ["request-contact", id, user?.id],
+    enabled: !!user?.id && !!request && request.status !== "open" && request.status !== "closed",
+    staleTime: 0,
+    gcTime: 0,
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc("get_request_contact", { _request_id: id });
+      if (error) throw error;
+      return (data?.[0] ?? null) as {
+        counterparty_id: string;
+        full_name: string | null;
+        phone: string | null;
+        party: string;
+      } | null;
+    },
+  });
+  const clientPhone = contact?.party === "client" ? (contact.phone ?? null) : null;
+  const proPhone = contact?.party === "professional" ? (contact.phone ?? null) : null;
+
 
   const stats = useBidStats(bids ?? undefined);
   const [pendingBid, setPendingBid] = useState<any | null>(null);
@@ -624,7 +646,9 @@ function RequestDetail() {
                     isOwner={isOwner}
                     canSelect={isOwner && isClient && request.status === "open"}
                     isAccepted={b.status === "accepted"}
+                    contactPhone={b.status === "accepted" ? proPhone : null}
                     onSelect={() => setPendingBid(b)}
+
                   />
                 ))}
               </div>
@@ -815,18 +839,17 @@ function RequestDetail() {
                 <div className="text-xs text-muted-foreground">{request.profiles?.city}</div>
               </div>
             </div>
-            {acceptedBid &&
-              (isOwner || acceptedBid.professional_id === user?.id) &&
-              request.profiles?.phone && (
-                <a
-                  href={`tel:${request.profiles.phone}`}
-                  className="mt-4 flex h-11 items-center justify-center gap-2 rounded-xl bg-success/10 text-sm font-medium text-success hover:bg-success/15"
-                  dir="ltr"
-                >
-                  <Phone className="h-4 w-4" />
-                  {request.profiles.phone}
-                </a>
-              )}
+            {clientPhone && (
+              <a
+                href={`tel:${clientPhone}`}
+                className="mt-4 flex h-11 items-center justify-center gap-2 rounded-xl bg-success/10 text-sm font-medium text-success hover:bg-success/15"
+                dir="ltr"
+              >
+                <Phone className="h-4 w-4" />
+                {clientPhone}
+              </a>
+            )}
+
           </Card>
 
           {canBidSlot && !myBid && (
@@ -896,6 +919,7 @@ function BidCard({
   isOwner,
   canSelect,
   isAccepted,
+  contactPhone,
   onSelect,
 }: {
   bid: any;
@@ -903,8 +927,10 @@ function BidCard({
   isOwner: boolean;
   canSelect: boolean;
   isAccepted: boolean;
+  contactPhone?: string | null;
   onSelect: () => void;
 }) {
+
   const { t, lang } = useLang();
   const dateLocale = useDateLocale();
   return (
@@ -976,16 +1002,17 @@ function BidCard({
           <span className="whitespace-pre-wrap break-words">{bid.message}</span>
         </div>
       )}
-      {isAccepted && bid.profiles?.phone && isOwner && (
+      {isAccepted && contactPhone && (
         <a
-          href={`tel:${bid.profiles.phone}`}
+          href={`tel:${contactPhone}`}
           className="mt-3 flex h-11 items-center justify-center gap-2 rounded-xl bg-success/10 text-sm font-semibold text-success"
           dir="ltr"
         >
           <Phone className="h-4 w-4" />
-          {bid.profiles.phone}
+          {contactPhone}
         </a>
       )}
+
       <div className="mt-4 flex flex-wrap gap-2">
         <Button asChild variant="outline" className="h-11 flex-1">
           <Link to="/providers/$id" params={{ id: bid.professional_id }}>
