@@ -301,6 +301,16 @@ export type Database = {
       can_place_bid: { Args: { _user_id: string }; Returns: boolean }
       close_request: { Args: { _request_id: string }; Returns: undefined }
       complete_request: { Args: { _request_id: string }; Returns: undefined }
+      get_my_phone: { Args: never; Returns: string }
+      get_request_contact: {
+        Args: { _request_id: string }
+        Returns: {
+          counterparty_id: string
+          full_name: string
+          party: string
+          phone: string
+        }[]
+      }
       has_active_subscription: { Args: { _user_id: string }; Returns: boolean }
       has_role: {
         Args: {
