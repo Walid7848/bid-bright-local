@@ -837,18 +837,17 @@ function RequestDetail() {
                 <div className="text-xs text-muted-foreground">{request.profiles?.city}</div>
               </div>
             </div>
-            {acceptedBid &&
-              (isOwner || acceptedBid.professional_id === user?.id) &&
-              request.profiles?.phone && (
-                <a
-                  href={`tel:${request.profiles.phone}`}
-                  className="mt-4 flex h-11 items-center justify-center gap-2 rounded-xl bg-success/10 text-sm font-medium text-success hover:bg-success/15"
-                  dir="ltr"
-                >
-                  <Phone className="h-4 w-4" />
-                  {request.profiles.phone}
-                </a>
-              )}
+            {clientPhone && (
+              <a
+                href={`tel:${clientPhone}`}
+                className="mt-4 flex h-11 items-center justify-center gap-2 rounded-xl bg-success/10 text-sm font-medium text-success hover:bg-success/15"
+                dir="ltr"
+              >
+                <Phone className="h-4 w-4" />
+                {clientPhone}
+              </a>
+            )}
+
           </Card>
 
           {canBidSlot && !myBid && (
