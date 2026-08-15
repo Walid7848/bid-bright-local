@@ -277,7 +277,7 @@ function RequestDetail() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("requests")
-        .select("*, profiles!requests_client_profile_fkey(full_name, phone, city)")
+        .select("*, profiles!requests_client_profile_fkey(full_name, city)")
         .eq("id", id)
         .maybeSingle();
       if (error) throw error;
@@ -293,7 +293,7 @@ function RequestDetail() {
       const { data, error } = await supabase
         .from("bids")
         .select(
-          "*, profiles!bids_professional_profile_fkey(full_name, city, phone, profession, bio, avatar_url)",
+          "*, profiles!bids_professional_profile_fkey(full_name, city, profession, bio, avatar_url)",
         )
         .eq("request_id", id)
         .order("price", { ascending: true });
@@ -301,6 +301,28 @@ function RequestDetail() {
       return data;
     },
   });
+
+  // Contact details come from a relationship-checked RPC, never from a plain
+  // profiles select. Cached per request AND per signed-in user.
+  const { data: contact } = useQuery({
+    queryKey: ["request-contact", id, user?.id],
+    enabled: !!user?.id && !!request && request.status !== "open" && request.status !== "closed",
+    staleTime: 0,
+    gcTime: 0,
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc("get_request_contact", { _request_id: id });
+      if (error) throw error;
+      return (data?.[0] ?? null) as {
+        counterparty_id: string;
+        full_name: string | null;
+        phone: string | null;
+        party: string;
+      } | null;
+    },
+  });
+  const clientPhone = contact?.party === "client" ? (contact.phone ?? null) : null;
+  const proPhone = contact?.party === "professional" ? (contact.phone ?? null) : null;
+
 
   const stats = useBidStats(bids ?? undefined);
   const [pendingBid, setPendingBid] = useState<any | null>(null);
