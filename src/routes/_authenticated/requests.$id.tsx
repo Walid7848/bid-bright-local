@@ -919,6 +919,7 @@ function BidCard({
   isOwner,
   canSelect,
   isAccepted,
+  contactPhone,
   onSelect,
 }: {
   bid: any;
@@ -926,8 +927,10 @@ function BidCard({
   isOwner: boolean;
   canSelect: boolean;
   isAccepted: boolean;
+  contactPhone?: string | null;
   onSelect: () => void;
 }) {
+
   const { t, lang } = useLang();
   const dateLocale = useDateLocale();
   return (
