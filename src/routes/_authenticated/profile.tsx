@@ -50,10 +50,11 @@ function ProfilePage() {
     queryFn: async () => {
       const { data } = await supabase
         .from("profiles")
-        .select("*")
+        .select("id, full_name, city, profession, bio, avatar_url")
         .eq("id", user!.id)
         .maybeSingle();
-      return data;
+      const { data: ownPhone } = await supabase.rpc("get_my_phone");
+      return data ? { ...data, phone: (ownPhone as string | null) ?? "" } : null;
     },
   });
 
@@ -66,6 +67,7 @@ function ProfilePage() {
       setBio(profile.bio || "");
     }
   }, [profile]);
+
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
