@@ -32,10 +32,10 @@ function MyRequests() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-3xl font-bold">طلباتي</h1>
+        <h1 className="text-3xl font-bold">{t("mr.title")}</h1>
         <Button asChild size="sm" className="gap-1">
           <Link to="/requests/new">
-            <Plus className="h-4 w-4" /> طلب جديد
+            <Plus className="h-4 w-4" /> {t("mr.new")}
           </Link>
         </Button>
       </div>
@@ -50,10 +50,10 @@ function MyRequests() {
         </div>
       ) : !requests || requests.length === 0 ? (
         <Card className="p-12 text-center">
-          <h3 className="font-semibold">لا توجد طلبات بعد</h3>
-          <p className="mt-1 text-sm text-muted-foreground">ابدأ بنشر أول طلب لك</p>
+          <h3 className="font-semibold">{t("mr.emptyTitle")}</h3>
+          <p className="mt-1 text-sm text-muted-foreground">{t("mr.emptyDesc")}</p>
           <Button asChild className="mt-4">
-            <Link to="/requests/new">إنشاء طلب</Link>
+            <Link to="/requests/new">{t("mr.create")}</Link>
           </Button>
         </Card>
       ) : (
@@ -70,25 +70,17 @@ function MyRequests() {
                   <h3 className="text-lg font-bold">{r.title}</h3>
                   <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                     <Badge variant="secondary" className="text-xs">
-                      {CATEGORY_MAP[r.category] || r.category}
+                      {categoryLabel(r.category, lang)}
                     </Badge>
                     <span>{r.city}</span>
                     <span className="flex items-center gap-1">
                       <Users className="h-3 w-3" />
-                      {r.bids?.[0]?.count ?? 0} عرض
+                      {r.bids?.[0]?.count ?? 0} {t("mr.bidsCount")}
                     </span>
                   </div>
                 </div>
-                <Badge
-                  className={
-                    r.status === "open"
-                      ? "bg-success/15 text-success"
-                      : r.status === "awarded"
-                        ? "bg-primary/15 text-primary"
-                        : ""
-                  }
-                >
-                  {r.status === "open" ? "مفتوح" : r.status === "awarded" ? "تم الاختيار" : "مغلق"}
+                <Badge className={STATUS_STYLE[r.status as Status] ?? ""}>
+                  {ts(r.status)}
                 </Badge>
               </div>
             </Link>
@@ -100,3 +92,4 @@ function MyRequests() {
     </div>
   );
 }
+
