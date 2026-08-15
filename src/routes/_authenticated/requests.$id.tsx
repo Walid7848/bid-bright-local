@@ -741,6 +741,25 @@ function RequestDetail() {
             <div className="mt-2">
               <StatusBadge status={request.status} />
             </div>
+            {(request.status === "awarded" ||
+              request.status === "in_progress" ||
+              request.status === "completed") && (
+              <p className="mt-2 text-sm font-medium text-foreground" aria-live="polite">
+                {request.status === "awarded"
+                  ? t("rd.stateAwardedClient")
+                  : request.status === "in_progress"
+                    ? t("rd.stateInProgressClient")
+                    : t("rd.stateCompleted")}
+              </p>
+            )}
+            {isOwner &&
+              !!acceptedBid &&
+              (request.status === "awarded" || request.status === "in_progress") && (
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {t("rd.reviewAfterCompleteHint")}
+                </p>
+              )}
+
             <div className="mt-4 hidden lg:block">
               <CtaButton />
             </div>
