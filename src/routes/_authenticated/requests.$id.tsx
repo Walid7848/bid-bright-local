@@ -646,7 +646,9 @@ function RequestDetail() {
                     isOwner={isOwner}
                     canSelect={isOwner && isClient && request.status === "open"}
                     isAccepted={b.status === "accepted"}
+                    contactPhone={b.status === "accepted" ? proPhone : null}
                     onSelect={() => setPendingBid(b)}
+
                   />
                 ))}
               </div>
