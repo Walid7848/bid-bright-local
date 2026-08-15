@@ -339,21 +339,12 @@ function RequestDetail() {
     if (!isOwner || !isClient) {
       return toast.error("هذا الإجراء متاح لصاحب الطلب في وضع «طالب خدمة» فقط");
     }
-    const { error: e1 } = await supabase
-      .from("bids")
-      .update({ status: "accepted" })
-      .eq("id", bidId);
-    if (e1) return toast.error(e1.message);
-    await supabase
-      .from("bids")
-      .update({ status: "rejected" })
-      .eq("request_id", id)
-      .neq("id", bidId);
-    const { error: e2 } = await supabase
-      .from("requests")
-      .update({ status: "awarded", awarded_bid_id: bidId })
-      .eq("id", id);
-    if (e2) return toast.error(e2.message);
+    const { error } = await supabase.rpc("accept_bid", {
+      _request_id: id,
+      _bid_id: bidId,
+    });
+    if (error) return toast.error(error.message);
+
     toast.success("تم قبول العرض");
     qc.invalidateQueries({ queryKey: ["request", id] });
     qc.invalidateQueries({ queryKey: ["bids", id] });
