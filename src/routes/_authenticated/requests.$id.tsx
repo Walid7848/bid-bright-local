@@ -661,6 +661,58 @@ function RequestDetail() {
             </AlertDialogContent>
           </AlertDialog>
 
+          <AlertDialog
+            open={confirmStart}
+            onOpenChange={(o) => {
+              if (!o && !transitioning) setConfirmStart(false);
+            }}
+          >
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>{t("rd.startConfirmTitle")}</AlertDialogTitle>
+                <AlertDialogDescription>{t("rd.startConfirmDesc")}</AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={transitioning}>{t("rd.cancel")}</AlertDialogCancel>
+                <Button
+                  variant="cta"
+                  disabled={transitioning}
+                  onClick={() => runTransition("start_request")}
+                >
+                  {transitioning && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  {transitioning ? t("rd.startLoading") : t("rd.startConfirmAction")}
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+
+          <AlertDialog
+            open={confirmComplete}
+            onOpenChange={(o) => {
+              if (!o && !transitioning) setConfirmComplete(false);
+            }}
+          >
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>{t("rd.completeConfirmTitle")}</AlertDialogTitle>
+                <AlertDialogDescription>{t("rd.completeConfirmDesc")}</AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={transitioning}>{t("rd.cancel")}</AlertDialogCancel>
+                <Button
+                  variant="cta"
+                  disabled={transitioning}
+                  onClick={() => runTransition("complete_request")}
+                >
+                  {transitioning && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  {transitioning ? t("rd.completeLoading") : t("rd.completeConfirmAction")}
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+
+
+
           {/* Timeline (mobile order: after bids) */}
           <Card className="p-5 shadow-soft sm:p-6 lg:hidden">
 
