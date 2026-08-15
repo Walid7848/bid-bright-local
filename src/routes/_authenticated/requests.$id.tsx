@@ -796,18 +796,18 @@ function RequestDetail() {
 
 function BidCard({
   bid,
-  scored,
+  stats,
   isOwner,
   canSelect,
   isAccepted,
-  onAccept,
+  onSelect,
 }: {
   bid: any;
-  scored?: ScoredBid;
+  stats?: BidStats;
   isOwner: boolean;
   canSelect: boolean;
   isAccepted: boolean;
-  onAccept: () => void;
+  onSelect: () => void;
 }) {
   const { t, lang } = useLang();
   const dateLocale = useDateLocale();
@@ -818,7 +818,7 @@ function BidCard({
         (isAccepted
           ? "border-success bg-success/5 shadow-glow"
           : bid.status === "rejected"
-            ? "opacity-60"
+            ? "opacity-70"
             : "shadow-soft hover:shadow-elegant")
       }
     >
@@ -834,13 +834,12 @@ function BidCard({
           </Avatar>
           <div className="min-w-0">
             <div className="truncate font-semibold">
-              {bid.profiles?.full_name || t("rd.viewProfile")}
+              {bid.profiles?.full_name || t("bc.provider")}
             </div>
             <div className="mt-0.5 flex flex-wrap gap-x-2 text-xs text-muted-foreground">
               {bid.profiles?.profession && (
                 <span>{categoryLabel(bid.profiles.profession, lang)}</span>
               )}
-              {bid.profiles?.city && <span>· {bid.profiles.city}</span>}
               <span>
                 ·{" "}
                 {formatDistanceToNow(new Date(bid.created_at), {
@@ -853,22 +852,25 @@ function BidCard({
         </div>
         <div className="text-start" dir="ltr">
           <div className="text-2xl font-extrabold text-primary">{bid.price} €</div>
-          <div className="text-xs text-muted-foreground">
-            <Clock className="mr-1 inline h-3 w-3" />
-            {bid.duration_days} {t("rd.days")}
-          </div>
         </div>
       </div>
-      {scored && (
-        <div className="mt-3 flex flex-wrap items-center gap-2">
-          <BidScoreBadges scored={scored} />
-          {scored.stats.rating !== null && (
-            <span className="text-xs text-muted-foreground">
-              {scored.stats.rating.toFixed(1)} ★
-            </span>
-          )}
-        </div>
+
+      <BidFacts bid={bid} stats={stats} />
+
+      {(isAccepted || bid.status === "rejected") && (
+        <Badge
+          variant="outline"
+          className={
+            "mt-3 " +
+            (isAccepted
+              ? "border-success/40 bg-success/10 text-success"
+              : "text-muted-foreground")
+          }
+        >
+          {isAccepted ? t("bc.statusAccepted") : t("bc.statusRejected")}
+        </Badge>
       )}
+
       {bid.profiles?.bio && (
         <p className="mt-3 line-clamp-3 text-xs text-muted-foreground">{bid.profiles.bio}</p>
       )}
@@ -895,30 +897,15 @@ function BidCard({
           </Link>
         </Button>
         {canSelect && (
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="cta" className="h-11 flex-1 gap-1">
-                <CheckCircle2 className="h-4 w-4" /> {t("rd.selectBid")}
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>تأكيد اختيار العرض</AlertDialogTitle>
-                <AlertDialogDescription>
-                  سيتم إغلاق الطلب ورفض العروض الأخرى، وسيصلك رقم صاحب المهنة للتواصل.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>إلغاء</AlertDialogCancel>
-                <AlertDialogAction onClick={onAccept}>تأكيد</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <Button variant="cta" className="h-11 flex-1 gap-1" onClick={onSelect}>
+            <CheckCircle2 className="h-4 w-4" /> {t("rd.selectBid")}
+          </Button>
         )}
       </div>
     </Card>
   );
 }
+
 
 function BidForm({
   requestId,
