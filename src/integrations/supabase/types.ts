@@ -149,6 +149,13 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "requests_awarded_bid_id_fkey"
+            columns: ["awarded_bid_id"]
+            isOneToOne: false
+            referencedRelation: "bids"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "requests_client_profile_fkey"
             columns: ["client_id"]
             isOneToOne: false
@@ -286,6 +293,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      accept_bid: {
+        Args: { _bid_id: string; _request_id: string }
+        Returns: undefined
+      }
       bids_this_month: { Args: { _user_id: string }; Returns: number }
       can_place_bid: { Args: { _user_id: string }; Returns: boolean }
       has_active_subscription: { Args: { _user_id: string }; Returns: boolean }
