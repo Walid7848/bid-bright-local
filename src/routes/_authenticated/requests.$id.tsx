@@ -1002,16 +1002,17 @@ function BidCard({
           <span className="whitespace-pre-wrap break-words">{bid.message}</span>
         </div>
       )}
-      {isAccepted && bid.profiles?.phone && isOwner && (
+      {isAccepted && contactPhone && (
         <a
-          href={`tel:${bid.profiles.phone}`}
+          href={`tel:${contactPhone}`}
           className="mt-3 flex h-11 items-center justify-center gap-2 rounded-xl bg-success/10 text-sm font-semibold text-success"
           dir="ltr"
         >
           <Phone className="h-4 w-4" />
-          {bid.profiles.phone}
+          {contactPhone}
         </a>
       )}
+
       <div className="mt-4 flex flex-wrap gap-2">
         <Button asChild variant="outline" className="h-11 flex-1">
           <Link to="/providers/$id" params={{ id: bid.professional_id }}>
