@@ -525,14 +525,53 @@ function RequestDetail() {
           {isOwner && bids && bids.length > 1 && request.status === "open" && (
             <BidComparison
               bids={bids}
-              scores={scores}
+              stats={stats}
               canSelect={isOwner && isClient}
-              onAccept={acceptBid}
+              onSelect={(b) => setPendingBid(b)}
             />
           )}
 
           {/* Bids */}
           <div id="bids" className="scroll-mt-24">
+            {isOwner && acceptedBid && (
+              <Card
+                className="mb-4 border-success/40 bg-success/5 p-5 shadow-soft"
+                aria-live="polite"
+              >
+                <div className="flex items-center gap-2 text-sm font-bold text-success">
+                  <CheckCircle2 className="h-5 w-5" />
+                  {justAccepted ? t("bc.successTitle") : t("bc.chosenHeading")}
+                </div>
+                <div className="mt-4 flex flex-wrap items-center gap-4">
+                  <Avatar className="h-12 w-12">
+                    {acceptedBid.profiles?.avatar_url && (
+                      <AvatarImage src={acceptedBid.profiles.avatar_url} alt="" />
+                    )}
+                    <AvatarFallback className="bg-gradient-primary text-primary-foreground">
+                      {(acceptedBid.profiles?.full_name || "؟").slice(0, 2)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate font-semibold">
+                      {acceptedBid.profiles?.full_name || t("bc.provider")}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      <span dir="ltr">{acceptedBid.price} €</span>
+                      {acceptedBid.duration_days
+                        ? ` · ${acceptedBid.duration_days} ${t("rd.days")}`
+                        : ""}
+                    </div>
+                  </div>
+                  <Button asChild variant="outline" className="h-11">
+                    <Link to="/providers/$id" params={{ id: acceptedBid.professional_id }}>
+                      {t("rd.viewProfile")}
+                    </Link>
+                  </Button>
+                </div>
+                <p className="mt-3 text-xs text-muted-foreground">{t("bc.successNote")}</p>
+              </Card>
+            )}
+
             <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
               <h2 className="text-lg font-bold">
                 {t("rd.bids")}{" "}
@@ -540,8 +579,8 @@ function RequestDetail() {
                   ({bidCount} {t("rd.bidsCount")})
                 </span>
               </h2>
-              {bidCount > 0 && (
-                <span className="text-xs text-muted-foreground">{t("rd.sortedByPrice")}</span>
+              {bidCount > 1 && isOwner && request.status === "open" && (
+                <span className="text-xs text-muted-foreground">{t("bc.chooseHeading")}</span>
               )}
             </div>
             {bidCount === 0 ? (
@@ -556,19 +595,50 @@ function RequestDetail() {
                   <BidCard
                     key={b.id}
                     bid={b}
-                    scored={scores[b.id]}
+                    stats={stats[b.id]}
                     isOwner={isOwner}
                     canSelect={isOwner && isClient && request.status === "open"}
                     isAccepted={b.status === "accepted"}
-                    onAccept={() => acceptBid(b.id)}
+                    onSelect={() => setPendingBid(b)}
                   />
                 ))}
               </div>
             )}
           </div>
 
+          <AlertDialog
+            open={!!pendingBid}
+            onOpenChange={(o) => {
+              if (!o && !accepting) setPendingBid(null);
+            }}
+          >
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>{t("bc.confirmTitle")}</AlertDialogTitle>
+                <AlertDialogDescription>
+                  {pendingBid?.profiles?.full_name
+                    ? `${pendingBid.profiles.full_name} — ${pendingBid.price} €. `
+                    : ""}
+                  {t("bc.confirmDesc")}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={accepting}>{t("bc.cancel")}</AlertDialogCancel>
+                <Button
+                  variant="cta"
+                  disabled={accepting}
+                  onClick={() => pendingBid && acceptBid(pendingBid.id)}
+                >
+                  {accepting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  {accepting ? t("bc.accepting") : t("bc.confirmAction")}
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+
           {/* Timeline (mobile order: after bids) */}
           <Card className="p-5 shadow-soft sm:p-6 lg:hidden">
+
             <h2 className="mb-4 text-lg font-bold">{t("rd.progress")}</h2>
             <Timeline status={request.status} />
           </Card>
