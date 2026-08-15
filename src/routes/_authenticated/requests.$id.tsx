@@ -454,7 +454,7 @@ function RequestDetail() {
                   </span>
                 </div>
               </div>
-              {isOwner && isClient && (
+              {isOwner && isClient && request.status === "open" && (
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <Button variant="outline" size="sm" className="h-11 gap-1 text-destructive">
@@ -463,18 +463,19 @@ function RequestDetail() {
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>حذف الطلب؟</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        سيتم حذف الطلب وكل العروض المرتبطة به.
-                      </AlertDialogDescription>
+                      <AlertDialogTitle>{t("rd.deleteTitle")}</AlertDialogTitle>
+                      <AlertDialogDescription>{t("rd.deleteDesc")}</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>إلغاء</AlertDialogCancel>
-                      <AlertDialogAction onClick={deleteRequest}>حذف</AlertDialogAction>
+                      <AlertDialogCancel>{t("rd.cancel")}</AlertDialogCancel>
+                      <AlertDialogAction onClick={deleteRequest}>
+                        {t("rd.deleteConfirm")}
+                      </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
               )}
+
             </div>
             <div className="mt-4 lg:hidden">
               <CtaButton />
