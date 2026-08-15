@@ -299,6 +299,8 @@ export type Database = {
       }
       bids_this_month: { Args: { _user_id: string }; Returns: number }
       can_place_bid: { Args: { _user_id: string }; Returns: boolean }
+      close_request: { Args: { _request_id: string }; Returns: undefined }
+      complete_request: { Args: { _request_id: string }; Returns: undefined }
       has_active_subscription: { Args: { _user_id: string }; Returns: boolean }
       has_role: {
         Args: {
@@ -307,6 +309,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      start_request: { Args: { _request_id: string }; Returns: undefined }
     }
     Enums: {
       app_role: "client" | "professional"
