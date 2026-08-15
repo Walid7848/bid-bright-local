@@ -306,6 +306,9 @@ function RequestDetail() {
   const [pendingBid, setPendingBid] = useState<any | null>(null);
   const [accepting, setAccepting] = useState(false);
   const [justAccepted, setJustAccepted] = useState(false);
+  const [confirmStart, setConfirmStart] = useState(false);
+  const [confirmComplete, setConfirmComplete] = useState(false);
+  const [transitioning, setTransitioning] = useState(false);
 
 
   if (isLoading) return <PageSkeleton />;
@@ -328,22 +331,20 @@ function RequestDetail() {
   const acceptedBid = bids?.find((b: any) => b.status === "accepted");
   const images: string[] = request.images ?? [];
   const bidCount = bids?.length ?? 0;
-  const showReview =
-    (request.status === "awarded" ||
-      request.status === "in_progress" ||
-      request.status === "completed") &&
-    !!acceptedBid;
+  const isAwardedPro =
+    !!acceptedBid && acceptedBid.professional_id === user?.id && !isOwner;
+  const showReview = request.status === "completed" && !!acceptedBid;
 
   async function deleteRequest() {
     const { error } = await supabase.from("requests").delete().eq("id", id);
     if (error) return toast.error(error.message);
-    toast.success("تم حذف الطلب");
+    toast.success(t("rd.deleted"));
     navigate({ to: "/my-requests" });
   }
 
   async function acceptBid(bidId: string) {
     if (!isOwner || !isClient || accepting) {
-      return toast.error("هذا الإجراء متاح لصاحب الطلب في وضع «طالب خدمة» فقط");
+      return toast.error(t("rd.ownerClientOnly"));
     }
     setAccepting(true);
     const { error } = await supabase.rpc("accept_bid", {
@@ -360,32 +361,54 @@ function RequestDetail() {
     qc.invalidateQueries({ queryKey: ["bids", id] });
   }
 
+  async function runTransition(fn: "start_request" | "complete_request") {
+    if (transitioning) return;
+    setTransitioning(true);
+    const { error } = await supabase.rpc(fn, { _request_id: id });
+    setTransitioning(false);
+    if (error) return toast.error(error.message);
+    setConfirmStart(false);
+    setConfirmComplete(false);
+    toast.success(fn === "start_request" ? t("rd.startSuccess") : t("rd.completeSuccess"));
+    qc.invalidateQueries({ queryKey: ["request", id] });
+    qc.invalidateQueries({ queryKey: ["bids", id] });
+  }
+
 
   function scrollTo(anchor: string) {
     document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   // CTA derived only from statuses that already exist in the system
-  const cta: { label: string; onClick?: () => void; variant: "cta" | "muted" } =
-    request.status === "closed"
+  const cta: { label: string; onClick?: () => void; variant: "cta" | "muted" } = isAwardedPro
+    ? request.status === "awarded"
+      ? { label: t("rd.startWork"), onClick: () => setConfirmStart(true), variant: "cta" }
+      : request.status === "in_progress"
+        ? { label: t("rd.completeWork"), onClick: () => setConfirmComplete(true), variant: "cta" }
+        : { label: t("rd.stateCompleted"), variant: "muted" }
+    : request.status === "closed"
       ? { label: t("rd.cta.closed"), variant: "muted" }
       : request.status === "completed"
-        ? showReview
-          ? { label: t("rd.cta.rate"), onClick: () => scrollTo("review"), variant: "cta" }
-          : { label: t("rd.cta.closed"), variant: "muted" }
-        : request.status === "awarded" || request.status === "in_progress"
-          ? { label: t("rd.cta.progress"), onClick: () => scrollTo("bids"), variant: "cta" }
-          : bidCount > 0
-            ? { label: t("rd.cta.review"), onClick: () => scrollTo("bids"), variant: "cta" }
-            : { label: t("rd.cta.waiting"), variant: "muted" };
+        ? showReview && isOwner
+          ? { label: t("rd.rateService"), onClick: () => scrollTo("review"), variant: "cta" }
+          : { label: t("rd.stateCompleted"), variant: "muted" }
+        : request.status === "in_progress"
+          ? { label: t("rd.stateInProgressClient"), variant: "muted" }
+          : request.status === "awarded"
+            ? { label: t("rd.stateAwardedClient"), onClick: () => scrollTo("bids"), variant: "cta" }
+            : bidCount > 0
+              ? { label: t("rd.cta.review"), onClick: () => scrollTo("bids"), variant: "cta" }
+              : { label: t("rd.cta.waiting"), variant: "muted" };
 
   const CtaButton = ({ className = "" }: { className?: string }) =>
     cta.variant === "cta" ? (
       <Button
         variant="cta"
         className={"h-11 w-full " + className}
+        disabled={transitioning}
         onClick={cta.onClick}
       >
+        {transitioning && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         {cta.label}
       </Button>
     ) : (
@@ -398,6 +421,7 @@ function RequestDetail() {
         {cta.label}
       </div>
     );
+
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 pb-28 lg:py-8 lg:pb-8">
@@ -430,7 +454,7 @@ function RequestDetail() {
                   </span>
                 </div>
               </div>
-              {isOwner && isClient && (
+              {isOwner && isClient && request.status === "open" && (
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <Button variant="outline" size="sm" className="h-11 gap-1 text-destructive">
@@ -439,18 +463,19 @@ function RequestDetail() {
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>حذف الطلب؟</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        سيتم حذف الطلب وكل العروض المرتبطة به.
-                      </AlertDialogDescription>
+                      <AlertDialogTitle>{t("rd.deleteTitle")}</AlertDialogTitle>
+                      <AlertDialogDescription>{t("rd.deleteDesc")}</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>إلغاء</AlertDialogCancel>
-                      <AlertDialogAction onClick={deleteRequest}>حذف</AlertDialogAction>
+                      <AlertDialogCancel>{t("rd.cancel")}</AlertDialogCancel>
+                      <AlertDialogAction onClick={deleteRequest}>
+                        {t("rd.deleteConfirm")}
+                      </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
               )}
+
             </div>
             <div className="mt-4 lg:hidden">
               <CtaButton />
@@ -636,6 +661,58 @@ function RequestDetail() {
             </AlertDialogContent>
           </AlertDialog>
 
+          <AlertDialog
+            open={confirmStart}
+            onOpenChange={(o) => {
+              if (!o && !transitioning) setConfirmStart(false);
+            }}
+          >
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>{t("rd.startConfirmTitle")}</AlertDialogTitle>
+                <AlertDialogDescription>{t("rd.startConfirmDesc")}</AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={transitioning}>{t("rd.cancel")}</AlertDialogCancel>
+                <Button
+                  variant="cta"
+                  disabled={transitioning}
+                  onClick={() => runTransition("start_request")}
+                >
+                  {transitioning && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  {transitioning ? t("rd.startLoading") : t("rd.startConfirmAction")}
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+
+          <AlertDialog
+            open={confirmComplete}
+            onOpenChange={(o) => {
+              if (!o && !transitioning) setConfirmComplete(false);
+            }}
+          >
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>{t("rd.completeConfirmTitle")}</AlertDialogTitle>
+                <AlertDialogDescription>{t("rd.completeConfirmDesc")}</AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={transitioning}>{t("rd.cancel")}</AlertDialogCancel>
+                <Button
+                  variant="cta"
+                  disabled={transitioning}
+                  onClick={() => runTransition("complete_request")}
+                >
+                  {transitioning && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  {transitioning ? t("rd.completeLoading") : t("rd.completeConfirmAction")}
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+
+
+
           {/* Timeline (mobile order: after bids) */}
           <Card className="p-5 shadow-soft sm:p-6 lg:hidden">
 
@@ -664,6 +741,25 @@ function RequestDetail() {
             <div className="mt-2">
               <StatusBadge status={request.status} />
             </div>
+            {(request.status === "awarded" ||
+              request.status === "in_progress" ||
+              request.status === "completed") && (
+              <p className="mt-2 text-sm font-medium text-foreground" aria-live="polite">
+                {request.status === "awarded"
+                  ? t("rd.stateAwardedClient")
+                  : request.status === "in_progress"
+                    ? t("rd.stateInProgressClient")
+                    : t("rd.stateCompleted")}
+              </p>
+            )}
+            {isOwner &&
+              !!acceptedBid &&
+              (request.status === "awarded" || request.status === "in_progress") && (
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {t("rd.reviewAfterCompleteHint")}
+                </p>
+              )}
+
             <div className="mt-4 hidden lg:block">
               <CtaButton />
             </div>

@@ -853,6 +853,78 @@ const DICT = {
   "rd.cta.closed": { ar: "الطلب مغلق", nl: "Aanvraag gesloten", en: "Request closed" },
   "rd.myBid": { ar: "عرضك", nl: "Jouw offerte", en: "Your offer" },
   "rd.delete": { ar: "حذف", nl: "Verwijderen", en: "Delete" },
+  "rd.deleteTitle": { ar: "حذف الطلب؟", nl: "Aanvraag verwijderen?", en: "Delete request?" },
+  "rd.deleteDesc": {
+    ar: "سيتم حذف الطلب وكل العروض المرتبطة به. لا يمكن التراجع عن هذا الإجراء.",
+    nl: "De aanvraag en alle bijbehorende offertes worden verwijderd. Dit kan niet ongedaan worden gemaakt.",
+    en: "The request and all related offers will be deleted. This cannot be undone.",
+  },
+  "rd.deleteConfirm": { ar: "حذف", nl: "Verwijderen", en: "Delete" },
+  "rd.deleted": { ar: "تم حذف الطلب", nl: "Aanvraag verwijderd", en: "Request deleted" },
+  "rd.cancel": { ar: "إلغاء", nl: "Annuleren", en: "Cancel" },
+  "rd.ownerClientOnly": {
+    ar: "هذا الإجراء متاح لصاحب الطلب في وضع «طالب خدمة» فقط",
+    nl: "Deze actie is alleen beschikbaar voor de aanvrager in de modus 'klant'",
+    en: "This action is only available to the request owner in client mode",
+  },
+  // ── Request lifecycle actions ──
+  "rd.startWork": { ar: "بدء العمل", nl: "Werk starten", en: "Start work" },
+  "rd.startConfirmTitle": {
+    ar: "هل تريد بدء تنفيذ هذا الطلب؟",
+    nl: "Wil je met deze klus beginnen?",
+    en: "Do you want to start this job?",
+  },
+  "rd.startConfirmDesc": {
+    ar: "سيتم تحديث حالة الطلب إلى «قيد التنفيذ» ويظهر ذلك لصاحب الطلب.",
+    nl: "De status wordt bijgewerkt naar 'In uitvoering' en is zichtbaar voor de klant.",
+    en: "The status becomes “In progress” and the client will see it.",
+  },
+  "rd.startConfirmAction": { ar: "نعم، ابدأ العمل", nl: "Ja, starten", en: "Yes, start" },
+  "rd.startLoading": { ar: "جارٍ البدء...", nl: "Bezig met starten...", en: "Starting..." },
+  "rd.startSuccess": { ar: "تم بدء تنفيذ الطلب", nl: "Uitvoering gestart", en: "Work started" },
+  "rd.completeWork": { ar: "تم إنجاز العمل", nl: "Werk afgerond", en: "Mark as completed" },
+  "rd.completeConfirmTitle": {
+    ar: "هل تم إنجاز الخدمة؟",
+    nl: "Is de dienst afgerond?",
+    en: "Has the service been completed?",
+  },
+  "rd.completeConfirmDesc": {
+    ar: "سيتم تحديث حالة الطلب إلى «مكتمل» ويمكن لصاحب الطلب تقييم الخدمة بعدها.",
+    nl: "De status wordt 'Afgerond' en de klant kan daarna een beoordeling achterlaten.",
+    en: "The status becomes “Completed” and the client can then leave a review.",
+  },
+  "rd.completeConfirmAction": { ar: "نعم، تم الإنجاز", nl: "Ja, afgerond", en: "Yes, completed" },
+  "rd.completeLoading": { ar: "جارٍ التحديث...", nl: "Bezig met bijwerken...", en: "Updating..." },
+  "rd.completeSuccess": { ar: "تم إنجاز العمل", nl: "Werk afgerond", en: "Work completed" },
+  "rd.stateAwardedClient": {
+    ar: "تم اختيار مقدم الخدمة",
+    nl: "Professional gekozen",
+    en: "Professional selected",
+  },
+  "rd.stateInProgressClient": {
+    ar: "العمل قيد التنفيذ",
+    nl: "Werk in uitvoering",
+    en: "Work in progress",
+  },
+  "rd.stateCompleted": { ar: "اكتمل العمل", nl: "Werk afgerond", en: "Work completed" },
+  "rd.rateService": { ar: "قيّم الخدمة", nl: "Beoordeel de dienst", en: "Rate the service" },
+  "rd.reviewAfterCompleteHint": {
+    ar: "يمكن تقييم الخدمة بعد إنجاز العمل.",
+    nl: "Beoordelen kan nadat het werk is afgerond.",
+    en: "You can leave a review once the work is completed.",
+  },
+  // ── My requests (/my-requests) ──
+  "mr.title": { ar: "طلباتي", nl: "Mijn aanvragen", en: "My requests" },
+  "mr.new": { ar: "طلب جديد", nl: "Nieuwe aanvraag", en: "New request" },
+  "mr.emptyTitle": { ar: "لا توجد طلبات بعد", nl: "Nog geen aanvragen", en: "No requests yet" },
+  "mr.emptyDesc": {
+    ar: "ابدأ بنشر أول طلب لك",
+    nl: "Plaats je eerste aanvraag",
+    en: "Post your first request",
+  },
+  "mr.create": { ar: "إنشاء طلب", nl: "Aanvraag maken", en: "Create request" },
+  "mr.bidsCount": { ar: "عرض", nl: "offerte(s)", en: "offer(s)" },
+
 
   // ── Bid form (/requests/$id) ──
   "bf.title": { ar: "قدّم عرضك", nl: "Doe je aanbod", en: "Make your offer" },
