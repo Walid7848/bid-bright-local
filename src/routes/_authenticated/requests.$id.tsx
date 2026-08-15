@@ -302,7 +302,11 @@ function RequestDetail() {
     },
   });
 
-  const scores = useBidScores(bids ?? undefined);
+  const stats = useBidStats(bids ?? undefined);
+  const [pendingBid, setPendingBid] = useState<any | null>(null);
+  const [accepting, setAccepting] = useState(false);
+  const [justAccepted, setJustAccepted] = useState(false);
+
 
   if (isLoading) return <PageSkeleton />;
 
