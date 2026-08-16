@@ -1020,7 +1020,8 @@ const DICT = {
     en: "Check back later — requests available for your services will show up here.",
   },
   "pro.opportunity": { ar: "فرص عمل جديدة", nl: "Nieuwe kansen", en: "New opportunities" },
-} as const;
+
+
 
   // notifications
   "notif.title": { ar: "الإشعارات", nl: "Meldingen", en: "Notifications" },
