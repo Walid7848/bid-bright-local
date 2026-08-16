@@ -1078,6 +1078,7 @@ const DICT = {
   "notif.time.minutes": { ar: "منذ {n} دقيقة", nl: "{n} min geleden", en: "{n} min ago" },
   "notif.time.hours": { ar: "منذ {n} ساعة", nl: "{n} uur geleden", en: "{n} h ago" },
   "notif.time.days": { ar: "منذ {n} يوم", nl: "{n} d geleden", en: "{n} d ago" },
+} as const;
 
 
 type Key = keyof typeof DICT;
