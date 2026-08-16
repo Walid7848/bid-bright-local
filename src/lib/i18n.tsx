@@ -1020,11 +1020,66 @@ const DICT = {
     en: "Check back later — requests available for your services will show up here.",
   },
   "pro.opportunity": { ar: "فرص عمل جديدة", nl: "Nieuwe kansen", en: "New opportunities" },
+
+
+
+  // notifications
+  "notif.title": { ar: "الإشعارات", nl: "Meldingen", en: "Notifications" },
+  "notif.empty": {
+    ar: "لا توجد إشعارات حتى الآن",
+    nl: "Nog geen meldingen",
+    en: "No notifications yet",
+  },
+  "notif.emptyUnread": {
+    ar: "لا توجد إشعارات غير مقروءة",
+    nl: "Geen ongelezen meldingen",
+    en: "No unread notifications",
+  },
+  "notif.all": { ar: "الكل", nl: "Alles", en: "All" },
+  "notif.unread": { ar: "غير المقروءة", nl: "Ongelezen", en: "Unread" },
+  "notif.markAll": { ar: "تحديد الكل كمقروء", nl: "Alles als gelezen markeren", en: "Mark all as read" },
+  "notif.viewAll": { ar: "عرض كل الإشعارات", nl: "Alle meldingen bekijken", en: "View all notifications" },
+  "notif.open": { ar: "فتح الإشعارات", nl: "Meldingen openen", en: "Open notifications" },
+  "notif.pageSubtitle": {
+    ar: "كل ما يخص طلباتك وعروضك في مكان واحد",
+    nl: "Alles over je aanvragen en offertes op één plek",
+    en: "Everything about your requests and bids in one place",
+  },
+  "notif.type.bid_received": {
+    ar: "وصل عرض جديد على طلبك",
+    nl: "Je hebt een nieuwe offerte ontvangen",
+    en: "You received a new bid on your request",
+  },
+  "notif.type.bid_accepted": {
+    ar: "تم اختيار عرضك",
+    nl: "Je offerte is gekozen",
+    en: "Your bid was selected",
+  },
+  "notif.type.bid_rejected": {
+    ar: "لم يتم اختيار عرضك لهذا الطلب",
+    nl: "Je offerte is deze keer niet gekozen",
+    en: "Your bid wasn't selected this time",
+  },
+  "notif.type.request_started": {
+    ar: "بدأ مقدم الخدمة تنفيذ طلبك",
+    nl: "De professional is met je aanvraag gestart",
+    en: "The professional started working on your request",
+  },
+  "notif.type.request_completed": {
+    ar: "تم إنجاز طلبك",
+    nl: "Je aanvraag is afgerond",
+    en: "Your request has been completed",
+  },
+  "notif.type.review_reminder": {
+    ar: "شاركنا تقييمك للخدمة",
+    nl: "Deel je beoordeling van de service",
+    en: "Share your review of the service",
+  },
+  "notif.time.now": { ar: "الآن", nl: "Nu", en: "Now" },
+  "notif.time.minutes": { ar: "منذ {n} دقيقة", nl: "{n} min geleden", en: "{n} min ago" },
+  "notif.time.hours": { ar: "منذ {n} ساعة", nl: "{n} uur geleden", en: "{n} h ago" },
+  "notif.time.days": { ar: "منذ {n} يوم", nl: "{n} d geleden", en: "{n} d ago" },
 } as const;
-
-
-
-
 
 
 type Key = keyof typeof DICT;
