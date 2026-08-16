@@ -21,6 +21,7 @@ import { Route as ProvidersIdRouteImport } from './routes/providers.$id'
 import { Route as AuthenticatedSubscriptionRouteImport } from './routes/_authenticated/subscription'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
+import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated/notifications'
 import { Route as AuthenticatedMyRequestsRouteImport } from './routes/_authenticated/my-requests'
 import { Route as AuthenticatedMyBidsRouteImport } from './routes/_authenticated/my-bids'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
@@ -89,6 +90,12 @@ const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedNotificationsRoute =
+  AuthenticatedNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedMyRequestsRoute = AuthenticatedMyRequestsRouteImport.update({
   id: '/my-requests',
   path: '/my-requests',
@@ -139,6 +146,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/my-bids': typeof AuthenticatedMyBidsRoute
   '/my-requests': typeof AuthenticatedMyRequestsRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/subscription': typeof AuthenticatedSubscriptionRouteWithChildren
@@ -159,6 +167,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/my-bids': typeof AuthenticatedMyBidsRoute
   '/my-requests': typeof AuthenticatedMyRequestsRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/subscription': typeof AuthenticatedSubscriptionRouteWithChildren
@@ -181,6 +190,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/my-bids': typeof AuthenticatedMyBidsRoute
   '/_authenticated/my-requests': typeof AuthenticatedMyRequestsRoute
+  '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/subscription': typeof AuthenticatedSubscriptionRouteWithChildren
@@ -203,6 +213,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/my-bids'
     | '/my-requests'
+    | '/notifications'
     | '/onboarding'
     | '/profile'
     | '/subscription'
@@ -223,6 +234,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/my-bids'
     | '/my-requests'
+    | '/notifications'
     | '/onboarding'
     | '/profile'
     | '/subscription'
@@ -244,6 +256,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/my-bids'
     | '/_authenticated/my-requests'
+    | '/_authenticated/notifications'
     | '/_authenticated/onboarding'
     | '/_authenticated/profile'
     | '/_authenticated/subscription'
@@ -352,6 +365,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/notifications': {
+      id: '/_authenticated/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AuthenticatedNotificationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/my-requests': {
       id: '/_authenticated/my-requests'
       path: '/my-requests'
@@ -423,6 +443,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedMyBidsRoute: typeof AuthenticatedMyBidsRoute
   AuthenticatedMyRequestsRoute: typeof AuthenticatedMyRequestsRoute
+  AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedSubscriptionRoute: typeof AuthenticatedSubscriptionRouteWithChildren
@@ -435,6 +456,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedMyBidsRoute: AuthenticatedMyBidsRoute,
   AuthenticatedMyRequestsRoute: AuthenticatedMyRequestsRoute,
+  AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedSubscriptionRoute: AuthenticatedSubscriptionRouteWithChildren,

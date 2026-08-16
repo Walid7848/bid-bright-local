@@ -106,8 +106,10 @@ export function AppHeader() {
           )}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
+          <NotificationBell />
           <LanguageSwitch />
+
           {isClient && (
             <Button asChild size="sm" className="gap-1">
               <Link to="/requests/new">
