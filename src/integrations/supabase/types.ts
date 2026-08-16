@@ -65,6 +65,57 @@ export type Database = {
           },
         ]
       }
+      notifications: {
+        Row: {
+          actor_id: string | null
+          bid_id: string | null
+          created_at: string
+          id: string
+          metadata: Json
+          read_at: string | null
+          request_id: string | null
+          type: string
+          user_id: string
+        }
+        Insert: {
+          actor_id?: string | null
+          bid_id?: string | null
+          created_at?: string
+          id?: string
+          metadata?: Json
+          read_at?: string | null
+          request_id?: string | null
+          type: string
+          user_id: string
+        }
+        Update: {
+          actor_id?: string | null
+          bid_id?: string | null
+          created_at?: string
+          id?: string
+          metadata?: Json
+          read_at?: string | null
+          request_id?: string | null
+          type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_bid_id_fkey"
+            columns: ["bid_id"]
+            isOneToOne: false
+            referencedRelation: "bids"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -301,6 +352,17 @@ export type Database = {
       can_place_bid: { Args: { _user_id: string }; Returns: boolean }
       close_request: { Args: { _request_id: string }; Returns: undefined }
       complete_request: { Args: { _request_id: string }; Returns: undefined }
+      create_notification: {
+        Args: {
+          _actor_id: string
+          _bid_id: string
+          _metadata?: Json
+          _request_id: string
+          _type: string
+          _user_id: string
+        }
+        Returns: undefined
+      }
       get_my_phone: { Args: never; Returns: string }
       get_request_contact: {
         Args: { _request_id: string }
