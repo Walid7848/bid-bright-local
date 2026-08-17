@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLang } from "@/lib/i18n";
 import { useNotifications } from "@/hooks/useNotifications";
 import { NotificationList } from "@/components/NotificationList";
+
 
 export const Route = createFileRoute("/_authenticated/notifications")({
   head: () => ({
