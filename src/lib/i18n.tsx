@@ -1079,7 +1079,25 @@ const DICT = {
   "notif.time.minutes": { ar: "منذ {n} دقيقة", nl: "{n} min geleden", en: "{n} min ago" },
   "notif.time.hours": { ar: "منذ {n} ساعة", nl: "{n} uur geleden", en: "{n} h ago" },
   "notif.time.days": { ar: "منذ {n} يوم", nl: "{n} d geleden", en: "{n} d ago" },
+  "notif.time.yesterday": { ar: "أمس", nl: "Gisteren", en: "Yesterday" },
+  "notif.emptyHint": {
+    ar: "ستظهر هنا التحديثات المتعلقة بطلباتك وعروضك.",
+    nl: "Hier verschijnen updates over je aanvragen en offertes.",
+    en: "Updates about your requests and bids will appear here.",
+  },
+  "notif.error": {
+    ar: "تعذر تحميل الإشعارات",
+    nl: "Meldingen konden niet worden geladen",
+    en: "Couldn't load notifications",
+  },
+  "notif.retry": { ar: "إعادة المحاولة", nl: "Opnieuw proberen", en: "Try again" },
+  "notif.unreadCount": {
+    ar: "{n} إشعار غير مقروء",
+    nl: "{n} ongelezen meldingen",
+    en: "{n} unread notifications",
+  },
 } as const;
+
 
 
 type Key = keyof typeof DICT;

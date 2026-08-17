@@ -98,6 +98,11 @@ export function useNotifications() {
     notifications,
     unreadCount: unreadQuery.data ?? 0,
     isLoading: listQuery.isLoading,
+    isError: listQuery.isError,
+    retry: () => {
+      listQuery.refetch();
+      unreadQuery.refetch();
+    },
     markAsRead: (id: string) => markOne.mutate(id),
     markAllAsRead: () => markAll.mutate(),
     isMarkingAll: markAll.isPending,
