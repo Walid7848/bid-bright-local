@@ -438,7 +438,7 @@ function statusChip(s: string) {
   return "bg-primary/15 text-primary border-primary/30";
 }
 
-function TimeAgo({ date, locale }: { date: string; locale: Locale }) {
+function TimeAgo({ date, locale }: { date: string; locale: typeof ar }) {
   return (
     <span className="flex items-center gap-1">
       <Clock className="h-3 w-3" />
