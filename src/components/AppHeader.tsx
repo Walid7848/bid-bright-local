@@ -75,18 +75,27 @@ export function AppHeader() {
 
         <nav className="hidden items-center gap-1 md:flex">
           <Link
-            to="/requests"
-            className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
-            activeProps={{ className: "text-foreground bg-accent" }}
-          >
-            {t("nav.requests")}
-          </Link>
-          <Link
             to="/dashboard"
             className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
             activeProps={{ className: "text-foreground bg-accent" }}
           >
             {t("nav.dashboard")}
+          </Link>
+          {isClient && (
+            <Link
+              to="/services"
+              className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
+              activeProps={{ className: "text-foreground bg-accent" }}
+            >
+              {t("nav.services")}
+            </Link>
+          )}
+          <Link
+            to="/requests"
+            className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
+            activeProps={{ className: "text-foreground bg-accent" }}
+          >
+            {t("nav.requests")}
           </Link>
           {isClient && (
             <Link
@@ -107,6 +116,7 @@ export function AppHeader() {
             </Link>
           )}
         </nav>
+
 
         <div className="flex items-center gap-1 sm:gap-2">
           <NotificationBell />
