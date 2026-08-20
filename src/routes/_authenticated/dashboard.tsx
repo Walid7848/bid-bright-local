@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -317,6 +317,8 @@ function Dashboard() {
           <SectionHead title={t("db.opportunities")} to="/requests" label={t("db.viewAll")} lang={lang} />
           {loadingOpps ? (
             <Skeletons />
+          ) : errorOpps ? (
+            <QueryError className="mb-8" onRetry={() => refetchOpps()} />
           ) : (opportunities ?? []).length === 0 ? (
             <Card className="p-8 text-center text-sm text-muted-foreground">
               {t("db.emptyOpportunities")}
@@ -350,6 +352,8 @@ function Dashboard() {
           <SectionHead title={t("db.myBids")} to="/my-bids" label={t("db.viewAll")} lang={lang} />
           {loadingBids ? (
             <Skeletons />
+          ) : errorBids ? (
+            <QueryError onRetry={() => refetchBids()} />
           ) : bidList.length === 0 ? (
             <EmptyState
               text={t("db.emptyPro")}
@@ -385,6 +389,8 @@ function Dashboard() {
           <SectionHead title={t("db.myRequests")} to="/my-requests" label={t("db.viewAll")} lang={lang} />
           {loadingReq ? (
             <Skeletons />
+          ) : errorReq ? (
+            <QueryError onRetry={() => refetchReq()} />
           ) : reqs.length === 0 ? (
             <EmptyState text={t("db.emptyClient")} to="/requests/new" cta={t("nav.newRequest")} />
           ) : (

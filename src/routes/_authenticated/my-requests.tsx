@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Plus, Users } from "lucide-react";
 import { RoleGate } from "@/components/RoleGate";
+import { QueryError } from "@/components/QueryError";
+import { logQueryError } from "@/lib/query-log";
 
 export const Route = createFileRoute("/_authenticated/my-requests")({
   component: MyRequests,
@@ -28,7 +30,7 @@ function MyRequests() {
   const { user } = useAuth();
   const { t, lang } = useLang();
   const ts = (s: string) => t(`status.${s}` as Parameters<typeof t>[0]);
-  const { data: requests, isLoading } = useQuery({
+  const { data: requests, isLoading, isError, refetch } = useQuery({
     queryKey: ["my-requests", user?.id],
     enabled: !!user?.id,
     queryFn: async () => {
@@ -37,7 +39,10 @@ function MyRequests() {
         .select("*, bids!bids_request_id_fkey(count)")
         .eq("client_id", user!.id)
         .order("created_at", { ascending: false });
-      if (error) throw error;
+      if (error) {
+        logQueryError("my-requests", error);
+        throw error;
+      }
       return data;
     },
   });
@@ -62,6 +67,8 @@ function MyRequests() {
             <div key={i} className="h-24 animate-pulse rounded-xl bg-muted" />
           ))}
         </div>
+      ) : isError ? (
+        <QueryError onRetry={() => refetch()} />
       ) : !requests || requests.length === 0 ? (
         <Card className="p-12 text-center">
           <h3 className="font-semibold">{t("mr.emptyTitle")}</h3>
