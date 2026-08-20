@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -10,6 +10,8 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CATEGORY_MAP } from "@/lib/categories";
+import { QueryError } from "@/components/QueryError";
+import { logQueryError } from "@/lib/query-log";
 import {
   Plus,
   Users,
@@ -81,7 +83,7 @@ function Dashboard() {
   });
 
   // ---- client data (kept mounted so switching modes keeps both datasets) ----
-  const { data: requests, isLoading: loadingReq } = useQuery({
+  const { data: requests, isLoading: loadingReq, isError: errorReq, refetch: refetchReq } = useQuery({
     queryKey: ["dash-requests", user?.id],
     enabled: !!user?.id,
     queryFn: async () => {
@@ -90,7 +92,10 @@ function Dashboard() {
         .select("*, bids!bids_request_id_fkey(count)")
         .eq("client_id", user!.id)
         .order("created_at", { ascending: false });
-      if (error) throw error;
+      if (error) {
+        logQueryError("dash-requests", error);
+        throw error;
+      }
       return data ?? [];
     },
   });
@@ -109,7 +114,7 @@ function Dashboard() {
   });
 
   // ---- professional data ----
-  const { data: bids, isLoading: loadingBids } = useQuery({
+  const { data: bids, isLoading: loadingBids, isError: errorBids, refetch: refetchBids } = useQuery({
     queryKey: ["dash-bids", user?.id],
     enabled: !!user?.id,
     queryFn: async () => {
@@ -118,12 +123,15 @@ function Dashboard() {
         .select("*, requests!bids_request_id_fkey(id, title, city, status)")
         .eq("professional_id", user!.id)
         .order("created_at", { ascending: false });
-      if (error) throw error;
+      if (error) {
+        logQueryError("dash-bids", error);
+        throw error;
+      }
       return data ?? [];
     },
   });
 
-  const { data: opportunities, isLoading: loadingOpps } = useQuery({
+  const { data: opportunities, isLoading: loadingOpps, isError: errorOpps, refetch: refetchOpps } = useQuery({
     queryKey: ["dash-opportunities"],
     enabled: !!user?.id && isPro,
     queryFn: async () => {
@@ -133,7 +141,10 @@ function Dashboard() {
         .eq("status", "open")
         .order("created_at", { ascending: false })
         .limit(5);
-      if (error) throw error;
+      if (error) {
+        logQueryError("dash-opportunities", error);
+        throw error;
+      }
       return data ?? [];
     },
   });
