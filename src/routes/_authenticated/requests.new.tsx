@@ -49,6 +49,7 @@ const STEP_KEYS = ["nr.step1", "nr.step2", "nr.step3", "nr.step4"] as const;
 function NewRequest() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const qc = useQueryClient();
   const { category: presetCategory, from } = Route.useSearch();
   const { t, lang } = useLang();
   const { roles, hasRole, switchRole, loading: rolesLoading } = useRoles();
