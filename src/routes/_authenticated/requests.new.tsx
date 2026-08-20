@@ -29,6 +29,7 @@ import {
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useRoles } from "@/hooks/useRoles";
 import { useLang } from "@/lib/i18n";
@@ -155,6 +156,10 @@ function NewRequest() {
         .select("id")
         .single();
       if (error) throw error;
+      qc.invalidateQueries({ queryKey: ["my-requests"] });
+      qc.invalidateQueries({ queryKey: ["dash-requests"] });
+      qc.invalidateQueries({ queryKey: ["dash-opportunities"] });
+      qc.invalidateQueries({ queryKey: ["requests"] });
       setCreatedId(data.id);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
