@@ -64,7 +64,7 @@ function SubscriptionHistoryPage() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("bids")
-        .select("id, price, status, created_at, request_id, requests(title, city)")
+        .select("id, price, status, created_at, request_id, requests!bids_request_id_fkey(title, city)")
         .eq("professional_id", user!.id)
         .order("created_at", { ascending: false });
       if (error) throw error;

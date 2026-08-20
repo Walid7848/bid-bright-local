@@ -34,7 +34,7 @@ function MyRequests() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("requests")
-        .select("*, bids(count)")
+        .select("*, bids!bids_request_id_fkey(count)")
         .eq("client_id", user!.id)
         .order("created_at", { ascending: false });
       if (error) throw error;

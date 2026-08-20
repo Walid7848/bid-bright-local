@@ -100,7 +100,7 @@ function RequestsIndex() {
     queryFn: async () => {
       let q = supabase
         .from("requests")
-        .select("*, bids(count)")
+        .select("*, bids!bids_request_id_fkey(count)")
         .order("created_at", { ascending: false });
       if (statusFilter !== "all")
         q = q.eq("status", statusFilter as (typeof STATUSES)[number]);

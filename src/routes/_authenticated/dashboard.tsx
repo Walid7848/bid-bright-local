@@ -87,7 +87,7 @@ function Dashboard() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("requests")
-        .select("*, bids(count)")
+        .select("*, bids!bids_request_id_fkey(count)")
         .eq("client_id", user!.id)
         .order("created_at", { ascending: false });
       if (error) throw error;
@@ -115,7 +115,7 @@ function Dashboard() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("bids")
-        .select("*, requests(id, title, city, status)")
+        .select("*, requests!bids_request_id_fkey(id, title, city, status)")
         .eq("professional_id", user!.id)
         .order("created_at", { ascending: false });
       if (error) throw error;
@@ -129,7 +129,7 @@ function Dashboard() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("requests")
-        .select("id, title, city, category, created_at, bids(count)")
+        .select("id, title, city, category, created_at, bids!bids_request_id_fkey(count)")
         .eq("status", "open")
         .order("created_at", { ascending: false })
         .limit(5);

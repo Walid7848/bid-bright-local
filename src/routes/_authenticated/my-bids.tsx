@@ -21,7 +21,7 @@ function MyBids() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("bids")
-        .select("*, requests(id, title, city, status)")
+        .select("*, requests!bids_request_id_fkey(id, title, city, status)")
         .eq("professional_id", user!.id)
         .order("created_at", { ascending: false });
       if (error) throw error;
