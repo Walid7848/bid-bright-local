@@ -29,6 +29,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { SignedImage } from "@/components/SignedImage";
+import { QueryError } from "@/components/QueryError";
+import { logQueryError } from "@/lib/query-log";
 import {
   MapPin,
   Clock,
@@ -95,19 +97,22 @@ function RequestsIndex() {
 
   const activeCity = cityFilter || (myCity ? (profile?.city ?? "") : "");
 
-  const { data: requests, isLoading } = useQuery({
+  const { data: requests, isLoading, isError, refetch } = useQuery({
     queryKey: ["requests", activeCity, categoryFilter, statusFilter],
     queryFn: async () => {
       let q = supabase
         .from("requests")
-        .select("*, bids(count)")
+        .select("*, bids!bids_request_id_fkey(count)")
         .order("created_at", { ascending: false });
       if (statusFilter !== "all")
         q = q.eq("status", statusFilter as (typeof STATUSES)[number]);
       if (activeCity) q = q.eq("city", activeCity);
       if (categoryFilter) q = q.eq("category", categoryFilter);
       const { data, error } = await q;
-      if (error) throw error;
+      if (error) {
+        logQueryError("requests", error);
+        throw error;
+      }
       return data;
     },
   });
@@ -361,6 +366,8 @@ function RequestsIndex() {
                 </Card>
               ))}
             </div>
+          ) : isError ? (
+            <QueryError onRetry={() => refetch()} />
           ) : list.length === 0 ? (
             <Card className="p-10 text-center shadow-soft sm:p-14">
               <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full bg-muted">

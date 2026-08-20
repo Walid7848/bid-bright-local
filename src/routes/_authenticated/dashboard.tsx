@@ -10,6 +10,8 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CATEGORY_MAP } from "@/lib/categories";
+import { QueryError } from "@/components/QueryError";
+import { logQueryError } from "@/lib/query-log";
 import {
   Plus,
   Users,
@@ -81,16 +83,19 @@ function Dashboard() {
   });
 
   // ---- client data (kept mounted so switching modes keeps both datasets) ----
-  const { data: requests, isLoading: loadingReq } = useQuery({
+  const { data: requests, isLoading: loadingReq, isError: errorReq, refetch: refetchReq } = useQuery({
     queryKey: ["dash-requests", user?.id],
     enabled: !!user?.id,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("requests")
-        .select("*, bids(count)")
+        .select("*, bids!bids_request_id_fkey(count)")
         .eq("client_id", user!.id)
         .order("created_at", { ascending: false });
-      if (error) throw error;
+      if (error) {
+        logQueryError("dash-requests", error);
+        throw error;
+      }
       return data ?? [];
     },
   });
@@ -109,31 +114,37 @@ function Dashboard() {
   });
 
   // ---- professional data ----
-  const { data: bids, isLoading: loadingBids } = useQuery({
+  const { data: bids, isLoading: loadingBids, isError: errorBids, refetch: refetchBids } = useQuery({
     queryKey: ["dash-bids", user?.id],
     enabled: !!user?.id,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("bids")
-        .select("*, requests(id, title, city, status)")
+        .select("*, requests!bids_request_id_fkey(id, title, city, status)")
         .eq("professional_id", user!.id)
         .order("created_at", { ascending: false });
-      if (error) throw error;
+      if (error) {
+        logQueryError("dash-bids", error);
+        throw error;
+      }
       return data ?? [];
     },
   });
 
-  const { data: opportunities, isLoading: loadingOpps } = useQuery({
+  const { data: opportunities, isLoading: loadingOpps, isError: errorOpps, refetch: refetchOpps } = useQuery({
     queryKey: ["dash-opportunities"],
     enabled: !!user?.id && isPro,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("requests")
-        .select("id, title, city, category, created_at, bids(count)")
+        .select("id, title, city, category, created_at, bids!bids_request_id_fkey(count)")
         .eq("status", "open")
         .order("created_at", { ascending: false })
         .limit(5);
-      if (error) throw error;
+      if (error) {
+        logQueryError("dash-opportunities", error);
+        throw error;
+      }
       return data ?? [];
     },
   });
@@ -306,6 +317,8 @@ function Dashboard() {
           <SectionHead title={t("db.opportunities")} to="/requests" label={t("db.viewAll")} lang={lang} />
           {loadingOpps ? (
             <Skeletons />
+          ) : errorOpps ? (
+            <QueryError className="mb-8" onRetry={() => refetchOpps()} />
           ) : (opportunities ?? []).length === 0 ? (
             <Card className="p-8 text-center text-sm text-muted-foreground">
               {t("db.emptyOpportunities")}
@@ -339,6 +352,8 @@ function Dashboard() {
           <SectionHead title={t("db.myBids")} to="/my-bids" label={t("db.viewAll")} lang={lang} />
           {loadingBids ? (
             <Skeletons />
+          ) : errorBids ? (
+            <QueryError onRetry={() => refetchBids()} />
           ) : bidList.length === 0 ? (
             <EmptyState
               text={t("db.emptyPro")}
@@ -374,6 +389,8 @@ function Dashboard() {
           <SectionHead title={t("db.myRequests")} to="/my-requests" label={t("db.viewAll")} lang={lang} />
           {loadingReq ? (
             <Skeletons />
+          ) : errorReq ? (
+            <QueryError onRetry={() => refetchReq()} />
           ) : reqs.length === 0 ? (
             <EmptyState text={t("db.emptyClient")} to="/requests/new" cta={t("nav.newRequest")} />
           ) : (

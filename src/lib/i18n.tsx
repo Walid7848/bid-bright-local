@@ -264,6 +264,12 @@ const DICT = {
   "common.language": { ar: "اللغة", nl: "Taal", en: "Language" },
   "common.currency": { ar: "€", nl: "€", en: "€" },
   "common.back": { ar: "العودة للرئيسية", nl: "Terug naar home", en: "Back to home" },
+  "common.loadError": {
+    ar: "تعذر تحميل البيانات",
+    nl: "Gegevens konden niet worden geladen",
+    en: "Couldn't load data",
+  },
+  "common.retry": { ar: "إعادة المحاولة", nl: "Opnieuw proberen", en: "Try again" },
 
   // footer / legal
   "footer.privacy": { ar: "سياسة الخصوصية", nl: "Privacybeleid", en: "Privacy Policy" },

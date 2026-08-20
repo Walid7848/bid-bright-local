@@ -29,6 +29,7 @@ import {
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useRoles } from "@/hooks/useRoles";
 import { useLang } from "@/lib/i18n";
@@ -48,6 +49,7 @@ const STEP_KEYS = ["nr.step1", "nr.step2", "nr.step3", "nr.step4"] as const;
 function NewRequest() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const qc = useQueryClient();
   const { category: presetCategory, from } = Route.useSearch();
   const { t, lang } = useLang();
   const { roles, hasRole, switchRole, loading: rolesLoading } = useRoles();
@@ -155,6 +157,10 @@ function NewRequest() {
         .select("id")
         .single();
       if (error) throw error;
+      qc.invalidateQueries({ queryKey: ["my-requests"] });
+      qc.invalidateQueries({ queryKey: ["dash-requests"] });
+      qc.invalidateQueries({ queryKey: ["dash-opportunities"] });
+      qc.invalidateQueries({ queryKey: ["requests"] });
       setCreatedId(data.id);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {

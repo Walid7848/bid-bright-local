@@ -6,6 +6,8 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
 import { RoleGate } from "@/components/RoleGate";
+import { QueryError } from "@/components/QueryError";
+import { logQueryError } from "@/lib/query-log";
 import { formatDistanceToNow } from "date-fns";
 import { ar } from "date-fns/locale";
 
@@ -15,16 +17,19 @@ export const Route = createFileRoute("/_authenticated/my-bids")({
 
 function MyBids() {
   const { user } = useAuth();
-  const { data: bids, isLoading } = useQuery({
+  const { data: bids, isLoading, isError, refetch } = useQuery({
     queryKey: ["my-bids", user?.id],
     enabled: !!user?.id,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("bids")
-        .select("*, requests(id, title, city, status)")
+        .select("*, requests!bids_request_id_fkey(id, title, city, status)")
         .eq("professional_id", user!.id)
         .order("created_at", { ascending: false });
-      if (error) throw error;
+      if (error) {
+        logQueryError("my-bids", error);
+        throw error;
+      }
       return data;
     },
   });
@@ -40,6 +45,8 @@ function MyBids() {
             <div key={i} className="h-28 animate-pulse rounded-xl bg-muted" />
           ))}
         </div>
+      ) : isError ? (
+        <QueryError onRetry={() => refetch()} />
       ) : !bids || bids.length === 0 ? (
         <Card className="p-12 text-center">
           <h3 className="font-semibold">لم تقدم أي عروض بعد</h3>
