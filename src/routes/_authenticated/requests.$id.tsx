@@ -285,7 +285,7 @@ function RequestDetail() {
     },
   });
 
-  const { isClient } = useRoles();
+  const { isClient, activeRole } = useRoles();
 
   const { data: bids } = useQuery({
     queryKey: ["bids", id],
@@ -348,7 +348,8 @@ function RequestDetail() {
   }
 
   const isOwner = user?.id === request.client_id;
-  const canBidSlot = request.status === "open" && !isOwner;
+  // In client mode the bidding CTA is never an available action.
+  const canBidSlot = request.status === "open" && !isOwner && activeRole !== "client";
   const myBid = bids?.find((b: any) => b.professional_id === user?.id);
   const acceptedBid = bids?.find((b: any) => b.status === "accepted");
   const images: string[] = request.images ?? [];
