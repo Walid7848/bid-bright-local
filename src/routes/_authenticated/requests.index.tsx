@@ -71,6 +71,7 @@ const STATUSES = ["open", "awarded", "in_progress", "completed", "closed"] as co
 
 function RequestsIndex() {
   const { user } = useAuth();
+  const { isClient } = useRoles();
   const { t, lang } = useLang();
   const locale = lang === "nl" ? nl : lang === "en" ? enUS : ar;
 
