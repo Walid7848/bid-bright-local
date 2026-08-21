@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { useRoles } from "@/hooks/useRoles";
 import { useLang } from "@/lib/i18n";
 import { CITIES } from "@/lib/cities";
 import { CATEGORIES } from "@/lib/categories";
@@ -469,6 +470,7 @@ function RequestsIndex() {
                             {t("pro.alreadyBid")}
                           </div>
                         ) : (
+                          !isClient &&
                           r.status === "open" && (
                             <Button asChild variant="cta" className="h-11 flex-1">
                               <Link to="/requests/$id" params={{ id: r.id }}>
