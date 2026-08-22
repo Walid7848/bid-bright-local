@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.tg_bids_notify_client() FROM PUBLIC, anon, authenticated;
