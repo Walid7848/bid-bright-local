@@ -16,7 +16,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { ReviewSection } from "@/components/ReviewSection";
 import { RoleGate } from "@/components/RoleGate";
 import {
@@ -223,6 +228,7 @@ function Lightbox({
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="max-w-3xl border-0 bg-background/95 p-3 sm:p-4">
         <DialogTitle className="sr-only">{t("rd.photos")}</DialogTitle>
+        <DialogDescription className="sr-only">{t("rd.photos")}</DialogDescription>
         {index !== null && (
           <div className="space-y-3">
             <SignedImage

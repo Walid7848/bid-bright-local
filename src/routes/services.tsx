@@ -13,7 +13,13 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import {
   Select,
   SelectContent,
@@ -315,6 +321,7 @@ function ServicesPage() {
                 </SheetTrigger>
                 <SheetContent side="bottom" className="max-h-[85vh] overflow-y-auto rounded-t-3xl">
                   <SheetTitle className="mb-4">{t("search.filters")}</SheetTitle>
+                  <SheetDescription className="sr-only">{t("search.filters")}</SheetDescription>
                   {Filters}
                   <Button className="mt-4 h-11 w-full" onClick={() => setFiltersOpen(false)}>
                     {t("search.filtersApply")}

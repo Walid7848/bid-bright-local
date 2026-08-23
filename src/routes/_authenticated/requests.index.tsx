@@ -27,6 +27,7 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
+  SheetDescription,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { SignedImage } from "@/components/SignedImage";
@@ -330,6 +331,7 @@ function RequestsIndex() {
           <SheetContent side="bottom" className="max-h-[85vh] overflow-y-auto rounded-t-2xl">
             <SheetHeader className="text-start">
               <SheetTitle>{t("pro.filters")}</SheetTitle>
+              <SheetDescription className="sr-only">{t("pro.filters")}</SheetDescription>
             </SheetHeader>
             <div className="mt-4 pb-4">{Filters}</div>
           </SheetContent>
