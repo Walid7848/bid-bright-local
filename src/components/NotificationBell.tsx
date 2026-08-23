@@ -2,7 +2,13 @@ import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { useLang } from "@/lib/i18n";
 import { useNotifications } from "@/hooks/useNotifications";
 import { NotificationList } from "@/components/NotificationList";
@@ -44,6 +50,7 @@ export function NotificationBell() {
           <SheetHeader className="border-b border-border px-4 py-4 text-start">
             <div className="flex items-center justify-between gap-3">
               <SheetTitle className="text-base">{t("notif.title")}</SheetTitle>
+              <SheetDescription className="sr-only">{t("notif.title")}</SheetDescription>
               {unreadCount > 0 && (
                 <Button
                   variant="ghost"

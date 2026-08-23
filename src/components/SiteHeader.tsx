@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetClose,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 import { useLang, LanguageSwitch } from "@/lib/i18n";
 import waslaLogo from "@/assets/wasla-logo.png";
 
@@ -91,6 +98,7 @@ export function SiteHeader() {
             </SheetTrigger>
             <SheetContent side="top" className="max-h-[92vh] overflow-y-auto p-0">
               <SheetTitle className="sr-only">{t("nav.menu")}</SheetTitle>
+              <SheetDescription className="sr-only">{t("nav.menu")}</SheetDescription>
               <div className="flex items-center justify-center border-b border-border/50 px-14 py-3">
                 <img src={waslaLogo} alt={t("brand.name")} className="h-9 w-auto" />
               </div>
