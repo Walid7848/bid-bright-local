@@ -23,12 +23,29 @@ import { StarRating } from "@/components/StarRating";
 import { SignedImage } from "@/components/SignedImage";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { formatDistanceToNow } from "date-fns";
-import { ar } from "date-fns/locale";
+import { ar, nl, enUS } from "date-fns/locale";
 import { toast } from "sonner";
 import { useRoles, type AppRole } from "@/hooks/useRoles";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_authenticated/profile")({
+  head: () => ({
+    meta: [
+      { title: "ملفي الشخصي | Wasla — Mijn profiel" },
+      {
+        name: "description",
+        content:
+          "أدر بياناتك على وصلة: الاسم، المدينة، رقم التواصل، مهنتك ونبذتك، وتابع التقييمات التي استلمتها.",
+      },
+      { property: "og:title", content: "ملفي الشخصي | Wasla" },
+      {
+        property: "og:description",
+        content: "أدر بيانات حسابك ووضعك (طالب خدمة / مقدم خدمة) على منصة وصلة.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
   component: ProfilePage,
 });
 
@@ -85,13 +102,13 @@ function ProfilePage() {
       .eq("id", user.id);
     setSaving(false);
     if (error) return toast.error(error.message);
-    toast.success("تم حفظ التغييرات");
+    toast.success(t("acct.saved"));
   }
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-3xl font-bold">ملفي الشخصي</h1>
+        <h1 className="text-3xl font-bold">{t("acct.title")}</h1>
         {role && <Badge variant="secondary">{t(`role.${role}` as never)}</Badge>}
       </div>
       <Card className="mb-6 p-5 shadow-soft">
@@ -123,18 +140,18 @@ function ProfilePage() {
       <Card className="p-6 shadow-soft">
         <form onSubmit={save} className="space-y-4">
           <div className="space-y-1.5">
-            <Label>البريد الإلكتروني</Label>
+            <Label>{t("acct.email")}</Label>
             <Input value={user?.email ?? ""} disabled dir="ltr" />
           </div>
           <div className="space-y-1.5">
-            <Label>الاسم الكامل</Label>
+            <Label>{t("acct.fullName")}</Label>
             <Input value={name} onChange={(e) => setName(e.target.value)} required />
           </div>
           <div className="space-y-1.5">
-            <Label>المدينة</Label>
+            <Label>{t("acct.city")}</Label>
             <Select value={city} onValueChange={setCity}>
               <SelectTrigger>
-                <SelectValue placeholder="اختر مدينتك" />
+                <SelectValue placeholder={t("acct.pickCity")} />
               </SelectTrigger>
               <SelectContent>
                 {CITIES.map((c) => (
@@ -146,16 +163,16 @@ function ProfilePage() {
             </Select>
           </div>
           <div className="space-y-1.5">
-            <Label>رقم الجوال</Label>
+            <Label>{t("acct.phone")}</Label>
             <Input value={phone} onChange={(e) => setPhone(e.target.value)} dir="ltr" />
           </div>
           {role === "professional" && (
             <>
               <div className="space-y-1.5">
-                <Label>المهنة</Label>
+                <Label>{t("acct.profession")}</Label>
                 <Select value={profession} onValueChange={setProfession}>
                   <SelectTrigger>
-                    <SelectValue placeholder="اختر مهنتك" />
+                    <SelectValue placeholder={t("acct.pickProfession")} />
                   </SelectTrigger>
                   <SelectContent>
                     {CATEGORIES.map((c) => (
@@ -167,14 +184,14 @@ function ProfilePage() {
                 </Select>
               </div>
               <div className="space-y-1.5">
-                <Label>نبذة عنك</Label>
+                <Label>{t("acct.bio")}</Label>
                 <Textarea rows={3} value={bio} onChange={(e) => setBio(e.target.value)} />
               </div>
             </>
           )}
           <Button type="submit" disabled={saving} className="w-full">
             {saving && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
-            حفظ التغييرات
+            {t("acct.save")}
           </Button>
         </form>
       </Card>
@@ -185,6 +202,8 @@ function ProfilePage() {
 }
 
 function MyReviews({ professionalId }: { professionalId: string }) {
+  const { t, lang } = useLang();
+  const dateLocale = lang === "ar" ? ar : lang === "nl" ? nl : enUS;
   const { data: reviews, isLoading } = useQuery({
     queryKey: ["reviews-received", professionalId],
     queryFn: async () => {
@@ -206,7 +225,7 @@ function MyReviews({ professionalId }: { professionalId: string }) {
   return (
     <div className="mt-8">
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-xl font-bold">التقييمات المستلمة</h2>
+        <h2 className="text-xl font-bold">{t("acct.reviewsReceived")}</h2>
         {reviews && reviews.length > 0 && (
           <div className="flex items-center gap-2 text-sm">
             <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -219,7 +238,7 @@ function MyReviews({ professionalId }: { professionalId: string }) {
         <div className="h-20 animate-pulse rounded-xl bg-muted" />
       ) : !reviews || reviews.length === 0 ? (
         <Card className="p-6 text-center text-sm text-muted-foreground">
-          لا توجد تقييمات بعد
+          {t("acct.noReviews")}
         </Card>
       ) : (
         <div className="space-y-3">
@@ -233,11 +252,11 @@ function MyReviews({ professionalId }: { professionalId: string }) {
                 </Avatar>
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div className="font-semibold">{r.profiles?.full_name || "زبون"}</div>
+                    <div className="font-semibold">{r.profiles?.full_name || t("acct.client")}</div>
                     <span className="text-xs text-muted-foreground">
                       {formatDistanceToNow(new Date(r.created_at), {
                         addSuffix: true,
-                        locale: ar,
+                        locale: dateLocale,
                       })}
                     </span>
                   </div>
