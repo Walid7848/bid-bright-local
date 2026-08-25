@@ -16,7 +16,8 @@ import {
 import { CheckCircle2, Clock, Sparkles, XCircle, RotateCcw } from "lucide-react";
 import { useSubscription } from "@/hooks/useSubscription";
 import { formatDistanceToNow, format } from "date-fns";
-import { ar } from "date-fns/locale";
+import { ar, nl, enUS } from "date-fns/locale";
+import { useLang } from "@/lib/i18n";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useQueryClient } from "@tanstack/react-query";
@@ -26,12 +27,19 @@ export const Route = createFileRoute("/_authenticated/subscription")({
   component: SubscriptionPage,
   head: () => ({
     meta: [
-      { title: "اشتراك مقدمي الخدمة | Shughlak" },
+      { title: "اشتراك مقدمي الخدمة | Wasla — Abonnement" },
       {
         name: "description",
         content:
-          "أدر اشتراكك كصاحب مهنة: شهران مجانيان ثم اشتراك شهري لتقديم عروض غير محدودة.",
+          "أدر اشتراكك كصاحب مهنة على وصلة: شهران مجانيان ثم اشتراك شهري لتقديم عروض غير محدودة.",
       },
+      { property: "og:title", content: "اشتراك مقدمي الخدمة | Wasla" },
+      {
+        property: "og:description",
+        content: "شهران مجانيان لكل صاحب مهنة جديد على منصة وصلة، ثم اشتراك شهري.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
 });
@@ -48,6 +56,8 @@ function SubscriptionPage() {
     canBid,
     loading,
   } = useSubscription();
+  const { t, lang } = useLang();
+  const dateLocale = lang === "ar" ? ar : lang === "nl" ? nl : enUS;
   const queryClient = useQueryClient();
   const [busy, setBusy] = useState(false);
 
@@ -74,10 +84,10 @@ function SubscriptionPage() {
       .eq("id", sub.id);
     setBusy(false);
     if (error) {
-      toast.error("تعذر تحديث الاشتراك");
+      toast.error(t("sub.updateError"));
       return;
     }
-    toast.success(flag ? "تم جدولة إلغاء الاشتراك" : "تم استئناف الاشتراك");
+    toast.success(flag ? t("sub.cancelScheduled") : t("sub.resumed"));
     queryClient.invalidateQueries({ queryKey: ["subscription"] });
   }
 
@@ -85,7 +95,7 @@ function SubscriptionPage() {
   if (loading) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10 text-center text-muted-foreground">
-        جاري التحميل...
+        {t("sub.loading")}
       </div>
     );
   }
@@ -94,12 +104,12 @@ function SubscriptionPage() {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10">
         <Card className="p-6 text-center">
-          <div className="text-lg font-semibold">حساب الزبائن مجاني دائماً</div>
+          <div className="text-lg font-semibold">{t("sub.clientFreeTitle")}</div>
           <div className="mt-2 text-sm text-muted-foreground">
-            الاشتراك مطلوب فقط لأصحاب المهن. أكمل ملفك كصاحب مهنة للاستفادة من التجربة المجانية.
+            {t("sub.clientFreeBody")}
           </div>
           <Button asChild className="mt-4">
-            <Link to="/profile">إلى الملف الشخصي</Link>
+            <Link to="/profile">{t("sub.toProfile")}</Link>
           </Button>
         </Card>
       </div>
@@ -110,37 +120,37 @@ function SubscriptionPage() {
     <div className="mx-auto max-w-3xl px-4 py-8 space-y-6">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold">اشتراكك</h1>
+          <h1 className="text-2xl font-bold">{t("sub.title")}</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            شهران مجانيان لكل صاحب مهنة جديد، ثم اشتراك شهري لتقديم عروض غير محدودة.
+            {t("sub.subtitle")}
           </p>
         </div>
         <Button asChild variant="outline" size="sm">
-          <Link to="/subscription/history">سجل الاشتراك</Link>
+          <Link to="/subscription/history">{t("sub.history")}</Link>
         </Button>
       </div>
 
       <Card className="p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <div className="text-xs uppercase text-muted-foreground">الحالة الحالية</div>
+            <div className="text-xs uppercase text-muted-foreground">{t("sub.currentStatus")}</div>
             <div className="mt-1 flex items-center gap-2 text-lg font-semibold">
               {trialActive && (
                 <>
                   <Sparkles className="h-5 w-5 text-primary" />
-                  فترة تجربة مجانية
+                  {t("sub.trialActive")}
                 </>
               )}
               {paidActive && (
                 <>
                   <CheckCircle2 className="h-5 w-5 text-primary" />
-                  اشتراك نشط
+                  {t("sub.paidActive")}
                 </>
               )}
               {!isActive && (
                 <>
                   <Clock className="h-5 w-5 text-muted-foreground" />
-                  انتهت التجربة
+                  {t("sub.trialEnded")}
                 </>
               )}
             </div>
@@ -153,13 +163,13 @@ function SubscriptionPage() {
         {trialActive && (
           <div className="mt-4 rounded-md bg-muted/50 p-4 text-sm">
             <div>
-              متبقٍ <span className="font-semibold">{trialDaysLeft} يوم</span> من تجربتك المجانية.
+              <span className="font-semibold">{trialDaysLeft}</span> {t("sub.daysLeft")}
             </div>
             <div className="mt-1 text-muted-foreground">
-              تنتهي{" "}
+              {t("sub.endsIn")}{" "}
               {formatDistanceToNow(new Date(subscription.trial_ends_at), {
                 addSuffix: true,
-                locale: ar,
+                locale: dateLocale,
               })}
               .
             </div>
@@ -168,18 +178,18 @@ function SubscriptionPage() {
 
         {!isActive && (
           <div className="mt-4 rounded-md border border-destructive/40 bg-destructive/10 p-4 text-sm">
-            انتهت فترتك التجريبية. يمكنك تقديم <span className="font-semibold">عرض واحد فقط شهرياً</span> حتى تشترك.
+            {t("sub.limitNotice")}
           </div>
         )}
 
         <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
           <div className="rounded-md bg-muted/40 p-3">
-            <div className="text-xs text-muted-foreground">العروض هذا الشهر</div>
+            <div className="text-xs text-muted-foreground">{t("sub.bidsThisMonth")}</div>
             <div className="mt-1 text-lg font-semibold">{bidsThisMonth}</div>
           </div>
           <div className="rounded-md bg-muted/40 p-3">
             <div className="text-xs text-muted-foreground">
-              {isActive ? "غير محدود" : "المتبقي مجاناً"}
+              {isActive ? t("sub.unlimited") : t("sub.remainingFree")}
             </div>
             <div className="mt-1 text-lg font-semibold">
               {isActive ? "∞" : `${remainingFree}/1`}
@@ -189,22 +199,22 @@ function SubscriptionPage() {
       </Card>
 
       <Card className="p-6">
-        <div className="text-lg font-semibold">خطة العضوية</div>
+        <div className="text-lg font-semibold">{t("sub.plan")}</div>
         <div className="mt-4 space-y-3">
-          <PlanFeature text="عروض غير محدودة على كل الطلبات" />
-          <PlanFeature text="ظهور فوري في نتائج المدينة والتخصص" />
-          <PlanFeature text="تنبيهات عند نشر طلبات جديدة" />
-          <PlanFeature text="إلغاء في أي وقت" />
+          <PlanFeature text={t("sub.feat1")} />
+          <PlanFeature text={t("sub.feat2")} />
+          <PlanFeature text={t("sub.feat3")} />
+          <PlanFeature text={t("sub.feat4")} />
         </div>
         <div className="mt-6 flex items-end justify-between">
           <div>
-            <div className="text-3xl font-bold">قريباً</div>
+            <div className="text-3xl font-bold">{t("sub.soon")}</div>
             <div className="text-xs text-muted-foreground">
-              سيتم تفعيل الدفع عبر Stripe قريباً
+              {t("sub.soonHint")}
             </div>
           </div>
-          <Button disabled title="سيتم تفعيل الدفع قريباً">
-            {canBid && isActive ? "أنت مشترك" : "اشترك"}
+          <Button disabled title={t("sub.soonHint")}>
+            {canBid && isActive ? t("sub.subscribed") : t("sub.subscribe")}
           </Button>
         </div>
       </Card>
@@ -213,29 +223,27 @@ function SubscriptionPage() {
         <Card className="p-6">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <div className="text-lg font-semibold">إلغاء الاشتراك</div>
+              <div className="text-lg font-semibold">{t("sub.cancelTitle")}</div>
               <p className="mt-1 text-sm text-muted-foreground">
-                عند الإلغاء، يبقى اشتراكك نشطاً حتى نهاية الفترة الحالية، ثم يتوقف
-                التجديد التلقائي ويعود حسابك إلى الحد المجاني (عرض واحد شهرياً).
+                {t("sub.cancelBody")}
               </p>
               {effectiveEnd && (
                 <div className="mt-3 rounded-md bg-muted/50 p-3 text-sm">
                   <div className="text-xs text-muted-foreground">
-                    {trialActive ? "تاريخ انتهاء التجربة" : "تاريخ انتهاء الفترة الحالية"}
+                    {trialActive ? t("sub.trialEndDate") : t("sub.periodEndDate")}
                   </div>
                   <div className="mt-1 font-semibold">
-                    {format(new Date(effectiveEnd), "EEEE d MMMM yyyy", { locale: ar })}
+                    {format(new Date(effectiveEnd), "EEEE d MMMM yyyy", { locale: dateLocale })}
                   </div>
                   <div className="mt-1 text-xs text-muted-foreground">
-                    يسري الإلغاء بعد هذا التاريخ.
+                    {t("sub.effectiveAfter")}
                   </div>
                 </div>
               )}
               {sub?.cancel_at_period_end && sub.canceled_at && (
                 <div className="mt-3 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm">
-                  تم طلب الإلغاء في{" "}
-                  {format(new Date(sub.canceled_at), "d MMM yyyy", { locale: ar })}. لن
-                  يتم تجديد الاشتراك تلقائياً.
+                  {t("sub.canceledOn")}{" "}
+                  {format(new Date(sub.canceled_at), "d MMM yyyy", { locale: dateLocale })}. {t("sub.noRenew")}
                 </div>
               )}
             </div>
@@ -249,47 +257,46 @@ function SubscriptionPage() {
                 onClick={() => setCancel(false)}
               >
                 <RotateCcw className="ml-1 h-4 w-4" />
-                استئناف الاشتراك
+                {t("sub.resume")}
               </Button>
             ) : (
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button variant="destructive" disabled={busy}>
                     <XCircle className="ml-1 h-4 w-4" />
-                    إلغاء الاشتراك
+                    {t("sub.cancelTitle")}
                   </Button>
                 </AlertDialogTrigger>
-                <AlertDialogContent dir="rtl">
+                <AlertDialogContent dir={lang === "ar" ? "rtl" : "ltr"}>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>تأكيد إلغاء الاشتراك</AlertDialogTitle>
+                    <AlertDialogTitle>{t("sub.confirmCancel")}</AlertDialogTitle>
                     <AlertDialogDescription asChild>
                       <div className="space-y-2 text-sm">
                         <p>
-                          سيبقى اشتراكك نشطاً حتى{" "}
+                          {t("sub.activeUntil")}{" "}
                           <span className="font-semibold text-foreground">
                             {effectiveEnd
                               ? format(new Date(effectiveEnd), "d MMMM yyyy", {
-                                  locale: ar,
+                                  locale: dateLocale,
                                 })
-                              : "نهاية الفترة الحالية"}
+                              : t("sub.periodEndFallback")}
                           </span>
                           .
                         </p>
                         <p>
-                          بعد هذا التاريخ يتوقف التجديد التلقائي، ولن تُخصم أي مبالغ
-                          جديدة، ويعود حسابك إلى الحد المجاني (عرض واحد شهرياً).
+                          {t("sub.cancelExplain")}
                         </p>
-                        <p>يمكنك استئناف الاشتراك في أي وقت قبل تاريخ الانتهاء.</p>
+                        <p>{t("sub.resumeAnytime")}</p>
                       </div>
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel>تراجع</AlertDialogCancel>
+                    <AlertDialogCancel>{t("sub.back")}</AlertDialogCancel>
                     <AlertDialogAction
                       onClick={() => setCancel(true)}
                       className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                     >
-                      تأكيد الإلغاء
+                      {t("sub.confirm")}
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
