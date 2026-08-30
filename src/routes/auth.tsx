@@ -28,10 +28,19 @@ function AuthPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/requests" });
-    });
+    try {
+      supabase.auth
+        .getSession()
+        .then(({ data }) => {
+          if (data.session) navigate({ to: "/requests" });
+        })
+        .catch((err) => console.error(err));
+    } catch (err) {
+      // Auth unavailable (e.g. backend env not injected yet) — keep the form usable.
+      console.error(err);
+    }
   }, [navigate]);
+
 
   async function handleEmail(e: React.FormEvent) {
     e.preventDefault();
