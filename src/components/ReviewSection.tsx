@@ -12,8 +12,9 @@ import { ImageUpload } from "./ImageUpload";
 import { SignedImage } from "./SignedImage";
 import { Loader2 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
-import { ar } from "date-fns/locale";
+import { ar, nl, enUS } from "date-fns/locale";
 import { toast } from "sonner";
+import { useLang } from "@/lib/i18n";
 
 interface Props {
   requestId: string;
@@ -25,6 +26,7 @@ interface Props {
 export function ReviewSection({ requestId, clientId, professionalId, isOwner }: Props) {
   const { user } = useAuth();
   const qc = useQueryClient();
+  const { t } = useLang();
 
   const { data: reviews, isLoading } = useQuery({
     queryKey: ["reviews", requestId],
@@ -44,7 +46,7 @@ export function ReviewSection({ requestId, clientId, professionalId, isOwner }: 
 
   return (
     <div>
-      <h2 className="mb-3 text-lg font-bold">التقييمات</h2>
+      <h2 className="mb-3 text-lg font-bold">{t("rv.title")}</h2>
       {canReview && (
         <ReviewForm
           requestId={requestId}
@@ -58,7 +60,7 @@ export function ReviewSection({ requestId, clientId, professionalId, isOwner }: 
       ) : !reviews || reviews.length === 0 ? (
         !canReview && (
           <Card className="p-6 text-center text-sm text-muted-foreground">
-            لا يوجد تقييم بعد
+            {t("rv.empty")}
           </Card>
         )
       ) : (
@@ -83,6 +85,7 @@ function ReviewForm({
   professionalId: string;
   onDone: () => void;
 }) {
+  const { t } = useLang();
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
   const [images, setImages] = useState<string[]>([]);
@@ -90,7 +93,7 @@ function ReviewForm({
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (rating < 1) return toast.error("اختر تقييماً بالنجوم");
+    if (rating < 1) return toast.error(t("rv.pickStars"));
     setLoading(true);
     const { error } = await supabase.from("reviews").insert({
       request_id: requestId,
@@ -102,7 +105,7 @@ function ReviewForm({
     });
     setLoading(false);
     if (error) return toast.error(error.message);
-    toast.success("تم إرسال التقييم");
+    toast.success(t("rv.sent"));
     setComment("");
     setImages([]);
     onDone();
@@ -111,31 +114,31 @@ function ReviewForm({
   return (
     <Card className="p-5 shadow-soft">
       <div className="text-xs font-medium uppercase text-muted-foreground">
-        قيّم صاحب المهنة
+        {t("rv.formTitle")}
       </div>
       <form onSubmit={submit} className="mt-3 space-y-3">
         <div className="space-y-1.5">
-          <Label>التقييم</Label>
+          <Label>{t("rv.rating")}</Label>
           <StarRating value={rating} onChange={setRating} size={28} />
         </div>
         <div className="space-y-1.5">
-          <Label>تعليقك</Label>
+          <Label>{t("rv.comment")}</Label>
           <Textarea
             required
             rows={3}
             maxLength={500}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            placeholder="كيف كانت تجربتك؟"
+            placeholder={t("rv.commentPlaceholder")}
           />
         </div>
         <div className="space-y-1.5">
-          <Label>صور النتيجة (اختياري)</Label>
+          <Label>{t("rv.images")}</Label>
           <ImageUpload userId={clientId} paths={images} onChange={setImages} max={4} />
         </div>
-        <Button type="submit" disabled={loading} className="w-full">
-          {loading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
-          إرسال التقييم
+        <Button type="submit" disabled={loading} className="h-11 w-full">
+          {loading && <Loader2 className="me-2 h-4 w-4 animate-spin" />}
+          {t("rv.submit")}
         </Button>
       </form>
     </Card>
@@ -143,6 +146,8 @@ function ReviewForm({
 }
 
 function ReviewCard({ review }: { review: any }) {
+  const { t, lang } = useLang();
+  const locale = lang === "nl" ? nl : lang === "en" ? enUS : ar;
   return (
     <Card className="p-5 shadow-soft">
       <div className="flex items-center gap-3">
@@ -153,11 +158,11 @@ function ReviewCard({ review }: { review: any }) {
         </Avatar>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="font-semibold">{review.profiles?.full_name || "زبون"}</div>
+            <div className="font-semibold">{review.profiles?.full_name || t("rv.anonClient")}</div>
             <span className="text-xs text-muted-foreground">
               {formatDistanceToNow(new Date(review.created_at), {
                 addSuffix: true,
-                locale: ar,
+                locale,
               })}
             </span>
           </div>
