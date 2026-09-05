@@ -1232,7 +1232,69 @@ const DICT = {
   "sub.updateError": { ar: "تعذر تحديث الاشتراك", nl: "Abonnement bijwerken mislukt", en: "Could not update the subscription" },
   "sub.cancelScheduled": { ar: "تم جدولة إلغاء الاشتراك", nl: "Opzegging ingepland", en: "Cancellation scheduled" },
   "sub.resumed": { ar: "تم استئناف الاشتراك", nl: "Abonnement hervat", en: "Subscription resumed" },
+
+  // ── My bids (/my-bids) ──
+  "mb.title": { ar: "عروضي", nl: "Mijn offertes", en: "My bids" },
+  "mb.emptyTitle": { ar: "لم تقدّم أي عروض بعد", nl: "Nog geen offertes verstuurd", en: "No bids submitted yet" },
+  "mb.emptyDesc": {
+    ar: "تصفح الطلبات المتاحة وقدّم عرضك الأول",
+    nl: "Bekijk de open aanvragen en stuur je eerste offerte",
+    en: "Browse the open requests and send your first bid",
+  },
+  "mb.browse": { ar: "تصفح الطلبات", nl: "Aanvragen bekijken", en: "Browse requests" },
+
+  // ── Reviews ──
+  "rv.title": { ar: "التقييمات", nl: "Beoordelingen", en: "Reviews" },
+  "rv.empty": { ar: "لا يوجد تقييم بعد", nl: "Nog geen beoordelingen", en: "No reviews yet" },
+  "rv.formTitle": { ar: "قيّم صاحب المهنة", nl: "Beoordeel de professional", en: "Rate the professional" },
+  "rv.rating": { ar: "التقييم", nl: "Beoordeling", en: "Rating" },
+  "rv.comment": { ar: "تعليقك", nl: "Jouw reactie", en: "Your comment" },
+  "rv.commentPlaceholder": { ar: "كيف كانت تجربتك؟", nl: "Hoe was je ervaring?", en: "How was your experience?" },
+  "rv.images": { ar: "صور النتيجة (اختياري)", nl: "Foto's van het resultaat (optioneel)", en: "Result photos (optional)" },
+  "rv.submit": { ar: "إرسال التقييم", nl: "Beoordeling versturen", en: "Submit review" },
+  "rv.pickStars": { ar: "اختر تقييماً بالنجوم", nl: "Kies een sterbeoordeling", en: "Pick a star rating" },
+  "rv.sent": { ar: "تم إرسال التقييم", nl: "Beoordeling verstuurd", en: "Review submitted" },
+  "rv.anonClient": { ar: "زبون", nl: "Klant", en: "Client" },
+
+  // ── Onboarding ──
+  "onb.title": { ar: "أكمل ملفك الشخصي", nl: "Maak je profiel compleet", en: "Complete your profile" },
+  "onb.subtitle": {
+    ar: "اختر نوع حسابك لبدء استخدام المنصة",
+    nl: "Kies je accounttype om te beginnen",
+    en: "Choose your account type to get started",
+  },
+  "onb.clientTitle": { ar: "أنا زبون", nl: "Ik ben klant", en: "I'm a client" },
+  "onb.clientDesc": {
+    ar: "أريد نشر طلبات خدمة واستقبال العروض",
+    nl: "Ik wil aanvragen plaatsen en offertes ontvangen",
+    en: "I want to post requests and receive bids",
+  },
+  "onb.proTitle": { ar: "أنا صاحب مهنة", nl: "Ik ben professional", en: "I'm a professional" },
+  "onb.proDesc": {
+    ar: "أقدم خدمات وأريد تقديم عروض على الطلبات",
+    nl: "Ik lever diensten en wil offertes uitbrengen",
+    en: "I offer services and want to bid on requests",
+  },
+  "onb.fullName": { ar: "الاسم الكامل", nl: "Volledige naam", en: "Full name" },
+  "onb.city": { ar: "المدينة", nl: "Stad", en: "City" },
+  "onb.cityPlaceholder": { ar: "اختر مدينتك", nl: "Kies je stad", en: "Select your city" },
+  "onb.phone": { ar: "رقم الجوال", nl: "Telefoonnummer", en: "Phone number" },
+  "onb.profession": { ar: "المهنة الرئيسية", nl: "Hoofdvak", en: "Main profession" },
+  "onb.professionPlaceholder": { ar: "اختر مهنتك", nl: "Kies je vak", en: "Select your profession" },
+  "onb.bio": { ar: "نبذة عنك (اختياري)", nl: "Over jou (optioneel)", en: "About you (optional)" },
+  "onb.bioPlaceholder": {
+    ar: "سنوات الخبرة، نطاق العمل...",
+    nl: "Jaren ervaring, werkgebied...",
+    en: "Years of experience, service area...",
+  },
+  "onb.back": { ar: "رجوع", nl: "Terug", en: "Back" },
+  "onb.finish": { ar: "إكمال التسجيل", nl: "Registratie afronden", en: "Finish sign-up" },
+  "onb.done": { ar: "تم إكمال ملفك الشخصي", nl: "Je profiel is compleet", en: "Your profile is complete" },
+
+  "nav.subscription": { ar: "الاشتراك", nl: "Abonnement", en: "Subscription" },
+  "common.error": { ar: "حدث خطأ", nl: "Er is iets misgegaan", en: "Something went wrong" },
 } as const;
+
 
 
 
