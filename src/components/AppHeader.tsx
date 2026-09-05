@@ -167,6 +167,30 @@ export function AppHeader() {
                 </DropdownMenuItem>
               ))}
               <DropdownMenuSeparator />
+              <div className="md:hidden">
+                <DropdownMenuItem asChild>
+                  <Link to="/dashboard">{t("nav.dashboard")}</Link>
+                </DropdownMenuItem>
+                {isClient && (
+                  <DropdownMenuItem asChild>
+                    <Link to="/services">{t("nav.services")}</Link>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuItem asChild>
+                  <Link to="/requests">{t("nav.requests")}</Link>
+                </DropdownMenuItem>
+                {isClient && (
+                  <DropdownMenuItem asChild>
+                    <Link to="/my-requests">{t("nav.myRequests")}</Link>
+                  </DropdownMenuItem>
+                )}
+                {isPro && (
+                  <DropdownMenuItem asChild>
+                    <Link to="/my-bids">{t("nav.myBids")}</Link>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuSeparator />
+              </div>
               <DropdownMenuItem asChild>
                 <Link to="/profile">
                   <UserIcon className="ml-2 h-4 w-4" />
@@ -177,7 +201,7 @@ export function AppHeader() {
                 <DropdownMenuItem asChild>
                   <Link to="/subscription">
                     <Sparkles className="ml-2 h-4 w-4" />
-                    الاشتراك
+                    {t("nav.subscription")}
                   </Link>
                 </DropdownMenuItem>
               )}

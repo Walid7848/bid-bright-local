@@ -153,7 +153,7 @@ function Onboarding() {
               <Input
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="05xxxxxxxx"
+                placeholder="06xxxxxxxx"
                 dir="ltr"
               />
             </div>
