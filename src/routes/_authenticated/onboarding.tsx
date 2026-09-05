@@ -18,6 +18,8 @@ import {
 import { Card } from "@/components/ui/card";
 import { HardHat, Loader2, ShoppingBag } from "lucide-react";
 import { toast } from "sonner";
+import { useLang } from "@/lib/i18n";
+import { categoryLabel } from "@/lib/service-search";
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
   component: Onboarding,
@@ -26,6 +28,7 @@ export const Route = createFileRoute("/_authenticated/onboarding")({
 function Onboarding() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { t, lang } = useLang();
   const [role, setRole] = useState<"client" | "professional" | null>(null);
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
@@ -74,10 +77,10 @@ function Onboarding() {
         role,
       });
       if (re) throw re;
-      toast.success("تم إكمال ملفك الشخصي");
+      toast.success(t("onb.done"));
       navigate({ to: "/requests" });
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "خطأ");
+      toast.error(err instanceof Error ? err.message : t("common.error"));
     } finally {
       setLoading(false);
     }
@@ -93,33 +96,33 @@ function Onboarding() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10">
-      <h1 className="text-3xl font-bold">أكمل ملفك الشخصي</h1>
-      <p className="mt-2 text-muted-foreground">اختر نوع حسابك لبدء استخدام المنصة</p>
+      <h1 className="text-2xl font-bold sm:text-3xl">{t("onb.title")}</h1>
+      <p className="mt-2 text-muted-foreground">{t("onb.subtitle")}</p>
 
       {!role ? (
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           <button
             onClick={() => setRole("client")}
-            className="group rounded-2xl border-2 border-border bg-card p-6 text-right transition hover:border-primary hover:shadow-elegant"
+            className="group rounded-2xl border-2 border-border bg-card p-6 text-start transition hover:border-primary hover:shadow-elegant"
           >
             <div className="mb-3 grid h-12 w-12 place-items-center rounded-xl bg-primary/10 text-primary transition group-hover:bg-gradient-primary group-hover:text-primary-foreground">
               <ShoppingBag className="h-6 w-6" />
             </div>
-            <h3 className="text-lg font-bold">أنا زبون</h3>
+            <h3 className="text-lg font-bold">{t("onb.clientTitle")}</h3>
             <p className="mt-1 text-sm text-muted-foreground">
-              أريد نشر طلبات خدمة واستقبال العروض
+              {t("onb.clientDesc")}
             </p>
           </button>
           <button
             onClick={() => setRole("professional")}
-            className="group rounded-2xl border-2 border-border bg-card p-6 text-right transition hover:border-primary hover:shadow-elegant"
+            className="group rounded-2xl border-2 border-border bg-card p-6 text-start transition hover:border-primary hover:shadow-elegant"
           >
             <div className="mb-3 grid h-12 w-12 place-items-center rounded-xl bg-primary/10 text-primary transition group-hover:bg-gradient-primary group-hover:text-primary-foreground">
               <HardHat className="h-6 w-6" />
             </div>
-            <h3 className="text-lg font-bold">أنا صاحب مهنة</h3>
+            <h3 className="text-lg font-bold">{t("onb.proTitle")}</h3>
             <p className="mt-1 text-sm text-muted-foreground">
-              أقدم خدمات وأريد تقديم عروض على الطلبات
+              {t("onb.proDesc")}
             </p>
           </button>
         </div>
@@ -127,14 +130,14 @@ function Onboarding() {
         <Card className="mt-8 p-6 shadow-soft">
           <form onSubmit={submit} className="space-y-4">
             <div className="space-y-1.5">
-              <Label>الاسم الكامل</Label>
+              <Label>{t("onb.fullName")}</Label>
               <Input value={name} onChange={(e) => setName(e.target.value)} required />
             </div>
             <div className="space-y-1.5">
-              <Label>المدينة</Label>
+              <Label>{t("onb.city")}</Label>
               <Select value={city} onValueChange={setCity} required>
                 <SelectTrigger>
-                  <SelectValue placeholder="اختر مدينتك" />
+                  <SelectValue placeholder={t("onb.cityPlaceholder")} />
                 </SelectTrigger>
                 <SelectContent>
                   {CITIES.map((c) => (
@@ -146,49 +149,49 @@ function Onboarding() {
               </Select>
             </div>
             <div className="space-y-1.5">
-              <Label>رقم الجوال</Label>
+              <Label>{t("onb.phone")}</Label>
               <Input
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="05xxxxxxxx"
+                placeholder="06xxxxxxxx"
                 dir="ltr"
               />
             </div>
             {role === "professional" && (
               <>
                 <div className="space-y-1.5">
-                  <Label>المهنة الرئيسية</Label>
+                  <Label>{t("onb.profession")}</Label>
                   <Select value={profession} onValueChange={setProfession}>
                     <SelectTrigger>
-                      <SelectValue placeholder="اختر مهنتك" />
+                      <SelectValue placeholder={t("onb.professionPlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
                       {CATEGORIES.map((c) => (
                         <SelectItem key={c.id} value={c.id}>
-                          {c.label}
+                          {categoryLabel(c.id, lang)}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-1.5">
-                  <Label>نبذة عنك (اختياري)</Label>
+                  <Label>{t("onb.bio")}</Label>
                   <Textarea
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
-                    placeholder="سنوات الخبرة، نطاق العمل..."
+                    placeholder={t("onb.bioPlaceholder")}
                     rows={3}
                   />
                 </div>
               </>
             )}
-            <div className="flex gap-2 pt-2">
-              <Button type="button" variant="ghost" onClick={() => setRole(null)}>
-                رجوع
+            <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row">
+              <Button type="button" variant="ghost" className="h-11" onClick={() => setRole(null)}>
+                {t("onb.back")}
               </Button>
-              <Button type="submit" disabled={loading || !city} className="flex-1">
-                {loading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
-                إكمال التسجيل
+              <Button type="submit" disabled={loading || !city} className="h-11 flex-1">
+                {loading && <Loader2 className="me-2 h-4 w-4 animate-spin" />}
+                {t("onb.finish")}
               </Button>
             </div>
           </form>
