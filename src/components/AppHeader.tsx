@@ -123,10 +123,10 @@ export function AppHeader() {
           <LanguageSwitch />
 
           {isClient && (
-            <Button asChild size="sm" className="gap-1">
-              <Link to="/requests/new">
-                <Plus className="h-4 w-4" />
-                {t("nav.newRequest")}
+            <Button asChild size="sm" className="h-10 gap-1 px-2.5 sm:px-3">
+              <Link to="/requests/new" aria-label={t("nav.newRequest")}>
+                <Plus className="h-4 w-4 shrink-0" />
+                <span className="hidden whitespace-nowrap sm:inline">{t("nav.newRequest")}</span>
               </Link>
             </Button>
           )}
