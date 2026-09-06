@@ -81,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Wasla verbindt je met betrouwbare lokale vakmensen en professionals in Nederland. وصلة تربطك بمقدمي خدمات موثوقين في هولندا.",
+          "وصلة verbindt je met betrouwbare lokale vakmensen en professionals in Nederland. وصلة تربطك بمقدمي خدمات موثوقين في هولندا.",
       },
       { name: "author", content: "وصلة" },
       { property: "og:title", content: "وصلة — Betrouwbare lokale diensten in Nederland" },

@@ -104,8 +104,8 @@ const DICT = {
 
   "hero.subtitle": {
     ar: "من الحرفيين وأصحاب المهن الحرة إلى الخبراء والمتخصصين، تساعدك وصلة في العثور على الخدمة التي تحتاجها بسهولة وثقة.",
-    nl: "Van vakmensen en zelfstandigen tot experts en specialisten: Wasla helpt je eenvoudig en vertrouwd de dienst te vinden die je nodig hebt.",
-    en: "From tradespeople and freelancers to experts and specialists, Wasla helps you find the service you need, easily and confidently.",
+    nl: "Van vakmensen en zelfstandigen tot experts en specialisten: وصلة helpt je eenvoudig en vertrouwd de dienst te vinden die je nodig hebt.",
+    en: "From tradespeople and freelancers to experts and specialists, وصلة helps you find the service you need, easily and confidently.",
   },
   "hero.cta.post": { ar: "انشر طلبك الآن", nl: "Plaats je aanvraag", en: "Post your request" },
   "hero.cta.pro": { ar: "أنا مقدم خدمة", nl: "Ik ben professional", en: "I'm a professional" },
@@ -129,7 +129,7 @@ const DICT = {
     nl: "Allemaal professionals in hun vakgebied",
     en: "All professionals in their field",
   },
-  "hero.why.title": { ar: "لماذا وصلة؟", nl: "Waarom Wasla?", en: "Why Wasla?" },
+  "hero.why.title": { ar: "لماذا وصلة؟", nl: "Waarom وصلة?", en: "Why وصلة?" },
   "hero.why.point1": {
     ar: "بلغة تفهمها، وبدون عمولات: منصة مجانية بالكامل تربطك بأفضل المهنيين والحرفيين بلغات متعددة.",
     nl: "In een taal die je begrijpt, zonder commissie: een volledig gratis platform dat je verbindt met de beste professionals en vakmensen in meerdere talen.",
@@ -193,8 +193,8 @@ const DICT = {
   },
   "pros.desc": {
     ar: "لديك مهنة أو حرفة أو خبرة؟ اعرض خدماتك، وصل إلى عملاء جدد، وابنِ سمعتك المهنية عبر وصلة.",
-    nl: "Heb je een beroep, vak of ervaring? Bied je diensten aan, bereik nieuwe klanten en bouw je professionele reputatie via Wasla.",
-    en: "Have a profession, trade or experience? Offer your services, reach new clients and build your professional reputation through Wasla.",
+    nl: "Heb je een beroep, vak of ervaring? Bied je diensten aan, bereik nieuwe klanten en bouw je professionele reputatie via وصلة.",
+    en: "Have a profession, trade or experience? Offer your services, reach new clients and build your professional reputation through وصلة.",
   },
   "pros.point1": {
     ar: "عملاء حقيقيون بعدة لغات",
@@ -286,14 +286,14 @@ const DICT = {
   "privacy.updated": { ar: "آخر تحديث: يوليو 2026", nl: "Laatst bijgewerkt: juli 2026", en: "Last updated: July 2026" },
   "privacy.intro": {
     ar: "مرحبًا بكم في منصة وصلة. تحترم المنصة خصوصية جميع مستخدميها وتلتزم بحماية البيانات الشخصية وفقًا للائحة العامة لحماية البيانات (GDPR) والقوانين الهولندية المعمول بها. باستخدام المنصة أو إنشاء حساب، فإنك توافق على معالجة بياناتك الشخصية وفقًا لهذه السياسة.",
-    nl: "Welkom bij Wasla. Het platform respecteert de privacy van alle gebruikers en beschermt persoonsgegevens conform de AVG (GDPR) en de toepasselijke Nederlandse wetgeving. Door het platform te gebruiken of een account aan te maken, ga je akkoord met de verwerking van je persoonsgegevens volgens dit beleid.",
-    en: "Welcome to Wasla. The platform respects the privacy of all users and protects personal data in accordance with the GDPR and applicable Dutch law. By using the platform or creating an account, you consent to the processing of your personal data under this policy.",
+    nl: "Welkom bij وصلة. Het platform respecteert de privacy van alle gebruikers en beschermt persoonsgegevens conform de AVG (GDPR) en de toepasselijke Nederlandse wetgeving. Door het platform te gebruiken of een account aan te maken, ga je akkoord met de verwerking van je persoonsgegevens volgens dit beleid.",
+    en: "Welcome to وصلة. The platform respects the privacy of all users and protects personal data in accordance with the GDPR and applicable Dutch law. By using the platform or creating an account, you consent to the processing of your personal data under this policy.",
   },
   "privacy.s1.title": { ar: "١. المسؤول عن معالجة البيانات", nl: "1. Verwerkingsverantwoordelijke", en: "1. Data controller" },
   "privacy.s1.body": {
     ar: "تعد منصة وصلة هي المسؤول عن معالجة البيانات الشخصية للمستخدمين. للاستفسارات المتعلقة بالخصوصية أو ممارسة حقوقك، يمكنك التواصل عبر البريد الإلكتروني: privacy@wasla.nl",
-    nl: "Wasla is verwerkingsverantwoordelijke voor de persoonsgegevens van gebruikers. Voor privacyvragen of het uitoefenen van je rechten kun je contact opnemen via: privacy@wasla.nl",
-    en: "Wasla is the controller of users' personal data. For privacy questions or to exercise your rights, contact: privacy@wasla.nl",
+    nl: "وصلة is verwerkingsverantwoordelijke voor de persoonsgegevens van gebruikers. Voor privacyvragen of het uitoefenen van je rechten kun je contact opnemen via: privacy@wasla.nl",
+    en: "وصلة is the controller of users' personal data. For privacy questions or to exercise your rights, contact: privacy@wasla.nl",
   },
   "privacy.s2.title": { ar: "٢. البيانات التي نجمعها", nl: "2. Gegevens die wij verzamelen", en: "2. Data we collect" },
   "privacy.s2.body": {
@@ -367,14 +367,14 @@ const DICT = {
   "terms.updated": { ar: "آخر تحديث: يوليو 2026", nl: "Laatst bijgewerkt: juli 2026", en: "Last updated: July 2026" },
   "terms.intro": {
     ar: "توضح هذه الشروط قواعد استخدام منصة وصلة. باستخدامك المنصة فإنك توافق على الالتزام بها. يرجى قراءتها بعناية.",
-    nl: "Deze voorwaarden bepalen de regels voor het gebruik van Wasla. Door het platform te gebruiken ga je akkoord met deze voorwaarden. Lees ze zorgvuldig.",
-    en: "These terms set out the rules for using Wasla. By using the platform you agree to them. Please read them carefully.",
+    nl: "Deze voorwaarden bepalen de regels voor het gebruik van وصلة. Door het platform te gebruiken ga je akkoord met deze voorwaarden. Lees ze zorgvuldig.",
+    en: "These terms set out the rules for using وصلة. By using the platform you agree to them. Please read them carefully.",
   },
   "terms.s1.title": { ar: "١. التعريفات", nl: "1. Definities", en: "1. Definitions" },
   "terms.s1.body": {
     ar: "المنصة: منصة وصلة. الحرفي: الشخص أو المؤسسة التي تعرض خدماتها عبر المنصة. الزبون: الشخص الذي يستخدم المنصة للبحث عن الحرفيين والتواصل معهم.",
-    nl: "Platform: Wasla. Vakman/professional: de persoon of organisatie die diensten aanbiedt via het platform. Klant: de persoon die het platform gebruikt om vakmensen te zoeken en te contacteren.",
-    en: "Platform: Wasla. Professional: the person or organisation offering services via the platform. Client: the person using the platform to find and contact professionals.",
+    nl: "Platform: وصلة. Vakman/professional: de persoon of organisatie die diensten aanbiedt via het platform. Klant: de persoon die het platform gebruikt om vakmensen te zoeken en te contacteren.",
+    en: "Platform: وصلة. Professional: the person or organisation offering services via the platform. Client: the person using the platform to find and contact professionals.",
   },
   "terms.s2.title": { ar: "٢. طبيعة الخدمة", nl: "2. Aard van de dienst", en: "2. Nature of the service" },
   "terms.s2.body": {
@@ -466,8 +466,8 @@ const DICT = {
   "cookies.updated": { ar: "آخر تحديث: يوليو 2026", nl: "Laatst bijgewerkt: juli 2026", en: "Last updated: July 2026" },
   "cookies.intro": {
     ar: "تستخدم منصة وصلة ملفات تعريف الارتباط (Cookies) لتحسين تجربتك وفهم كيفية استخدام المنصة. توضح هذه السياسة أنواع الملفات التي نستخدمها وأغراضها وكيف يمكنك التحكم بها.",
-    nl: "Wasla gebruikt cookies om je ervaring te verbeteren en te begrijpen hoe het platform wordt gebruikt. Dit beleid legt uit welke cookies wij gebruiken, waarvoor en hoe je ze kunt beheren.",
-    en: "Wasla uses cookies to improve your experience and understand how the platform is used. This policy explains what cookies we use, why, and how you can manage them.",
+    nl: "وصلة gebruikt cookies om je ervaring te verbeteren en te begrijpen hoe het platform wordt gebruikt. Dit beleid legt uit welke cookies wij gebruiken, waarvoor en hoe je ze kunt beheren.",
+    en: "وصلة uses cookies to improve your experience and understand how the platform is used. This policy explains what cookies we use, why, and how you can manage them.",
   },
   "cookies.s1.title": { ar: "١. ما هي ملفات تعريف الارتباط؟", nl: "1. Wat zijn cookies?", en: "1. What are cookies?" },
   "cookies.s1.body": {
@@ -551,8 +551,8 @@ const DICT = {
   "about.updated": { ar: "آخر تحديث: أغسطس 2026", nl: "Laatst bijgewerkt: augustus 2026", en: "Last updated: August 2026" },
   "about.intro": {
     ar: "وصلة هي منصة رقمية مبتكرة تهدف إلى تمكين الجالية العربية في هولندا من الوصول إلى الخدمات والمعلومات والفرص بسهولة وأمان. جاءت فكرة المنصة انطلاقًا من فهمٍ حقيقي للتحديات التي يواجهها القادمون الجدد والمقيمون، مثل حاجز اللغة، وصعوبة الوصول إلى مزودي الخدمات الموثوقين، وتعقيد الإجراءات اليومية. توفر المنصة بيئة رقمية تجمع بين المستخدمين ومقدمي الخدمات في مكان واحد، من خلال حلول تقنية حديثة تضمن سهولة الاستخدام، وسرعة الوصول إلى الخدمة المناسبة، وتعزز الثقة والشفافية بين جميع الأطراف. نسعى إلى أن تكون المنصة أكثر من مجرد سوق للخدمات، بل منظومة رقمية متكاملة تدعم الاندماج، وتساعد أفراد الجالية على بناء حياة مستقرة، وتفتح المجال أمام أصحاب المهن والخبرات لتوسيع أعمالهم والوصول إلى عملاء جدد.",
-    nl: "Wasla is een innovatief digitaal platform dat de Arabische gemeenschap in Nederland wil empoweren om eenvoudig en veilig toegang te krijgen tot diensten, informatie en kansen. Het idee voor het platform ontstond uit een diep begrip van de uitdagingen waarmee nieuwkomers en bewoners worden geconfronteerd, zoals de taalbarrière, de moeilijkheid om betrouwbare dienstverleners te vinden en de complexiteit van dagelijkse procedures. Het platform biedt een digitale omgeving die gebruikers en dienstverleners op één plek samenbrengt, met moderne technologische oplossingen die gebruiksgemak garanderen, snelle toegang tot de juiste dienst mogelijk maken en vertrouwen en transparantie tussen alle partijen bevorderen. We streven ernaar dat het platform meer is dan alleen een dienstenmarkt: een complete digitale ecosystem die integratie ondersteunt, leden van de gemeenschap helpt een stabiel leven op te bouwen en professionals en experts de ruimte biedt om hun bedrijf uit te breiden en nieuwe klanten te bereiken.",
-    en: "Wasla is an innovative digital platform that empowers the Arab community in the Netherlands to access services, information and opportunities easily and securely. The idea for the platform came from a real understanding of the challenges faced by newcomers and residents, such as the language barrier, difficulty reaching trusted service providers, and the complexity of daily procedures. The platform provides a digital environment that brings users and service providers together in one place, through modern technical solutions that ensure ease of use, fast access to the right service, and greater trust and transparency among all parties. We strive for the platform to be more than a services marketplace — a complete digital ecosystem that supports integration, helps community members build a stable life, and opens opportunities for professionals and experts to expand their business and reach new clients.",
+    nl: "وصلة is een innovatief digitaal platform dat de Arabische gemeenschap in Nederland wil empoweren om eenvoudig en veilig toegang te krijgen tot diensten, informatie en kansen. Het idee voor het platform ontstond uit een diep begrip van de uitdagingen waarmee nieuwkomers en bewoners worden geconfronteerd, zoals de taalbarrière, de moeilijkheid om betrouwbare dienstverleners te vinden en de complexiteit van dagelijkse procedures. Het platform biedt een digitale omgeving die gebruikers en dienstverleners op één plek samenbrengt, met moderne technologische oplossingen die gebruiksgemak garanderen, snelle toegang tot de juiste dienst mogelijk maken en vertrouwen en transparantie tussen alle partijen bevorderen. We streven ernaar dat het platform meer is dan alleen een dienstenmarkt: een complete digitale ecosystem die integratie ondersteunt, leden van de gemeenschap helpt een stabiel leven op te bouwen en professionals en experts de ruimte biedt om hun bedrijf uit te breiden en nieuwe klanten te bereiken.",
+    en: "وصلة is an innovative digital platform that empowers the Arab community in the Netherlands to access services, information and opportunities easily and securely. The idea for the platform came from a real understanding of the challenges faced by newcomers and residents, such as the language barrier, difficulty reaching trusted service providers, and the complexity of daily procedures. The platform provides a digital environment that brings users and service providers together in one place, through modern technical solutions that ensure ease of use, fast access to the right service, and greater trust and transparency among all parties. We strive for the platform to be more than a services marketplace — a complete digital ecosystem that supports integration, helps community members build a stable life, and opens opportunities for professionals and experts to expand their business and reach new clients.",
   },
   "about.mission.title": { ar: "رسالتنا", nl: "Onze missie", en: "Our mission" },
   "about.mission.body": {

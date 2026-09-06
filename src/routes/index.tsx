@@ -97,8 +97,8 @@ function Landing() {
             lang === "ar"
               ? "وصلة — خدمات مهنية بلغة تفهمها، مجموعة من المهنيين في هولندا"
               : lang === "nl"
-              ? "Wasla — professionele diensten in jouw taal, vakmensen in Nederland"
-              : "Wasla — professional services in your language, skilled workers in the Netherlands"
+              ? "وصلة — professionele diensten in jouw taal, vakmensen in Nederland"
+              : "وصلة — professional services in your language, skilled workers in the Netherlands"
           }
           width={1656}
           height={946}
@@ -158,7 +158,7 @@ function Landing() {
             </div>
 
 
-            {/* Why Wasla */}
+            {/* Why وصلة */}
             <div className="order-3 flex h-full lg:col-span-5 xl:col-span-3">
               <div className="flex h-full w-full flex-col rounded-2xl border bg-card/90 p-5 shadow-elegant backdrop-blur md:p-6">
                 <h3 className="heading-strong mb-5 text-center text-lg text-balance md:text-xl">

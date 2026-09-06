@@ -10,12 +10,12 @@ export const Route = createFileRoute("/terms")({
       {
         name: "description",
         content:
-          "Servicevoorwaarden van Wasla: gebruik van het platform, abonnementen en aansprakelijkheid. AR / NL / EN.",
+          "Servicevoorwaarden van وصلة: gebruik van het platform, abonnementen en aansprakelijkheid. AR / NL / EN.",
       },
       { property: "og:title", content: "Servicevoorwaarden — وصلة" },
       {
         property: "og:description",
-        content: "Servicevoorwaarden van Wasla in het Arabisch, Nederlands en Engels.",
+        content: "Servicevoorwaarden van وصلة in het Arabisch, Nederlands en Engels.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },

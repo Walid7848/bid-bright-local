@@ -10,12 +10,12 @@ export const Route = createFileRoute("/privacy")({
       {
         name: "description",
         content:
-          "Privacybeleid van Wasla: hoe wij gegevens verzamelen, gebruiken en beschermen. AR / NL / EN.",
+          "Privacybeleid van وصلة: hoe wij gegevens verzamelen, gebruiken en beschermen. AR / NL / EN.",
       },
       { property: "og:title", content: "Privacybeleid — وصلة" },
       {
         property: "og:description",
-        content: "Privacybeleid van Wasla in het Arabisch, Nederlands en Engels.",
+        content: "Privacybeleid van وصلة in het Arabisch, Nederlands en Engels.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },
