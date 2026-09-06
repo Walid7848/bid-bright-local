@@ -36,14 +36,14 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-        title: "Wasla — Professionals & vakmensen in Nederland | وصلة",
+        title: "وصلة — Professionals & vakmensen in Nederland | وصلة",
       },
       {
         name: "description",
         content:
           "Vind loodgieters, elektriciens, schoonmakers, advocaten, vertalers, docenten en meer in Nederland. Plaats je aanvraag, ontvang offertes en kies de beste — in het Arabisch, Nederlands of Engels.",
       },
-      { property: "og:title", content: "Wasla — Professionals & vakmensen in Nederland" },
+      { property: "og:title", content: "وصلة — Professionals & vakmensen in Nederland" },
       {
         property: "og:description",
         content:

@@ -18,13 +18,13 @@ import { categoryLabel } from "@/lib/service-search";
 export const Route = createFileRoute("/providers/$id")({
   head: () => ({
     meta: [
-      { title: "ملف مقدم الخدمة | Wasla — Profiel van de professional" },
+      { title: "ملف مقدم الخدمة | وصلة — Profiel van de professional" },
       {
         name: "description",
         content:
           "اطّلع على ملف مقدم الخدمة في وصلة: نوع الخدمة، المدينة، النبذة والتقييمات، ثم اطلب عرض سعر مباشرة.",
       },
-      { property: "og:title", content: "ملف مقدم الخدمة | Wasla" },
+      { property: "og:title", content: "ملف مقدم الخدمة | وصلة" },
       {
         property: "og:description",
         content: "Bekijk het profiel van de professional: dienst, stad, omschrijving en beoordelingen.",

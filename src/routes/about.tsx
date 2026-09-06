@@ -6,13 +6,13 @@ import { SiteHeader } from "@/components/SiteHeader";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "Over ons — Wasla | من نحن" },
+      { title: "Over ons — وصلة | من نحن" },
       {
         name: "description",
         content:
           "Leer Wasla kennen: onze missie, visie, doelstellingen en waarden voor de Arabische gemeenschap in Nederland. AR / NL / EN.",
       },
-      { property: "og:title", content: "Over ons — Wasla" },
+      { property: "og:title", content: "Over ons — وصلة" },
       {
         property: "og:description",
         content: "Wasla: missie, visie en waarden voor de Arabische gemeenschap in Nederland.",

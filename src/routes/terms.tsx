@@ -6,13 +6,13 @@ import { SiteHeader } from "@/components/SiteHeader";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Servicevoorwaarden — Wasla | شروط الخدمة" },
+      { title: "Servicevoorwaarden — وصلة | شروط الخدمة" },
       {
         name: "description",
         content:
           "Servicevoorwaarden van Wasla: gebruik van het platform, abonnementen en aansprakelijkheid. AR / NL / EN.",
       },
-      { property: "og:title", content: "Servicevoorwaarden — Wasla" },
+      { property: "og:title", content: "Servicevoorwaarden — وصلة" },
       {
         property: "og:description",
         content: "Servicevoorwaarden van Wasla in het Arabisch, Nederlands en Engels.",

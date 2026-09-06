@@ -6,13 +6,13 @@ import { SiteHeader } from "@/components/SiteHeader";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacybeleid — Wasla | سياسة الخصوصية" },
+      { title: "Privacybeleid — وصلة | سياسة الخصوصية" },
       {
         name: "description",
         content:
           "Privacybeleid van Wasla: hoe wij gegevens verzamelen, gebruiken en beschermen. AR / NL / EN.",
       },
-      { property: "og:title", content: "Privacybeleid — Wasla" },
+      { property: "og:title", content: "Privacybeleid — وصلة" },
       {
         property: "og:description",
         content: "Privacybeleid van Wasla in het Arabisch, Nederlands en Engels.",
