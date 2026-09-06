@@ -31,13 +31,13 @@ import { ar, nl, enUS } from "date-fns/locale";
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "لوحتي — طلباتي وعروضي | Wasla" },
+      { title: "لوحتي — طلباتي وعروضي | وصلة" },
       {
         name: "description",
         content:
           "تابع طلباتك كزبون وعروضك كمقدم خدمة في لوحة واحدة مع فلاتر حسب الحالة.",
       },
-      { property: "og:title", content: "لوحتي — طلباتي وعروضي | Wasla" },
+      { property: "og:title", content: "لوحتي — طلباتي وعروضي | وصلة" },
       {
         property: "og:description",
         content: "طلباتي وعروضي في لوحة واحدة مع فلاتر حسب الحالة.",

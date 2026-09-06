@@ -77,14 +77,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Wasla — Betrouwbare lokale diensten in Nederland | وصلة" },
+      { title: "وصلة — Betrouwbare lokale diensten in Nederland | وصلة" },
       {
         name: "description",
         content:
-          "Wasla verbindt je met betrouwbare lokale vakmensen en professionals in Nederland. وصلة تربطك بمقدمي خدمات موثوقين في هولندا.",
+          "وصلة verbindt je met betrouwbare lokale vakmensen en professionals in Nederland. وصلة تربطك بمقدمي خدمات موثوقين في هولندا.",
       },
-      { name: "author", content: "Wasla" },
-      { property: "og:title", content: "Wasla — Betrouwbare lokale diensten in Nederland" },
+      { name: "author", content: "وصلة" },
+      { property: "og:title", content: "وصلة — Betrouwbare lokale diensten in Nederland" },
       {
         property: "og:description",
         content:

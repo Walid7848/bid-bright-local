@@ -31,13 +31,13 @@ import { useLang } from "@/lib/i18n";
 export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
     meta: [
-      { title: "ملفي الشخصي | Wasla — Mijn profiel" },
+      { title: "ملفي الشخصي | وصلة — Mijn profiel" },
       {
         name: "description",
         content:
           "أدر بياناتك على وصلة: الاسم، المدينة، رقم التواصل، مهنتك ونبذتك، وتابع التقييمات التي استلمتها.",
       },
-      { property: "og:title", content: "ملفي الشخصي | Wasla" },
+      { property: "og:title", content: "ملفي الشخصي | وصلة" },
       {
         property: "og:description",
         content: "أدر بيانات حسابك ووضعك (طالب خدمة / مقدم خدمة) على منصة وصلة.",

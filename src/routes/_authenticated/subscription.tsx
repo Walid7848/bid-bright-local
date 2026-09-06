@@ -27,13 +27,13 @@ export const Route = createFileRoute("/_authenticated/subscription")({
   component: SubscriptionPage,
   head: () => ({
     meta: [
-      { title: "اشتراك مقدمي الخدمة | Wasla — Abonnement" },
+      { title: "اشتراك مقدمي الخدمة | وصلة — Abonnement" },
       {
         name: "description",
         content:
           "أدر اشتراكك كصاحب مهنة على وصلة: شهران مجانيان ثم اشتراك شهري لتقديم عروض غير محدودة.",
       },
-      { property: "og:title", content: "اشتراك مقدمي الخدمة | Wasla" },
+      { property: "og:title", content: "اشتراك مقدمي الخدمة | وصلة" },
       {
         property: "og:description",
         content: "شهران مجانيان لكل صاحب مهنة جديد على منصة وصلة، ثم اشتراك شهري.",

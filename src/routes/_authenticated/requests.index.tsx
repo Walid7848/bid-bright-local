@@ -50,13 +50,13 @@ import { ar, nl, enUS } from "date-fns/locale";
 export const Route = createFileRoute("/_authenticated/requests/")({
   head: () => ({
     meta: [
-      { title: "طلبات مناسبة لك — فرص عمل | Wasla" },
+      { title: "طلبات مناسبة لك — فرص عمل | وصلة" },
       {
         name: "description",
         content:
           "استعرض طلبات العملاء المفتوحة في هولندا، صفِّها حسب المدينة ونوع الخدمة، وقدّم عرضك.",
       },
-      { property: "og:title", content: "طلبات مناسبة لك — فرص عمل | Wasla" },
+      { property: "og:title", content: "طلبات مناسبة لك — فرص عمل | وصلة" },
       {
         property: "og:description",
         content: "طلبات عملاء مفتوحة يمكنك تقديم عروضك عليها عبر منصة وصلة.",

@@ -6,16 +6,16 @@ import { SiteHeader } from "@/components/SiteHeader";
 export const Route = createFileRoute("/cookie-policy")({
   head: () => ({
     meta: [
-      { title: "Cookiebeleid — Wasla | سياسة ملفات تعريف الارتباط" },
+      { title: "Cookiebeleid — وصلة | سياسة ملفات تعريف الارتباط" },
       {
         name: "description",
         content:
-          "Cookiebeleid van Wasla: welke cookies wij gebruiken, waarvoor en hoe je ze beheert. AR / NL / EN.",
+          "Cookiebeleid van وصلة: welke cookies wij gebruiken, waarvoor en hoe je ze beheert. AR / NL / EN.",
       },
-      { property: "og:title", content: "Cookiebeleid — Wasla" },
+      { property: "og:title", content: "Cookiebeleid — وصلة" },
       {
         property: "og:description",
-        content: "Cookiebeleid van Wasla in het Arabisch, Nederlands en Engels.",
+        content: "Cookiebeleid van وصلة in het Arabisch, Nederlands en Engels.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },

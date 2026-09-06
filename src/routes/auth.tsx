@@ -13,7 +13,7 @@ import { useLang, LanguageSwitch } from "@/lib/i18n";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
-    meta: [{ title: "Wasla — Inloggen | تسجيل الدخول" }],
+    meta: [{ title: "وصلة — Inloggen | تسجيل الدخول" }],
   }),
   component: AuthPage,
 });

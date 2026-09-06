@@ -44,13 +44,13 @@ export const Route = createFileRoute("/services")({
   validateSearch: zodValidator(searchSchema),
   head: () => ({
     meta: [
-      { title: "ابحث عن مقدم الخدمة المناسب | Wasla — Diensten zoeken" },
+      { title: "ابحث عن مقدم الخدمة المناسب | وصلة — Diensten zoeken" },
       {
         name: "description",
         content:
           "ابحث عن كهربائي، سباك، محاسب، مترجم، محامي ومهنيين آخرين في هولندا عبر وصلة، وقارن التقييمات واطلب عرض سعر بسهولة.",
       },
-      { property: "og:title", content: "ابحث عن مقدم الخدمة المناسب | Wasla" },
+      { property: "og:title", content: "ابحث عن مقدم الخدمة المناسب | وصلة" },
       {
         property: "og:description",
         content: "Zoek professionals in Nederland: elektricien, loodgieter, boekhouder, vertaler en meer.",
