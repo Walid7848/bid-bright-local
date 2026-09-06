@@ -14,6 +14,7 @@ import { QueryError } from "@/components/QueryError";
 import { logQueryError } from "@/lib/query-log";
 import {
   Plus,
+  User,
   Users,
   Clock,
   Bell,
@@ -179,34 +180,44 @@ function Dashboard() {
         </p>
 
         {hasBoth && (
-          <div
-            role="group"
-            aria-label={t("role.mode")}
-            className="mt-4 inline-flex w-full max-w-sm rounded-xl border border-border bg-card p-1 sm:w-auto"
-          >
-            {(["client", "professional"] as AppRole[]).map((r) => (
-              <button
-                key={r}
-                type="button"
-                onClick={() => setMode(r)}
-                aria-pressed={activeRole === r}
-                className={
-                  "min-h-11 flex-1 rounded-lg px-4 text-sm font-semibold transition sm:flex-none " +
-                  (activeRole === r
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-accent hover:text-foreground")
-                }
-              >
-                {t(`role.${r}` as never)}
-              </button>
-            ))}
+          <div className="mt-5">
+            <span className="mb-1.5 block text-xs font-medium text-muted-foreground">
+              {t("role.mode")}
+            </span>
+            <div
+              role="group"
+              aria-label={t("role.mode")}
+              className="inline-flex w-full max-w-md gap-1 rounded-xl border border-border bg-muted/50 p-1 sm:w-auto"
+            >
+              {(["client", "professional"] as AppRole[]).map((r) => {
+                const active = activeRole === r;
+                const Icon = r === "client" ? User : Briefcase;
+                return (
+                  <button
+                    key={r}
+                    type="button"
+                    onClick={() => setMode(r)}
+                    aria-pressed={active}
+                    className={
+                      "flex min-h-11 flex-1 items-center justify-center gap-2 rounded-lg px-4 text-sm font-semibold transition sm:flex-none sm:px-5 " +
+                      (active
+                        ? "bg-primary text-primary-foreground shadow-soft"
+                        : "text-muted-foreground hover:bg-card hover:text-foreground")
+                    }
+                  >
+                    <Icon className="h-4 w-4 shrink-0" />
+                    <span className="truncate">{t(`role.${r}` as never)}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         )}
       </header>
 
       {/* Quick actions */}
       <section className="mb-6" aria-labelledby="qa-h">
-        <h2 id="qa-h" className="sr-only">
+        <h2 id="qa-h" className="mb-3 text-sm font-semibold text-muted-foreground">
           {t("db.quickActions")}
         </h2>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
