@@ -44,7 +44,7 @@ const DICT = {
   "nav.services": { ar: "الخدمات", nl: "Diensten", en: "Services" },
   "nav.providers": { ar: "مقدمو الخدمات", nl: "Professionals", en: "Professionals" },
   "nav.how": { ar: "كيف تعمل المنصة", nl: "Hoe het werkt", en: "How it works" },
-  "nav.about": { ar: "عن وصلة", nl: "Over Wasla", en: "About Wasla" },
+  "nav.about": { ar: "عن وصلة", nl: "Over وصلة", en: "About وصلة" },
   "nav.menu": { ar: "القائمة", nl: "Menu", en: "Menu" },
   "nav.close": { ar: "إغلاق", nl: "Sluiten", en: "Close" },
   "nav.language": { ar: "اللغة", nl: "Taal", en: "Language" },
@@ -78,7 +78,7 @@ const DICT = {
 
 
   // brand
-  "brand.name": { ar: "وصلة", nl: "Wasla", en: "Wasla" },
+  "brand.name": { ar: "وصلة", nl: "وصلة", en: "وصلة" },
   "brand.tagline": {
     ar: "منصة الخدمات المهنية والحرفية في هولندا",
     nl: "Platform voor professionele en ambachtelijke diensten in Nederland",
