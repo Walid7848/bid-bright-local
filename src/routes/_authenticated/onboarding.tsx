@@ -22,6 +22,19 @@ import { useLang } from "@/lib/i18n";
 import { categoryLabel } from "@/lib/service-search";
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
+  head: () => ({
+    meta: [
+      { title: "إكمال الملف الشخصي | وصلة — Profiel voltooien" },
+      {
+        name: "description",
+        content:
+          "اختر نوع حسابك وأكمل ملفك الشخصي للبدء في استخدام وصلة. Complete je profiel om وصلة te gebruiken.",
+      },
+      { property: "og:title", content: "إكمال الملف الشخصي | وصلة" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
   component: Onboarding,
 });
 
