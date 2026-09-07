@@ -1293,6 +1293,26 @@ const DICT = {
 
   "nav.subscription": { ar: "الاشتراك", nl: "Abonnement", en: "Subscription" },
   "common.error": { ar: "حدث خطأ", nl: "Er is iets misgegaan", en: "Something went wrong" },
+
+  "err.nfTitle": { ar: "الصفحة غير موجودة", nl: "Pagina niet gevonden", en: "Page not found" },
+  "err.nfDesc": {
+    ar: "الرابط الذي تبحث عنه غير متوفر أو تم نقله.",
+    nl: "De link die je zoekt bestaat niet meer of is verplaatst.",
+    en: "The link you're looking for doesn't exist or has moved.",
+  },
+  "err.home": { ar: "العودة للرئيسية", nl: "Terug naar home", en: "Back to home" },
+  "err.homeShort": { ar: "الرئيسية", nl: "Home", en: "Home" },
+  "err.title": {
+    ar: "حدث خطأ غير متوقع",
+    nl: "Er is een onverwachte fout opgetreden",
+    en: "An unexpected error occurred",
+  },
+  "err.desc": {
+    ar: "حاول تحديث الصفحة أو العودة للرئيسية.",
+    nl: "Probeer de pagina te vernieuwen of ga terug naar home.",
+    en: "Try refreshing the page or going back home.",
+  },
+  "err.retry": { ar: "المحاولة مجدداً", nl: "Opnieuw proberen", en: "Try again" },
 } as const;
 
 
@@ -1302,6 +1322,22 @@ const DICT = {
 type Key = keyof typeof DICT;
 
 const LANGS: Lang[] = ["ar", "nl", "en"];
+
+/** Translate outside of LangProvider (e.g. root error boundaries). */
+export function translate(key: Key, lang: Lang) {
+  return DICT[key]?.[lang] ?? key;
+}
+
+/** Reads the saved language without needing LangProvider above it. */
+export function useStandaloneLang(): Lang {
+  const [lang, setLang] = useState<Lang>("ar");
+  useEffect(() => {
+    const saved = window.localStorage.getItem("lang") as Lang | null;
+    if (saved && LANGS.includes(saved)) setLang(saved);
+  }, []);
+  return lang;
+}
+
 
 const LangCtx = createContext<{
   lang: Lang;
