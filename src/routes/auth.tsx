@@ -32,7 +32,7 @@ function AuthPage() {
       supabase.auth
         .getSession()
         .then(({ data }) => {
-          if (data.session) navigate({ to: "/requests" });
+          if (data.session) navigate({ to: "/requests", replace: true });
         })
         .catch((err) => console.error(err));
     } catch (err) {
@@ -57,12 +57,12 @@ function AuthPage() {
         });
         if (error) throw error;
         toast.success("تم إنشاء الحساب بنجاح");
-        navigate({ to: "/onboarding" });
+        navigate({ to: "/onboarding", replace: true });
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         toast.success("مرحباً بعودتك");
-        navigate({ to: "/requests" });
+        navigate({ to: "/requests", replace: true });
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "حدث خطأ");
@@ -82,7 +82,7 @@ function AuthPage() {
       return;
     }
     if (result.redirected) return;
-    navigate({ to: "/requests" });
+    navigate({ to: "/requests", replace: true });
   }
 
   return (
