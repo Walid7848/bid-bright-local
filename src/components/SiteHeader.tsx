@@ -83,6 +83,7 @@ export function SiteHeader() {
 
         {/* Mobile actions */}
         <div className="flex items-center gap-2 lg:hidden">
+          <LanguageSwitch className="h-9 shrink-0" />
           <Button asChild variant="cta" size="sm" className="h-10 px-4">
             <Link to="/auth">{t("nav.start")}</Link>
           </Button>
@@ -118,10 +119,6 @@ export function SiteHeader() {
               </nav>
 
               <div className="flex flex-col gap-3 border-t border-border/50 px-4 py-4">
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-sm text-muted-foreground">{t("nav.language")}</span>
-                  <LanguageSwitch className="h-10" />
-                </div>
                 <SheetClose asChild>
                   <Button asChild variant="outline" size="lg" className="w-full">
                     <Link to="/auth">{t("nav.signIn")}</Link>
