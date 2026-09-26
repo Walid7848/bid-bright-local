@@ -113,18 +113,6 @@ export function CookieConsent() {
               checked
               disabled
             />
-            <CategoryRow
-              title={t("consent.analytics")}
-              desc={t("consent.analytics.desc")}
-              checked={analytics}
-              onChange={setAnalytics}
-            />
-            <CategoryRow
-              title={t("consent.marketing")}
-              desc={t("consent.marketing.desc")}
-              checked={marketing}
-              onChange={setMarketing}
-            />
           </div>
 
           {record && (
