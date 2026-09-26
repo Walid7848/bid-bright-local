@@ -97,7 +97,7 @@ export function CookieConsent() {
               >
                 {t("consent.rejectAll")}
               </Button>
-              <Button size="sm" onClick={() => save({ analytics: true, marketing: true })}>
+              <Button size="sm" onClick={() => save(ACCEPT_ALL_CONSENT)}>
                 {t("consent.acceptAll")}
               </Button>
             </div>
