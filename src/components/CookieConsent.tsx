@@ -139,11 +139,7 @@ export function CookieConsent() {
               {t("consent.rejectAll")}
             </Button>
             <div className="flex gap-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => save({ analytics: true, marketing: true })}
-              >
+              <Button variant="ghost" size="sm" onClick={() => save(ACCEPT_ALL_CONSENT)}>
                 {t("consent.acceptAll")}
               </Button>
               <Button size="sm" onClick={() => save({ analytics, marketing })}>
