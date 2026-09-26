@@ -19,6 +19,12 @@ import {
   type ConsentRecord,
 } from "@/lib/cookie-consent";
 
+// Wasla has no analytics or marketing services today, so "Accept all" must not record
+// consent for categories nothing actually uses. Until such a service exists, accepting
+// all is equivalent to necessary-only. The analytics/marketing fields stay in the
+// consent record so real options can be wired up later without a storage change.
+const ACCEPT_ALL_CONSENT = { analytics: false, marketing: false };
+
 export function CookieConsent() {
   const { t, lang } = useLang();
   const [ready, setReady] = useState(false);
