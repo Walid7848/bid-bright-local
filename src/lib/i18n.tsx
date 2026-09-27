@@ -596,7 +596,7 @@ const DICT = {
     en: "We don't use analytics or advertising cookies. We only store what the platform needs in your browser, such as your language and sign-in session.",
   },
   "consent.acceptAll": { ar: "قبول الكل", nl: "Alles accepteren", en: "Accept all" },
-  "consent.rejectAll": { ar: "رفض الاختياري", nl: "Optionele weigeren", en: "Reject optional" },
+  "consent.rejectAll": { ar: "المتابعة", nl: "Doorgaan", en: "Continue" },
   "consent.customize": { ar: "تخصيص", nl: "Aanpassen", en: "Customize" },
   "consent.save": { ar: "حفظ التفضيلات", nl: "Voorkeuren opslaan", en: "Save preferences" },
   "consent.manage": { ar: "إدارة ملفات تعريف الارتباط", nl: "Cookievoorkeuren", en: "Cookie preferences" },
