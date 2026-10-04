@@ -7,5 +7,5 @@
 
 ## Open
 - Security Hardening Audit — paused; resume when requested
-- [ ] Project ID reconciliation (read-only): verify which backend production uses (yvuwqokmvuumvcscjvid vs yjhrxjzrzozzaufmoyms)
+- [x] Project ID reconciliation (read-only): verified — production uses yvuwqokmvuumvcscjvid
 - [ ] Open: user's "connect Lovable project with Supabase" request — clarify intent after reconciliation
