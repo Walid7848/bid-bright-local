@@ -1,0 +1,2 @@
+ALTER TABLE public.requests DROP CONSTRAINT requests_awarded_bid_id_fkey;
+ALTER TABLE public.requests ADD CONSTRAINT requests_awarded_bid_id_fkey FOREIGN KEY (awarded_bid_id) REFERENCES public.bids(id) ON DELETE SET NULL;

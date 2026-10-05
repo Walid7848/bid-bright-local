@@ -15,6 +15,13 @@
       "when": 1791135697461,
       "tag": "0001_request_images_owner_folder_check",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791188537678,
+      "tag": "0002_awarded_bid_set_null",
+      "breakpoints": true
     }
   ]
 }
