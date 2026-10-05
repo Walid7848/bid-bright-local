@@ -1,5 +1,17 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { deleteMyAccount } from "@/lib/account.functions";
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -197,7 +209,74 @@ function ProfilePage() {
       </Card>
 
       {role === "professional" && user?.id && <MyReviews professionalId={user.id} />}
+
+      <DeleteAccount />
     </div>
+  );
+}
+
+function DeleteAccount() {
+  const { t } = useLang();
+  const navigate = useNavigate();
+  const qc = useQueryClient();
+  const del = useServerFn(deleteMyAccount);
+  const [open, setOpen] = useState(false);
+  const [typed, setTyped] = useState("");
+  const [busy, setBusy] = useState(false);
+  const word = t("del.word");
+
+  async function run() {
+    setBusy(true);
+    try {
+      const res = await del();
+      if (res.ok) {
+        toast.success(t("del.done"));
+        await supabase.auth.signOut().catch(() => {});
+        qc.clear();
+        navigate({ to: "/", replace: true });
+        return;
+      }
+      const key =
+        res.code === "active_work" ? "del.active_work" : res.code === "reauth" ? "del.reauth" : "del.failed";
+      toast.error(t(key));
+    } catch {
+      toast.error(t("del.failed"));
+    } finally {
+      setBusy(false);
+      setOpen(false);
+      setTyped("");
+    }
+  }
+
+  return (
+    <Card className="mt-8 border-destructive/40 p-6 shadow-soft">
+      <h2 className="mb-1 text-lg font-bold text-destructive">{t("del.title")}</h2>
+      <p className="mb-4 text-sm text-muted-foreground">{t("del.desc")}</p>
+      <AlertDialog open={open} onOpenChange={(o) => { setOpen(o); if (!o) setTyped(""); }}>
+        <AlertDialogTrigger asChild>
+          <Button variant="destructive">{t("del.button")}</Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t("del.confirmTitle")}</AlertDialogTitle>
+            <AlertDialogDescription>{t("del.desc")}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="space-y-1.5">
+            <Label>
+              {t("del.confirmHint")} <span className="font-bold">{word}</span>
+            </Label>
+            <Input value={typed} onChange={(e) => setTyped(e.target.value)} />
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={busy}>{t("del.cancel")}</AlertDialogCancel>
+            <Button variant="destructive" disabled={busy || typed.trim() !== word} onClick={run}>
+              {busy && <Loader2 className="me-2 h-4 w-4 animate-spin" />}
+              {t("del.confirm")}
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </Card>
   );
 }
 
