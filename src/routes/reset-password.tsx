@@ -39,12 +39,14 @@ function ResetPasswordPage() {
     const hasError = hash.has("error") || query.has("error") || hash.has("error_code");
     const isRecoveryLink = hash.get("type") === "recovery" || query.has("code");
 
-    // Remove tokens from the address bar right away.
-    if (window.location.hash || window.location.search) {
-      window.history.replaceState(null, "", window.location.pathname);
-    }
+    const cleanUrl = () => {
+      if (window.location.hash || window.location.search) {
+        window.history.replaceState(null, "", window.location.pathname);
+      }
+    };
 
     if (hasError || !isRecoveryLink) {
+      cleanUrl();
       setStatus("invalid");
       return;
     }
@@ -77,12 +79,20 @@ function ResetPasswordPage() {
       setStatus("invalid");
     });
 
+    const cleaner = window.setInterval(() => {
+      if (settled) {
+        cleanUrl();
+        window.clearInterval(cleaner);
+      }
+    }, 200);
+
     const timer = window.setTimeout(() => {
       if (!settled) setStatus("invalid");
     }, 6000);
 
     return () => {
       window.clearTimeout(timer);
+      window.clearInterval(cleaner);
       sub.subscription.unsubscribe();
     };
   }, []);
