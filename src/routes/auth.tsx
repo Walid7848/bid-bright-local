@@ -161,6 +161,13 @@ function AuthPage() {
                   dir="ltr"
                 />
               </div>
+              {tab === "signin" && (
+                <div className="-mt-2 text-end">
+                  <Link to="/forgot-password" className="text-sm text-primary hover:underline">
+                    {t("auth.forgotLink")}
+                  </Link>
+                </div>
+              )}
 
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
