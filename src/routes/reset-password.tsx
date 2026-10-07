@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,7 @@ type Status = "checking" | "ready" | "invalid" | "done";
 
 function ResetPasswordPage() {
   const { t } = useLang();
+  const navigate = useNavigate();
   const [status, setStatus] = useState<Status>("checking");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -41,7 +42,9 @@ function ResetPasswordPage() {
 
     const cleanUrl = () => {
       if (window.location.hash || window.location.search) {
-        window.history.replaceState(null, "", window.location.pathname);
+        // Go through the router: a raw history.replaceState is overwritten by the
+        // router's own location sync, which re-applied the old hash.
+        navigate({ to: "/reset-password", hash: "", search: {}, replace: true });
       }
     };
 
@@ -95,7 +98,7 @@ function ResetPasswordPage() {
       window.clearInterval(cleaner);
       sub.subscription.unsubscribe();
     };
-  }, []);
+  }, [navigate]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
