@@ -90,7 +90,11 @@ function ResetPasswordPage() {
     }, 200);
 
     const timer = window.setTimeout(() => {
-      if (!settled) setStatus("invalid");
+      if (!settled) {
+        settled = true;
+        cleanUrl();
+        setStatus("invalid");
+      }
     }, 6000);
 
     return () => {
