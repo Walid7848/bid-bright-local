@@ -1,6 +1,7 @@
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
-import { Check, LogOut, Plus, Repeat, Sparkles, User as UserIcon } from "lucide-react";
+import { Check, LogOut, Plus, Repeat, Shield, Sparkles, User as UserIcon } from "lucide-react";
 import { toast } from "sonner";
+import { isPlatformAdmin } from "@/lib/admin.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -41,6 +42,13 @@ export function AppHeader() {
   });
 
   const { activeRole, hasRole, switchRole } = useRoles();
+
+  const { data: isAdmin } = useQuery({
+    queryKey: ["isPlatformAdmin", user?.id],
+    enabled: !!user?.id,
+    queryFn: isPlatformAdmin,
+    staleTime: 5 * 60 * 1000,
+  });
 
   const isClient = activeRole === "client";
   const isPro = activeRole === "professional";
@@ -202,6 +210,14 @@ export function AppHeader() {
                   <Link to="/subscription">
                     <Sparkles className="ml-2 h-4 w-4" />
                     {t("nav.subscription")}
+                  </Link>
+                </DropdownMenuItem>
+              )}
+              {isAdmin && (
+                <DropdownMenuItem asChild>
+                  <Link to="/admin">
+                    <Shield className="ml-2 h-4 w-4" />
+                    {t("nav.admin")}
                   </Link>
                 </DropdownMenuItem>
               )}
