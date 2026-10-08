@@ -37,6 +37,7 @@ const DICT = {
   "status.rejected": { ar: "مرفوض", nl: "Afgewezen", en: "Rejected" },
   "nav.newRequest": { ar: "طلب جديد", nl: "Nieuwe aanvraag", en: "New request" },
   "nav.profile": { ar: "ملفي الشخصي", nl: "Mijn profiel", en: "My profile" },
+  "nav.admin": { ar: "لوحة الإدارة", nl: "Beheer", en: "Admin" },
   "nav.signOut": { ar: "تسجيل الخروج", nl: "Uitloggen", en: "Sign out" },
   "nav.signIn": { ar: "تسجيل الدخول", nl: "Inloggen", en: "Sign in" },
   "nav.start": { ar: "ابدأ الآن", nl: "Begin nu", en: "Get started" },
