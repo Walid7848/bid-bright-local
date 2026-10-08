@@ -34,11 +34,9 @@ function ResetPasswordPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Capture recovery markers before the auth client consumes/strips them from the URL.
     const hash = new URLSearchParams(window.location.hash.slice(1));
     const query = new URLSearchParams(window.location.search);
     const hasError = hash.has("error") || query.has("error") || hash.has("error_code");
-    const isRecoveryLink = hash.get("type") === "recovery" || query.has("code");
 
     const cleanUrl = () => {
       if (window.location.hash || window.location.search) {
@@ -48,58 +46,72 @@ function ResetPasswordPage() {
       }
     };
 
-    if (hasError || !isRecoveryLink) {
+    if (hasError) {
       cleanUrl();
       setStatus("invalid");
       return;
     }
 
-    let settled = false;
-    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "PASSWORD_RECOVERY" && session) {
-        settled = true;
-        setStatus("ready");
+    // The auth client may already have consumed the link (and stripped the URL)
+    // before this page mounted, so we can't rely on URL markers. Instead require a
+    // session whose server-signed token says it was created by a recovery link
+    // within the last hour.
+    const isRecoverySession = (accessToken?: string) => {
+      try {
+        if (!accessToken) return false;
+        const b64 = accessToken.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+        const claims = JSON.parse(atob(b64)) as { amr?: { method?: string; timestamp?: number }[] };
+        const now = Date.now() / 1000;
+        return (claims.amr ?? []).some(
+          (m) => m.method === "recovery" && typeof m.timestamp === "number" && now - m.timestamp < 3600,
+        );
+      } catch {
+        return false;
       }
+    };
+
+    let settled = false;
+    const markReady = () => {
+      if (settled) return;
+      settled = true;
+      cleanUrl();
+      setStatus("ready");
+    };
+    const markInvalid = () => {
+      if (settled) return;
+      settled = true;
+      cleanUrl();
+      setStatus("invalid");
+    };
+
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY" && session) markReady();
     });
+
+    const check = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (isRecoverySession(data.session?.access_token)) markReady();
+    };
 
     (async () => {
       const code = query.get("code");
       if (code) {
         const { error } = await supabase.auth.exchangeCodeForSession(code);
-        if (error) {
-          settled = true;
-          setStatus("invalid");
-          return;
-        }
+        if (error) return markInvalid();
       }
-      const { data } = await supabase.auth.getSession();
-      if (data.session) {
-        settled = true;
-        setStatus("ready");
-      }
-    })().catch(() => {
-      settled = true;
-      setStatus("invalid");
-    });
+      await check();
+    })().catch(markInvalid);
 
-    const cleaner = window.setInterval(() => {
-      if (settled) {
-        cleanUrl();
-        window.clearInterval(cleaner);
-      }
-    }, 200);
+    const poller = window.setInterval(() => {
+      if (settled) return window.clearInterval(poller);
+      check().catch(() => undefined);
+    }, 400);
 
-    const timer = window.setTimeout(() => {
-      if (!settled) {
-        settled = true;
-        cleanUrl();
-        setStatus("invalid");
-      }
-    }, 6000);
+    const timer = window.setTimeout(markInvalid, 6000);
 
     return () => {
       window.clearTimeout(timer);
-      window.clearInterval(cleaner);
+      window.clearInterval(poller);
       sub.subscription.unsubscribe();
     };
   }, [navigate]);
