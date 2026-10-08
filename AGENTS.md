@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Account deletion runs only in the protected server function `deleteMyAccount` (src/lib/account.functions.ts → account.server.ts): user id from the verified token, Storage cleanup before auth deletion, blocked while awarded/in_progress work exists — keeps deletion safe, retryable and free of orphaned files.
+- Platform admins live in a dedicated `platform_admins` table checked via `is_platform_admin()`; admin server functions verify it as the caller before loading the privileged client — keeps admin separate from marketplace roles and never trusts the browser.
